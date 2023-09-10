@@ -10,7 +10,7 @@ public class Offer {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "country_id")
     private Country country;
 
     public Offer(Country country) {
@@ -26,5 +26,13 @@ public class Offer {
 
     public Country getCountry() {
         return country;
+    }
+
+    @Override
+    public String toString() {
+        return "Offer{" +
+                "id=" + id +
+                ", country=" + country +
+                '}';
     }
 }

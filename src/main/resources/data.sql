@@ -1,3 +1,6 @@
+DELETE FROM offer;
+ALTER TABLE offer AUTO_INCREMENT = 1;
+
 DELETE FROM country;
 ALTER TABLE country AUTO_INCREMENT = 1;
 
@@ -29,4 +32,6 @@ VALUES
     ('Venezuela', 1);
 
 INSERT INTO offer (country_id)
-VALUES (1);
+VALUES (1),
+       (2),
+       (3);
