@@ -20,10 +20,9 @@ public class Country {
     @OneToMany
     private List<Offer> offers;
 
-    public Country(String name, Continent continent, List<Offer> offers) {
+    public Country(String name, Continent continent) {
         this.name = name;
         this.continent = continent;
-        this.offers = offers;
     }
 
     public Country() {
