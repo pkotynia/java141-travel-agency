@@ -46,6 +46,7 @@ VALUES
     ('Hilton', 1);
 
 INSERT INTO offer (hotel_id)
-VALUES (1),
-       (2),
-       (3);
+VALUES
+    (1),
+    (1),
+    (1);
