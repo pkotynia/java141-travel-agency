@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "country")
 public class Country {
 
     @Id
@@ -26,5 +25,17 @@ public class Country {
     }
 
     public Country() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Continent getContinent() {
+        return continent;
     }
 }
