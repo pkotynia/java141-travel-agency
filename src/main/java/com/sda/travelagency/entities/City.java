@@ -5,26 +5,27 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-public class Country {
+public class City {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "continent_id")
-    private Continent continent;
+    @JoinColumn(name = "country_id")
+    private Country country;
 
     @OneToMany
-    private List<City> cities;
+    private List<Hotel> hotel;
 
-    public Country(String name, Continent continent) {
+    public City(String name, Country country) {
         this.name = name;
-        this.continent = continent;
+        this.country = country;
     }
 
-    public Country() {
+    public City() {
     }
 
     public Integer getId() {
@@ -35,7 +36,7 @@ public class Country {
         return name;
     }
 
-    public Continent getContinent() {
-        return continent;
+    public Country getCountry() {
+        return country;
     }
 }

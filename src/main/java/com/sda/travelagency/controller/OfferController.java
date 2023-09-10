@@ -1,5 +1,6 @@
 package com.sda.travelagency.controller;
 
+import com.sda.travelagency.entities.Country;
 import com.sda.travelagency.entities.Offer;
 import com.sda.travelagency.service.OfferService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,4 +23,10 @@ public class OfferController {
     List<Offer> getAllOffers() {
         return offerService.getAllOffers();
     };
+
+    @GetMapping("/country")
+    List<Country> getAllCountries() {
+        return offerService.getAllCountries();
+    };
+
 }
