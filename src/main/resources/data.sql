@@ -1,13 +1,17 @@
-TRUNCATE TABLE country;
-TRUNCATE TABLE continent;
+DELETE FROM country;
+ALTER TABLE country AUTO_INCREMENT = 1;
+
+DELETE FROM continent;
+ALTER TABLE continent AUTO_INCREMENT = 1;
+
 INSERT INTO continent (name)
-   values ('Europe'),
+VALUES
+    ('Europe'),
     ('North America'),
     ('South America'),
     ('Asia'),
     ('Africa'),
     ('Australia');
-
 
 INSERT INTO country (name, continent_id)
 VALUES
