@@ -2,6 +2,8 @@ package com.sda.travelagency.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "country")
 public class Country {
@@ -15,9 +17,13 @@ public class Country {
     @JoinColumn(name = "continent_id")
     private Continent continent;
 
-    public Country(String name, Continent continent) {
+    @OneToMany
+    private List<Offer> offers;
+
+    public Country(String name, Continent continent, List<Offer> offers) {
         this.name = name;
         this.continent = continent;
+        this.offers = offers;
     }
 
     public Country() {

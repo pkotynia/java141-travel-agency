@@ -27,3 +27,6 @@ VALUES
     ('Suriname', 1),
     ('Uruguay', 1),
     ('Venezuela', 1);
+
+INSERT INTO offer (country_id)
+VALUES (1);
