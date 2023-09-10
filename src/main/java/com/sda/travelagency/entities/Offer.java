@@ -10,11 +10,11 @@ public class Offer {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "country_id")
-    private Country country;
+    @JoinColumn(name = "hotel_id")
+    private Hotel hotel;
 
-    public Offer(Country country) {
-        this.country = country;
+    public Offer(Hotel hotel) {
+        this.hotel = hotel;
     }
 
     public Offer() {
@@ -24,15 +24,7 @@ public class Offer {
         return id;
     }
 
-    public Country getCountry() {
-        return country;
-    }
-
-    @Override
-    public String toString() {
-        return "Offer{" +
-                "id=" + id +
-                ", country=" + country +
-                '}';
+    public Hotel getHotel() {
+        return hotel;
     }
 }

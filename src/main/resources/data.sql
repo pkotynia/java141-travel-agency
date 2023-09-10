@@ -1,6 +1,12 @@
 DELETE FROM offer;
 ALTER TABLE offer AUTO_INCREMENT = 1;
 
+DELETE FROM hotel;
+ALTER TABLE hotel AUTO_INCREMENT = 1;
+
+DELETE FROM city;
+ALTER TABLE city AUTO_INCREMENT = 1;
+
 DELETE FROM country;
 ALTER TABLE country AUTO_INCREMENT = 1;
 
@@ -31,7 +37,15 @@ VALUES
     ('Uruguay', 1),
     ('Venezuela', 1);
 
-INSERT INTO offer (country_id)
+INSERT INTO city (name, country_id)
+VALUES
+    ('Kraków', 1);
+
+INSERT INTO hotel (name, city_id)
+VALUES
+    ('Hilton', 1);
+
+INSERT INTO offer (hotel_id)
 VALUES (1),
        (2),
        (3);
