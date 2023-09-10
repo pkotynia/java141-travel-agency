@@ -5,11 +5,11 @@ import com.sda.travelagency.entities.Continent;
 
 public class ContinentDtoMapper {
 
-    static ContinentDto continentToContinentDto(Continent continent) {
+    public static ContinentDto continentToContinentDto(Continent continent) {
         return new ContinentDto(continent.getName());
     }
 
-    static Continent continentDtoToContinent(ContinentDto continentDto) {
+    public static Continent continentDtoToContinent(ContinentDto continentDto) {
         return new Continent(continentDto.getName());
     }
 
