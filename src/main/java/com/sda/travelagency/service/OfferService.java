@@ -1,6 +1,5 @@
 package com.sda.travelagency.service;
 
-import com.sda.travelagency.entities.Continent;
 import com.sda.travelagency.entities.Country;
 import com.sda.travelagency.entities.Offer;
 import com.sda.travelagency.repository.CountryRepository;
