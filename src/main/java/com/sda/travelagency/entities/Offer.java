@@ -35,4 +35,12 @@ public class Offer {
     public void setHotel(Hotel hotel) {
         this.hotel = hotel;
     }
+
+    @Override
+    public String toString() {
+        return "Offer{" +
+                "id=" + id +
+                ", hotel=" + hotel +
+                '}';
+    }
 }

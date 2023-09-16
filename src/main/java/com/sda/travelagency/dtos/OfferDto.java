@@ -53,4 +53,14 @@ public class OfferDto {
     public void setContinentName(String continentName) {
         this.continentName = continentName;
     }
+
+    @Override
+    public String toString() {
+        return "OfferDto{" +
+                "hotelName='" + hotelName + '\'' +
+                ", cityName='" + cityName + '\'' +
+                ", countryName='" + countryName + '\'' +
+                ", continentName='" + continentName + '\'' +
+                '}';
+    }
 }

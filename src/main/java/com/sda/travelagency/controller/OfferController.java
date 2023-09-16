@@ -2,10 +2,9 @@ package com.sda.travelagency.controller;
 
 import com.sda.travelagency.dtos.OfferDto;
 import com.sda.travelagency.entities.Country;
+import com.sda.travelagency.entities.Hotel;
 import com.sda.travelagency.service.OfferService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,5 +27,16 @@ public class OfferController {
     List<Country> getAllCountries() {
         return offerService.getAllCountries();
     };
+
+    @PostMapping("/addOffer")
+    void addOffer(@RequestBody OfferDto offerDto) {
+        offerService.createOffer(offerDto);
+    }
+
+    @GetMapping("/hotel")
+    public Hotel getHotel(@RequestBody OfferDto offerDto) {
+        return offerService.getHotel(offerDto);
+    }
+
 
 }
