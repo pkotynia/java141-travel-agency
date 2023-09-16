@@ -7,34 +7,50 @@ import com.sda.travelagency.entities.Hotel;
 
 public class OfferDto {
 
-    private Hotel hotel;
-    private City city;
-    private Country country;
-    private Continent continent;
+    private String hotelName;
+    private String cityName;
+    private String countryName;
+    private String continentName;
 
-    public OfferDto(Hotel hotel, City city, Country country, Continent continent) {
-        this.hotel = hotel;
-        this.city = city;
-        this.country = country;
-        this.continent = continent;
+    public OfferDto(String hotelName, String cityName, String countryName, String continentName) {
+        this.hotelName = hotelName;
+        this.cityName = cityName;
+        this.countryName = countryName;
+        this.continentName = continentName;
     }
 
     public OfferDto() {
     }
 
-    public Hotel getHotel() {
-        return hotel;
+    public String getHotelName() {
+        return hotelName;
     }
 
-    public City getCity() {
-        return city;
+    public String getCityName() {
+        return cityName;
     }
 
-    public Country getCountry() {
-        return country;
+    public String getCountryName() {
+        return countryName;
     }
 
-    public Continent getContinent() {
-        return continent;
+    public String getContinentName() {
+        return continentName;
+    }
+
+    public void setHotelName(String hotelName) {
+        this.hotelName = hotelName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
+    }
+
+    public void setContinentName(String continentName) {
+        this.continentName = continentName;
     }
 }

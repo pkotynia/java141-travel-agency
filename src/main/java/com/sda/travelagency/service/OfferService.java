@@ -8,6 +8,7 @@ import com.sda.travelagency.repository.OfferRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OfferService {
@@ -23,8 +24,9 @@ public class OfferService {
     }
 
     public List<OfferDto> getAllOffers() {
-    offerRepository.findAll();
-        return
+        return offerRepository.findAll().stream()
+                .map(OfferMapper::offerToOfferDto)
+                .collect(Collectors.toList());
     }
 
     public List<Country> getAllCountries(){

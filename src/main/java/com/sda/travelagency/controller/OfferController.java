@@ -1,7 +1,7 @@
 package com.sda.travelagency.controller;
 
+import com.sda.travelagency.dtos.OfferDto;
 import com.sda.travelagency.entities.Country;
-import com.sda.travelagency.entities.Offer;
 import com.sda.travelagency.service.OfferService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +20,7 @@ public class OfferController {
     }
 
     @GetMapping
-    List<Offer> getAllOffers() {
+    List<OfferDto> getAllOffers() {
         return offerService.getAllOffers();
     };
 
