@@ -19,7 +19,6 @@ public class OfferService {
     private final OfferMapper offerMapper;
     private final OfferRepository offerRepository;
     private final CountryRepository countryRepository;
-
     private final MapperRepository mapperRepository;
 
     public OfferService(OfferMapper offerMapper, OfferRepository offerRepository, CountryRepository countryRepository, MapperRepository mapperRepository) {
@@ -40,8 +39,7 @@ public class OfferService {
     }
 
     public void createOffer(OfferDto offerDto) {
-        Offer offer = offerMapper.offerDtoToOffer(offerDto);
-        System.out.println(offer);
+        Offer offer = offerMapper.offerDtoToOffer(getHotel(offerDto));
         offerRepository.save(offer);
     }
 

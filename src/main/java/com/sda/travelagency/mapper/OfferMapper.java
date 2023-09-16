@@ -10,12 +10,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class OfferMapper {
 
-    @Autowired
-    private MapperRepository mapperRepository;
-
-    public  Offer offerDtoToOffer(OfferDto offerDto) {
-        System.out.println(mapperRepository.findByNameAndCityName(offerDto.getHotelName(),offerDto.getCityName()));
-        return new Offer(mapperRepository.findByNameAndCityName(offerDto.getHotelName(),offerDto.getCityName()));
+    public  Offer offerDtoToOffer(Hotel hotel) {
+        return new Offer(hotel);
     }
 
     //custom join pare tabel
