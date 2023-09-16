@@ -12,6 +12,8 @@ public class OfferMapper {
 //        Offer offer = new Offer(offerDto.getHotel());
 //        return offer;
 //    };
+
+    //custom join pare tabel
     public static OfferDto offerToOfferDto(Offer offer){
         OfferDto offerDto = new OfferDto();
         offerDto.setHotelName(offer.getHotel().getName());
