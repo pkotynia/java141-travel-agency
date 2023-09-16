@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS hotel (
 
 CREATE TABLE IF NOT EXISTS offer (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
     hotel_id INT,
     CONSTRAINT FK_hotel_id FOREIGN KEY (hotel_id) REFERENCES hotel(id)
 );

@@ -39,4 +39,8 @@ public class Hotel {
     public City getCity() {
         return city;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

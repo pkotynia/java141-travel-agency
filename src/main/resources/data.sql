@@ -49,8 +49,8 @@ VALUES
     ('Cubus', 2),
     ('Marriot', 3);
 
-INSERT INTO offer (hotel_id)
+INSERT INTO offer (name, hotel_id)
 VALUES
-    (1),
-    (2),
-    (3);
+    ('Kraków_offer',1),
+    ('Wrocław_offer',2),
+    ('Warszawa_offer',3);

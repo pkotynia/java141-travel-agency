@@ -1,11 +1,8 @@
 package com.sda.travelagency.service;
 
 import com.sda.travelagency.dtos.OfferDto;
-import com.sda.travelagency.entities.Country;
-import com.sda.travelagency.entities.Hotel;
 import com.sda.travelagency.entities.Offer;
 import com.sda.travelagency.mapper.OfferMapper;
-import com.sda.travelagency.repository.CountryRepository;
 import com.sda.travelagency.repository.MapperRepository;
 import com.sda.travelagency.repository.OfferRepository;
 import org.springframework.stereotype.Service;
@@ -18,13 +15,13 @@ public class OfferService {
 
     private final OfferMapper offerMapper;
     private final OfferRepository offerRepository;
-    private final CountryRepository countryRepository;
+
     private final MapperRepository mapperRepository;
 
-    public OfferService(OfferMapper offerMapper, OfferRepository offerRepository, CountryRepository countryRepository, MapperRepository mapperRepository) {
+
+    public OfferService(OfferMapper offerMapper, OfferRepository offerRepository, MapperRepository mapperRepository) {
         this.offerMapper = offerMapper;
         this.offerRepository = offerRepository;
-        this.countryRepository = countryRepository;
         this.mapperRepository = mapperRepository;
     }
 
@@ -34,16 +31,24 @@ public class OfferService {
                 .collect(Collectors.toList());
     }
 
-    public List<Country> getAllCountries(){
-        return countryRepository.findAll();
+    public Offer getOffer(String name){
+        return offerRepository.findByName(name).orElseThrow();
     }
 
-    public void createOffer(OfferDto offerDto) {
-        Offer offer = offerMapper.offerDtoToOffer(getHotel(offerDto));
+    public void addOffer(OfferDto offerDto) {
+        Offer offer = offerMapper.offerDtoToOffer(offerDto.getName()
+                ,mapperRepository.findByNameAndCityName(offerDto.getHotelName(),offerDto.getCityName()).orElseThrow());
         offerRepository.save(offer);
     }
 
-    public Hotel getHotel(OfferDto offerDto) {
-        return mapperRepository.findByNameAndCityName(offerDto.getHotelName(),offerDto.getCityName());
+    public void deleteOffer(String name){
+        Offer offerToDelete = offerRepository.findByName(name).orElseThrow();
+        offerRepository.delete(offerToDelete);
+    }
+
+    public void updateOffer(String name, OfferDto offerDto){
+        Offer offerToUpdate = offerRepository.findByName(name).orElseThrow();
+        offerToUpdate.setName(offerDto.getName());
+        offerRepository.save(offerToUpdate);
     }
 }

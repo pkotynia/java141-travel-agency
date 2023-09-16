@@ -10,13 +10,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class OfferMapper {
 
-    public  Offer offerDtoToOffer(Hotel hotel) {
-        return new Offer(hotel);
+    public Offer offerDtoToOffer(String name, Hotel hotel) {
+        return new Offer(name, hotel);
     }
 
     //custom join pare tabel
     public static OfferDto offerToOfferDto(Offer offer){
         OfferDto offerDto = new OfferDto();
+        offerDto.setName(offer.getName());
         offerDto.setHotelName(offer.getHotel().getName());
         offerDto.setCityName(offer.getHotel().getCity().getName());
         offerDto.setCountryName(offer.getHotel().getCity().getCountry().getName());

@@ -6,13 +6,15 @@ import com.sda.travelagency.entities.Country;
 import com.sda.travelagency.entities.Hotel;
 
 public class OfferDto {
+    private String name;
 
     private String hotelName;
     private String cityName;
     private String countryName;
     private String continentName;
 
-    public OfferDto(String hotelName, String cityName, String countryName, String continentName) {
+    public OfferDto(String name, String hotelName, String cityName, String countryName, String continentName) {
+        this.name = name;
         this.hotelName = hotelName;
         this.cityName = cityName;
         this.countryName = countryName;
@@ -20,6 +22,10 @@ public class OfferDto {
     }
 
     public OfferDto() {
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getHotelName() {
@@ -36,6 +42,10 @@ public class OfferDto {
 
     public String getContinentName() {
         return continentName;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setHotelName(String hotelName) {
