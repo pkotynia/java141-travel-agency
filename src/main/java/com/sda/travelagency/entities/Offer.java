@@ -27,4 +27,12 @@ public class Offer {
     public Hotel getHotel() {
         return hotel;
     }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
+    }
 }
