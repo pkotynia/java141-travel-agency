@@ -25,7 +25,7 @@ class CityRepositoryTest {
         Offer offer = offerRepository.findAll().get(0);
 
         City city = new City("testCity", offer.getHotel().getCity().getCountry());
-        City savedCity = cityRepository.save(city);
+        cityRepository.save(city);
 
         Optional<City> result = cityRepository.findByName("testCity");
 
