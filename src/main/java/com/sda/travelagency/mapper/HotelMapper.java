@@ -21,4 +21,6 @@ public class HotelMapper {
         hotelDto.setCityName(hotel.getCity().getName());
         return hotelDto;
     }
+
+
 }

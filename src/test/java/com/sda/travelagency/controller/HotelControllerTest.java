@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 
@@ -24,5 +25,17 @@ class HotelControllerTest {
                 .bodyValue(new HotelDto("test hotel", cityRepository.findAll().get(0).getName()))
                 .exchange()
                 .expectStatus().isCreated();
+    }
+
+    @Test
+    void shouldGetAllHotels() {
+        testClient
+                .get()
+                .uri("/hotels")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBodyList(HotelDto.class);
     }
 }
