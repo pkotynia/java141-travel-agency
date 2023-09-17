@@ -2,6 +2,7 @@ package com.sda.travelagency.service;
 
 import com.sda.travelagency.dtos.HotelDto;
 import com.sda.travelagency.entities.Hotel;
+import com.sda.travelagency.exception.CityNotFoundException;
 import com.sda.travelagency.exception.HotelCantBeDeletedException;
 import com.sda.travelagency.exception.HotelNotFoundException;
 import com.sda.travelagency.mapper.HotelMapper;
@@ -54,7 +55,7 @@ public class HotelService {
 
 
     public void addHotel(HotelDto hotelDto) {
-        Hotel hotel = hotelMapper.hotelDtoToHotel(hotelDto.getName(),cityRepository.findByName(hotelDto.getCityName()).orElseThrow());
+        Hotel hotel = hotelMapper.hotelDtoToHotel(hotelDto.getName(),cityRepository.findByName(hotelDto.getCityName()).orElseThrow(() -> new CityNotFoundException("No such city exists")));
         mapperRepository.save(hotel);
     }
 }

@@ -2,6 +2,7 @@ package com.sda.travelagency.controller;
 
 import com.sda.travelagency.dtos.HotelDto;
 import com.sda.travelagency.service.HotelService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +42,7 @@ public class HotelController {
     }
 
     @PostMapping("/addHotel")
-    ResponseEntity<String> addHotel(@RequestBody HotelDto hotelDto) {
+    ResponseEntity<String> addHotel(@Valid @RequestBody HotelDto hotelDto) {
         hotelService.addHotel(hotelDto);
         return new ResponseEntity<>("Hotel created", HttpStatus.ACCEPTED);
     }
