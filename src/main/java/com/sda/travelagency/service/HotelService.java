@@ -2,6 +2,8 @@ package com.sda.travelagency.service;
 
 import com.sda.travelagency.dtos.HotelDto;
 import com.sda.travelagency.entities.Hotel;
+import com.sda.travelagency.exception.HotelCantBeDeletedException;
+import com.sda.travelagency.exception.HotelNotFoundException;
 import com.sda.travelagency.mapper.HotelMapper;
 import com.sda.travelagency.repository.CityRepository;
 import com.sda.travelagency.repository.MapperRepository;
@@ -31,17 +33,21 @@ public class HotelService {
 
 
     public HotelDto getHotel(String name) {
-        return HotelMapper.hotelToHotelDto(mapperRepository.findByName(name).orElseThrow());
+        return HotelMapper.hotelToHotelDto(mapperRepository.findByName(name).orElseThrow(() -> new HotelNotFoundException("No such hotel exists")));
     }
 
-    public void deleteHotel(String name){
-        Hotel hotelToDelete = mapperRepository.findByName(name).orElseThrow();
+    public void deleteHotel(String name) {
+        Hotel hotelToDelete = mapperRepository.findByName(name).orElseThrow(() -> new HotelNotFoundException("No such hotel exists"));
+        System.out.println(hotelToDelete);
+        if (!hotelToDelete.getOffers().isEmpty()) {
+            throw new HotelCantBeDeletedException("Hotel is associated with offers and cannot be deleted.");
+        }
         mapperRepository.delete(hotelToDelete);
     }
 
-    public void updateHotel(String name, Hotel hotel){
-        Hotel hotelToUpdate = mapperRepository.findByName(name).orElseThrow();
-        hotelToUpdate.setName(hotel.getName());
+    public void updateHotel(String name, HotelDto hotelDto){
+        Hotel hotelToUpdate = mapperRepository.findByName(name).orElseThrow(() -> new HotelNotFoundException("No such hotel exists"));
+        hotelToUpdate.setName(hotelDto.getName());
         mapperRepository.save(hotelToUpdate);
     }
 

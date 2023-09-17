@@ -1,7 +1,7 @@
 package com.sda.travelagency.controller;
 
 import com.sda.travelagency.dtos.OfferDto;
-import com.sda.travelagency.entities.Offer;
+import com.sda.travelagency.exception.OfferNotFoundException;
 import com.sda.travelagency.service.OfferService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,4 +48,5 @@ public class OfferController {
         offerService.updateOffer(offerName, offerDto);
         return new ResponseEntity<>("Offer updated", HttpStatus.ACCEPTED);
     }
+
 }

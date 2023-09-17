@@ -1,8 +1,6 @@
 package com.sda.travelagency.controller;
 
 import com.sda.travelagency.dtos.HotelDto;
-import com.sda.travelagency.dtos.OfferDto;
-import com.sda.travelagency.entities.Hotel;
 import com.sda.travelagency.service.HotelService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +23,7 @@ public class HotelController {
     }
 
     @GetMapping("/{name}")
-    public HotelDto getHotel(@RequestParam String name){  // should be @PathVariable !!
+    public HotelDto getHotel(@PathVariable String name){  // should be @PathVariable !!
         return hotelService.getHotel(name);
     }
 
@@ -37,8 +35,8 @@ public class HotelController {
     }
 
     @PutMapping("/{hotelName}")
-    ResponseEntity<String> updateHotel(@PathVariable String hotelName, @RequestBody Hotel hotel) {
-        hotelService.updateHotel(hotelName, hotel);
+    ResponseEntity<String> updateHotel(@PathVariable String hotelName, @RequestBody HotelDto hotelDto) {
+        hotelService.updateHotel(hotelName, hotelDto);
         return new ResponseEntity<>("Hotel updated", HttpStatus.ACCEPTED);
     }
 
