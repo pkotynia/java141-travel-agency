@@ -2,6 +2,7 @@ package com.sda.travelagency.dtos;
 
 public class HotelDto {
 
+
     private String name;
 
     private String cityName;
