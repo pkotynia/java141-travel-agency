@@ -72,10 +72,35 @@ public class OfferDto {
     @Override
     public String toString() {
         return "OfferDto{" +
-                "hotelName='" + hotelName + '\'' +
+                "name='" + name + '\'' +
+                ", hotelName='" + hotelName + '\'' +
                 ", cityName='" + cityName + '\'' +
                 ", countryName='" + countryName + '\'' +
                 ", continentName='" + continentName + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        OfferDto offerDto = (OfferDto) o;
+
+        if (!name.equals(offerDto.name)) return false;
+        if (!hotelName.equals(offerDto.hotelName)) return false;
+        if (!cityName.equals(offerDto.cityName)) return false;
+        if (!countryName.equals(offerDto.countryName)) return false;
+        return continentName.equals(offerDto.continentName);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + hotelName.hashCode();
+        result = 31 * result + cityName.hashCode();
+        result = 31 * result + countryName.hashCode();
+        result = 31 * result + continentName.hashCode();
+        return result;
     }
 }

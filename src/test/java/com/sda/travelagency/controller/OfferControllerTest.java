@@ -61,8 +61,6 @@ class OfferControllerTest {
                 .expectBodyList(OfferDto.class);
     }
 
-
-
     @Test
     void shouldDeleteOffer() {
 
@@ -82,14 +80,12 @@ class OfferControllerTest {
                 .exchange()
                 .expectStatus().isAccepted();
 
-
-
     }
 
     @Test
     void shouldGetOfferByName() {
 
-        Offer testOffer = offerRepository.findAll().get(0);
+        Offer testOffer = offerRepository.findAll().get(1);
 
         OfferDto expectedOfferDto = new OfferDto(
                 "Wrocław_offer",
@@ -106,5 +102,24 @@ class OfferControllerTest {
                 .expectStatus().isOk()
                 .expectBody(OfferDto.class)
                 .isEqualTo(expectedOfferDto);
+    }
+    @Test
+    void shouldUpdateOffer() {
+        Offer testOffer = offerRepository.findAll().get(0);
+        OfferDto updatedOfferDto = new OfferDto(
+                "Kraków_offer",
+                testOffer.getHotel().getName(),
+                testOffer.getHotel().getCity().getName(),
+                testOffer.getHotel().getCity().getCountry().getName(),
+                testOffer.getHotel().getCity().getCountry().getContinent().getName()
+        );
+        testClient
+                .put()
+                .uri("/offers/{offerName}", "Kraków_offer")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(updatedOfferDto)
+                .exchange()
+                .expectStatus().isAccepted()
+                .expectBody(String.class).isEqualTo("Offer updated");
     }
 }
