@@ -34,11 +34,11 @@ public class GlobalException {
         return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
     }
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<String> handleValidationException(MethodArgumentNotValidException ex) {
-        StringBuilder errors = new StringBuilder();
+    public ProblemDetail handleValidationException(MethodArgumentNotValidException ex) {
+        StringBuilder errors = new StringBuilder("Validation error: ");
         ex.getBindingResult().getFieldErrors().forEach(error -> {
             errors.append(error.getField()).append(": ").append(error.getDefaultMessage()).append(", ");
         });
-        return new ResponseEntity<>("Validation error: " + errors.toString(), HttpStatus.BAD_REQUEST);
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, errors.toString());
     }
 }
