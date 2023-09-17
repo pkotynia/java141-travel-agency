@@ -44,6 +44,6 @@ public class HotelController {
     @PostMapping("/addHotel")
     ResponseEntity<String> addHotel(@Valid @RequestBody HotelDto hotelDto) {
         hotelService.addHotel(hotelDto);
-        return new ResponseEntity<>("Hotel created", HttpStatus.ACCEPTED);
+        return new ResponseEntity<>("Hotel created", HttpStatus.CREATED);
     }
 }
