@@ -25,11 +25,9 @@ public class OfferController {
     }
 
     @GetMapping("/{name}")
-    public OfferDto getOffer(@RequestParam String name){  // should be @PathVariable !!
+    public OfferDto getOffer(@PathVariable String name){  // should be @PathVariable !!
         return offerService.getOffer(name);
     }
-
-
 
     @PostMapping("/addOffer")
     ResponseEntity<String> addOffer(@RequestBody OfferDto offerDto) {

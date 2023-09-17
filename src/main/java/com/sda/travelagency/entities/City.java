@@ -8,7 +8,7 @@ import java.util.List;
 public class City {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private String name;
@@ -40,5 +40,23 @@ public class City {
         return country;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    public void setHotel(List<Hotel> hotel) {
+        this.hotel = hotel;
+    }
+
+    public List<Hotel> getHotel() {
+        return hotel;
+    }
 }
