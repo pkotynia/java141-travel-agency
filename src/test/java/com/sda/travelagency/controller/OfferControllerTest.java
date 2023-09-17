@@ -88,7 +88,7 @@ class OfferControllerTest {
         Offer testOffer = offerRepository.findAll().get(1);
 
         OfferDto expectedOfferDto = new OfferDto(
-                "Wrocław_offer",
+                testOffer.getName(),
                 testOffer.getHotel().getName(),
                 testOffer.getHotel().getCity().getName(),
                 testOffer.getHotel().getCity().getCountry().getName(),
@@ -97,7 +97,7 @@ class OfferControllerTest {
 
         testClient
                 .get()
-                .uri("/offers/{name}", "Wrocław_offer")
+                .uri("/offers/{name}", testOffer.getName())
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(OfferDto.class)
