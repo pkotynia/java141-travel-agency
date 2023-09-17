@@ -25,9 +25,9 @@ VALUES
 INSERT INTO country (name, continent_id)
 VALUES
     ('Argentina', 1),
-    ('Bolivia', 1),
-    ('Brazil', 1),
-    ('Chile', 1),
+    ('Bolivia', 2),
+    ('Brazil', 3),
+    ('Chile', 4),
     ('Colombia', 1),
     ('Ecuador', 1),
     ('Guyana', 1),
@@ -39,14 +39,18 @@ VALUES
 
 INSERT INTO city (name, country_id)
 VALUES
-    ('Kraków', 1);
+    ('Kraków', 1),
+    ('Wrocław', 2),
+    ('Warszawa', 3);
 
 INSERT INTO hotel (name, city_id)
 VALUES
-    ('Hilton', 1);
+    ('Hilton', 1),
+    ('Cubus', 2),
+    ('Marriot', 3);
 
-INSERT INTO offer (hotel_id)
+INSERT INTO offer (name, hotel_id)
 VALUES
-    (1),
-    (1),
-    (1);
+    ('Kraków_offer',1),
+    ('Wrocław_offer',2),
+    ('Warszawa_offer',3);

@@ -1,17 +1,16 @@
 package com.sda.travelagency.repository;
 
-import com.sda.travelagency.entities.Continent;
+import com.sda.travelagency.entities.Hotel;
 import com.sda.travelagency.entities.Offer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface OfferRepository extends JpaRepository<Offer, Integer> {
-    Optional<Offer> findByName(String name);
+public interface MapperRepository extends JpaRepository<Hotel, Integer> {
 
-//    List<Offer> findAll(Sort);
+    Optional<Hotel> findByNameAndCityName(String name, String cityName);
 
+    Optional<Hotel> findByName(String name);
 }

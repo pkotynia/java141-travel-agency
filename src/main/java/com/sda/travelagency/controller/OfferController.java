@@ -1,16 +1,16 @@
 package com.sda.travelagency.controller;
 
-import com.sda.travelagency.entities.Country;
-import com.sda.travelagency.entities.Offer;
+import com.sda.travelagency.dtos.OfferDto;
+import com.sda.travelagency.exception.OfferNotFoundException;
 import com.sda.travelagency.service.OfferService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("offers")
+@RequestMapping("/offers")
 public class OfferController {
 
     private final OfferService offerService;
@@ -20,13 +20,33 @@ public class OfferController {
     }
 
     @GetMapping
-    List<Offer> getAllOffers() {
+    List<OfferDto> getAllOffers() {
         return offerService.getAllOffers();
-    };
+    }
 
-    @GetMapping("/country")
-    List<Country> getAllCountries() {
-        return offerService.getAllCountries();
-    };
+    @GetMapping("/{name}")
+    public OfferDto getOffer(@RequestParam String name){  // should be @PathVariable !!
+        return offerService.getOffer(name);
+    }
+
+
+
+    @PostMapping("/addOffer")
+    ResponseEntity<String> addOffer(@RequestBody OfferDto offerDto) {
+        offerService.addOffer(offerDto);
+        return new ResponseEntity<>("Offer created",HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{offerName}")
+    ResponseEntity<String> deleteOffer(@PathVariable String offerName) {
+        offerService.deleteOffer(offerName);
+        return new ResponseEntity<>("Offer deleted", HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping("/{offerName}")
+    ResponseEntity<String> updateOffer(@PathVariable String offerName, @RequestBody OfferDto offerDto) {
+        offerService.updateOffer(offerName, offerDto);
+        return new ResponseEntity<>("Offer updated", HttpStatus.ACCEPTED);
+    }
 
 }
