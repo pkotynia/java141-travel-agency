@@ -4,13 +4,18 @@ import com.sda.travelagency.entities.City;
 import com.sda.travelagency.entities.Continent;
 import com.sda.travelagency.entities.Country;
 import com.sda.travelagency.entities.Hotel;
+import jakarta.validation.constraints.NotBlank;
 
 public class OfferDto {
+    @NotBlank(message = "Offer name is mandatory")
     private String name;
-
+    @NotBlank(message = "Hotel name is mandatory")
     private String hotelName;
+    @NotBlank(message = "City name is mandatory")
     private String cityName;
+    @NotBlank(message = "Country name is mandatory")
     private String countryName;
+    @NotBlank(message = "Continent name is mandatory")
     private String continentName;
 
     public OfferDto(String name, String hotelName, String cityName, String countryName, String continentName) {

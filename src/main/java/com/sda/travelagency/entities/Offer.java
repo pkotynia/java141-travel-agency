@@ -10,7 +10,6 @@ public class Offer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotBlank(message = "Offer name is mandatory")
     private String name;
 
     @ManyToOne(cascade = CascadeType.PERSIST)

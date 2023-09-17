@@ -11,7 +11,7 @@ public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotBlank(message = "Hotel name is mandatory")
+
     private String name;
 
     @ManyToOne
