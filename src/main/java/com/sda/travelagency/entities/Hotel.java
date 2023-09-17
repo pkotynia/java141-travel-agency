@@ -18,7 +18,7 @@ public class Hotel {
     @JoinColumn(name = "city_id")
     private City city;
 
-    @OneToMany (mappedBy = "hotel", cascade = CascadeType.DETACH)
+    @OneToMany (mappedBy = "hotel", cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     private List<Offer> offers;
 
     public Hotel(String name, City city) {

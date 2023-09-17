@@ -24,7 +24,7 @@ public class HotelController {
     }
 
     @GetMapping("/{name}")
-    public HotelDto getHotel(@PathVariable String name){  // should be @PathVariable !!
+    public HotelDto getHotel(@PathVariable String name){
         return hotelService.getHotel(name);
     }
 

@@ -1,4 +1,4 @@
-CREATE database if not exists offer;
+CREATE database if not exists test;
 
 CREATE TABLE IF NOT EXISTS continent (
     id INT AUTO_INCREMENT PRIMARY KEY,

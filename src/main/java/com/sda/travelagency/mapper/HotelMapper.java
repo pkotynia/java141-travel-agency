@@ -14,7 +14,6 @@ public class HotelMapper {
         return new Hotel(name, city);
     }
 
-    //custom join pare tabel
     public static HotelDto hotelToHotelDto(Hotel hotel){
         HotelDto hotelDto = new HotelDto();
         hotelDto.setName(hotel.getName());
