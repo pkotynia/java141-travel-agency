@@ -1,10 +1,8 @@
 package com.sda.travelagency.mapper;
 
 import com.sda.travelagency.dtos.HotelDto;
-import com.sda.travelagency.dtos.OfferDto;
 import com.sda.travelagency.entities.City;
 import com.sda.travelagency.entities.Hotel;
-import com.sda.travelagency.entities.Offer;
 import org.springframework.stereotype.Component;
 
 @Component

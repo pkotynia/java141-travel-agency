@@ -1,7 +1,6 @@
 package com.sda.travelagency.controller;
 
 import com.sda.travelagency.dtos.OfferDto;
-import com.sda.travelagency.exception.OfferNotFoundException;
 import com.sda.travelagency.service.OfferService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

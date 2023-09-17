@@ -1,9 +1,5 @@
 package com.sda.travelagency.dtos;
 
-import com.sda.travelagency.entities.City;
-import com.sda.travelagency.entities.Continent;
-import com.sda.travelagency.entities.Country;
-import com.sda.travelagency.entities.Hotel;
 import jakarta.validation.constraints.NotBlank;
 
 public class OfferDto {

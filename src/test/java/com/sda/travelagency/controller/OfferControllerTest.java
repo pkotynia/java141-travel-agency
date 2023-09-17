@@ -1,20 +1,21 @@
 package com.sda.travelagency.controller;
 
 
-import com.sda.travelagency.dtos.HotelDto;
 import com.sda.travelagency.dtos.OfferDto;
 import com.sda.travelagency.entities.Hotel;
 import com.sda.travelagency.entities.Offer;
-import com.sda.travelagency.repository.*;
-import org.junit.jupiter.api.BeforeEach;
+import com.sda.travelagency.repository.MapperRepository;
+import com.sda.travelagency.repository.OfferRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
 class OfferControllerTest {
 
     @Autowired
@@ -63,20 +64,11 @@ class OfferControllerTest {
 
     @Test
     void shouldDeleteOffer() {
-
         Offer testOffer = offerRepository.findAll().get(0);
-
-        OfferDto offerDto = new OfferDto(
-                "Kraków_offer",
-                testOffer.getHotel().getName(),
-                testOffer.getHotel().getCity().getName(),
-                testOffer.getHotel().getCity().getCountry().getName(),
-                testOffer.getHotel().getCity().getCountry().getContinent().getName()
-        );
 
         testClient
                 .delete()
-                .uri("/offers/{offerName}", "Kraków_offer")
+                .uri("/offers/{offerName}", testOffer.getName())
                 .exchange()
                 .expectStatus().isAccepted();
 
@@ -107,7 +99,7 @@ class OfferControllerTest {
     void shouldUpdateOffer() {
         Offer testOffer = offerRepository.findAll().get(0);
         OfferDto updatedOfferDto = new OfferDto(
-                "Kraków_offer",
+                "testOffer",
                 testOffer.getHotel().getName(),
                 testOffer.getHotel().getCity().getName(),
                 testOffer.getHotel().getCity().getCountry().getName(),
@@ -115,7 +107,7 @@ class OfferControllerTest {
         );
         testClient
                 .put()
-                .uri("/offers/{offerName}", "Kraków_offer")
+                .uri("/offers/{offerName}", offerRepository.findAll().get(0).getName())
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(updatedOfferDto)
                 .exchange()

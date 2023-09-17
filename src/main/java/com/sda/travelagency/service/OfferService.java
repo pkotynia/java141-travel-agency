@@ -2,7 +2,6 @@ package com.sda.travelagency.service;
 
 import com.sda.travelagency.dtos.OfferDto;
 import com.sda.travelagency.entities.Offer;
-import com.sda.travelagency.exception.HotelNotFoundException;
 import com.sda.travelagency.exception.OfferNotFoundException;
 import com.sda.travelagency.mapper.OfferMapper;
 import com.sda.travelagency.repository.MapperRepository;

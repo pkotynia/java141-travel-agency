@@ -2,23 +2,17 @@ package com.sda.travelagency.controller;
 
 import com.sda.travelagency.dtos.HotelDto;
 import com.sda.travelagency.entities.Hotel;
-import com.sda.travelagency.entities.Offer;
 import com.sda.travelagency.repository.CityRepository;
 import com.sda.travelagency.repository.MapperRepository;
 import com.sda.travelagency.repository.OfferRepository;
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.util.Assert;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
