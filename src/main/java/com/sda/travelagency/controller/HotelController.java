@@ -1,5 +1,6 @@
 package com.sda.travelagency.controller;
 
+import com.sda.travelagency.dtos.HotelDto;
 import com.sda.travelagency.dtos.OfferDto;
 import com.sda.travelagency.entities.Hotel;
 import com.sda.travelagency.service.HotelService;
@@ -19,16 +20,18 @@ public class HotelController {
     }
 
     @GetMapping
-    public List<Hotel> getAllHotels() {
+    public List<HotelDto> getAllHotels() {
         return hotelService.getAllHotels();
     }
 
     @GetMapping("/{name}")
-    public Hotel getHotel(@RequestParam String name){
+    public HotelDto getHotel(@RequestParam String name){  // should be @PathVariable !!
         return hotelService.getHotel(name);
     }
+
+
     @DeleteMapping("/{hotelName}")
-    ResponseEntity<String> updateHotel(@PathVariable String hotelName) {
+    ResponseEntity<String> deleteHotel(@PathVariable String hotelName) {
         hotelService.deleteHotel(hotelName);
         return new ResponseEntity<>("Hotel deleted", HttpStatus.ACCEPTED);
     }
@@ -36,6 +39,12 @@ public class HotelController {
     @PutMapping("/{hotelName}")
     ResponseEntity<String> updateHotel(@PathVariable String hotelName, @RequestBody Hotel hotel) {
         hotelService.updateHotel(hotelName, hotel);
-        return new ResponseEntity<>("Offer updated", HttpStatus.ACCEPTED);
+        return new ResponseEntity<>("Hotel updated", HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping("/addHotel")
+    ResponseEntity<String> addHotel(@RequestBody HotelDto hotelDto) {
+        hotelService.addHotel(hotelDto);
+        return new ResponseEntity<>("Hotel created", HttpStatus.ACCEPTED);
     }
 }

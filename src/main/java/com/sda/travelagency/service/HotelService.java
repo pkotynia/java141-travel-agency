@@ -1,26 +1,37 @@
 package com.sda.travelagency.service;
 
+import com.sda.travelagency.dtos.HotelDto;
 import com.sda.travelagency.entities.Hotel;
+import com.sda.travelagency.mapper.HotelMapper;
+import com.sda.travelagency.repository.CityRepository;
 import com.sda.travelagency.repository.MapperRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class HotelService {
     private final MapperRepository mapperRepository;
 
-    public HotelService(MapperRepository mapperRepository) {
+    private final CityRepository cityRepository;
+
+    private final HotelMapper hotelMapper;
+
+    public HotelService(MapperRepository mapperRepository, CityRepository cityRepository, HotelMapper hotelMapper) {
         this.mapperRepository = mapperRepository;
+        this.cityRepository = cityRepository;
+        this.hotelMapper = hotelMapper;
     }
 
-    public List<Hotel> getAllHotels(){
-        return mapperRepository.findAll();
+    public List<HotelDto> getAllHotels(){
+        return mapperRepository.findAll().stream()
+                .map(HotelMapper::hotelToHotelDto).collect(Collectors.toList());
     }
 
 
-    public Hotel getHotel(String name) {
-        return mapperRepository.findByName(name).orElseThrow();
+    public HotelDto getHotel(String name) {
+        return HotelMapper.hotelToHotelDto(mapperRepository.findByName(name).orElseThrow());
     }
 
     public void deleteHotel(String name){
@@ -32,5 +43,12 @@ public class HotelService {
         Hotel hotelToUpdate = mapperRepository.findByName(name).orElseThrow();
         hotelToUpdate.setName(hotel.getName());
         mapperRepository.save(hotelToUpdate);
+    }
+
+
+
+    public void addHotel(HotelDto hotelDto) {
+        Hotel hotel = hotelMapper.hotelDtoToHotel(hotelDto.getName(),cityRepository.findByName(hotelDto.getCityName()).orElseThrow());
+        mapperRepository.save(hotel);
     }
 }

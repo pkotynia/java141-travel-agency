@@ -43,4 +43,8 @@ public class Hotel {
     public void setName(String name) {
         this.name = name;
     }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
 }

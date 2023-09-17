@@ -31,13 +31,12 @@ public class OfferService {
                 .collect(Collectors.toList());
     }
 
-    public Offer getOffer(String name){
-        return offerRepository.findByName(name).orElseThrow();
+    public OfferDto getOffer(String name){
+        return OfferMapper.offerToOfferDto(offerRepository.findByName(name).orElseThrow());
     }
 
     public void addOffer(OfferDto offerDto) {
-        Offer offer = offerMapper.offerDtoToOffer(offerDto.getName()
-                ,mapperRepository.findByNameAndCityName(offerDto.getHotelName(),offerDto.getCityName()).orElseThrow());
+        Offer offer = offerMapper.offerDtoToOffer(offerDto.getName(),mapperRepository.findByNameAndCityName(offerDto.getHotelName(),offerDto.getCityName()).orElseThrow());
         offerRepository.save(offer);
     }
 

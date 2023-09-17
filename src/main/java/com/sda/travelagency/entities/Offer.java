@@ -35,6 +35,7 @@ public class Offer {
         return hotel;
     }
 
+
     public void setId(Integer id) {
         this.id = id;
     }

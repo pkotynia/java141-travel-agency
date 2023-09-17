@@ -22,12 +22,15 @@ public class OfferController {
     @GetMapping
     List<OfferDto> getAllOffers() {
         return offerService.getAllOffers();
-    };
+    }
 
     @GetMapping("/{name}")
-    public Offer getHotel(@RequestParam String name){
+    public OfferDto getOffer(@RequestParam String name){  // should be @PathVariable !!
         return offerService.getOffer(name);
     }
+
+
+
     @PostMapping("/addOffer")
     ResponseEntity<String> addOffer(@RequestBody OfferDto offerDto) {
         offerService.addOffer(offerDto);

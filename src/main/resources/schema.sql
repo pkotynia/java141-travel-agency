@@ -34,3 +34,5 @@ CREATE TABLE IF NOT EXISTS offer (
     CONSTRAINT FK_hotel_id FOREIGN KEY (hotel_id) REFERENCES hotel(id)
 );
 
+
+
