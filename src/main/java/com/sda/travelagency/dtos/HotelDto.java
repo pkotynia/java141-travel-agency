@@ -2,6 +2,8 @@ package com.sda.travelagency.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.Objects;
+
 public class HotelDto {
 
     @NotBlank(message = "Hotel name is mandatory")
@@ -31,5 +33,18 @@ public class HotelDto {
 
     public void setCityName(String cityName) {
         this.cityName = cityName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HotelDto hotelDto = (HotelDto) o;
+        return Objects.equals(name, hotelDto.name) && Objects.equals(cityName, hotelDto.cityName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, cityName);
     }
 }

@@ -41,12 +41,13 @@ public class HotelService {
         Hotel hotelToDelete = mapperRepository.findByName(name).orElseThrow(() -> new HotelNotFoundException("No such hotel exists"));
         System.out.println(hotelToDelete);
         if (!hotelToDelete.getOffers().isEmpty()) {
-            throw new HotelCantBeDeletedException("Hotel is associated with offers and cannot be deleted.");
+            throw new HotelCantBeDeletedException("Hotel is associated with offers and cannot be deleted");
         }
         mapperRepository.delete(hotelToDelete);
     }
 
     public void updateHotel(String name, HotelDto hotelDto){
+        cityRepository.findByName(hotelDto.getCityName()).orElseThrow(() -> new CityNotFoundException("No such city exists"));
         Hotel hotelToUpdate = mapperRepository.findByName(name).orElseThrow(() -> new HotelNotFoundException("No such hotel exists"));
         hotelToUpdate.setName(hotelDto.getName());
         mapperRepository.save(hotelToUpdate);
