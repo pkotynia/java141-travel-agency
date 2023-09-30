@@ -54,3 +54,6 @@ VALUES
     ('Kraków_offer',1,100.0),
     ('Wrocław_offer',2,100.0),
     ('Warszawa_offer',3,100.0);
+
+INSERT INTO users VALUES (1, "admin", "password", 1);
+INSERT INTO authorities VALUES (1, "admin", "USER");
