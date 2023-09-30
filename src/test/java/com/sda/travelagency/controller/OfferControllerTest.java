@@ -4,7 +4,7 @@ package com.sda.travelagency.controller;
 import com.sda.travelagency.dtos.OfferDto;
 import com.sda.travelagency.entities.Hotel;
 import com.sda.travelagency.entities.Offer;
-import com.sda.travelagency.repository.MapperRepository;
+import com.sda.travelagency.repository.HotelRepository;
 import com.sda.travelagency.repository.OfferRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ class OfferControllerTest {
     private WebTestClient testClient;
 
     @Autowired
-    private MapperRepository mapperRepository;
+    private HotelRepository hotelRepository;
 
     @Autowired
     private OfferRepository offerRepository;
@@ -34,7 +34,7 @@ class OfferControllerTest {
     @Test
     void shouldAddOffer() {
 
-        Hotel testHotel = mapperRepository.findAll().get(0);
+        Hotel testHotel = hotelRepository.findAll().get(0);
 
         OfferDto offerDto = new OfferDto(
                 "Test Offer",

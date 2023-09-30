@@ -1,25 +1,24 @@
 package com.sda.travelagency.mapper;
 
 import com.sda.travelagency.dtos.OfferDto;
-import com.sda.travelagency.entities.Hotel;
 import com.sda.travelagency.entities.Offer;
 import com.sda.travelagency.exception.HotelNotFoundException;
-import com.sda.travelagency.repository.MapperRepository;
+import com.sda.travelagency.repository.HotelRepository;
 import org.springframework.stereotype.Component;
 
 @Component
 public class OfferMapper {
 
-    private final MapperRepository mapperRepository;
+    private final HotelRepository hotelRepository;
 
-    public OfferMapper(MapperRepository mapperRepository) {
-        this.mapperRepository = mapperRepository;
+    public OfferMapper(HotelRepository hotelRepository) {
+        this.hotelRepository = hotelRepository;
     }
 
     public Offer offerDtoToOffer(OfferDto offerDto) {
         Offer mappedOffer = new Offer();
         mappedOffer.setName(offerDto.getName());
-        mappedOffer.setHotel(mapperRepository.findByName(offerDto.getHotelName()).orElseThrow(() -> new HotelNotFoundException("No such hotel exists")));
+        mappedOffer.setHotel(hotelRepository.findByName(offerDto.getHotelName()).orElseThrow(() -> new HotelNotFoundException("No such hotel exists")));
         mappedOffer.setPrice(offerDto.getPrice());
         return mappedOffer;
     }

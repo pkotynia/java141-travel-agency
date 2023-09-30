@@ -7,7 +7,7 @@ import com.sda.travelagency.exception.HotelCantBeDeletedException;
 import com.sda.travelagency.exception.HotelNotFoundException;
 import com.sda.travelagency.mapper.HotelMapper;
 import com.sda.travelagency.repository.CityRepository;
-import com.sda.travelagency.repository.MapperRepository;
+import com.sda.travelagency.repository.HotelRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,46 +15,51 @@ import java.util.stream.Collectors;
 
 @Service
 public class HotelService {
-    private final MapperRepository mapperRepository;
+    private final HotelRepository hotelRepository;
 
     private final CityRepository cityRepository;
 
     private final HotelMapper hotelMapper;
 
-    public HotelService(MapperRepository mapperRepository, CityRepository cityRepository, HotelMapper hotelMapper) {
-        this.mapperRepository = mapperRepository;
+    public HotelService(HotelRepository hotelRepository, CityRepository cityRepository, HotelMapper hotelMapper) {
+        this.hotelRepository = hotelRepository;
         this.cityRepository = cityRepository;
         this.hotelMapper = hotelMapper;
     }
 
     public List<HotelDto> getAllHotels(){
-        return mapperRepository.findAll().stream()
+        return hotelRepository.findAll().stream()
                 .map(HotelMapper::hotelToHotelDto).collect(Collectors.toList());
     }
 
     public HotelDto getHotel(String name) {
-        return HotelMapper.hotelToHotelDto(mapperRepository.findByName(name).orElseThrow(() -> new HotelNotFoundException("No such hotel exists")));
+        return HotelMapper.hotelToHotelDto(hotelRepository.findByName(name).orElseThrow(() -> new HotelNotFoundException("No such hotel exists")));
     }
 
     public void deleteHotel(String name) {
-        Hotel hotelToDelete = mapperRepository.findByName(name).orElseThrow(() -> new HotelNotFoundException("No such hotel exists"));
+        Hotel hotelToDelete = hotelRepository.findByName(name).orElseThrow(() -> new HotelNotFoundException("No such hotel exists"));
         System.out.println(hotelToDelete);
         //You can only delete hotels without offers
         if (!hotelToDelete.getOffers().isEmpty()) {
             throw new HotelCantBeDeletedException("Hotel is associated with offers and cannot be deleted");
         }
-        mapperRepository.delete(hotelToDelete);
+        hotelRepository.delete(hotelToDelete);
     }
 
     public void updateHotel(String name, HotelDto hotelDto){
         cityRepository.findByName(hotelDto.getCityName()).orElseThrow(() -> new CityNotFoundException("No such city exists"));
-        Hotel hotelToUpdate = mapperRepository.findByName(name).orElseThrow(() -> new HotelNotFoundException("No such hotel exists"));
+        Hotel hotelToUpdate = hotelRepository.findByName(name).orElseThrow(() -> new HotelNotFoundException("No such hotel exists"));
         hotelToUpdate.setName(hotelDto.getName());
-        mapperRepository.save(hotelToUpdate);
+        hotelRepository.save(hotelToUpdate);
     }
 
     public void addHotel(HotelDto hotelDto) {
         Hotel hotel = hotelMapper.hotelDtoToHotel(hotelDto);
-        mapperRepository.save(hotel);
+        hotelRepository.save(hotel);
+    }
+
+    public List<HotelDto> getTopHotels() {
+        return hotelRepository.findByOrderByRatingDesc().stream()
+                .map(HotelMapper::hotelToHotelDto).collect(Collectors.toList());
     }
 }

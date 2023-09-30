@@ -46,4 +46,9 @@ public class HotelController {
         hotelService.addHotel(hotelDto);
         return new ResponseEntity<>("Hotel created", HttpStatus.CREATED);
     }
+
+    @GetMapping ("/topHotels")
+    List<HotelDto> getTopHotels() {
+        return hotelService.getTopHotels();
+    }
 }

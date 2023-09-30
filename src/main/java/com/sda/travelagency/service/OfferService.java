@@ -4,7 +4,6 @@ import com.sda.travelagency.dtos.OfferDto;
 import com.sda.travelagency.entities.Offer;
 import com.sda.travelagency.exception.OfferNotFoundException;
 import com.sda.travelagency.mapper.OfferMapper;
-import com.sda.travelagency.repository.MapperRepository;
 import com.sda.travelagency.repository.OfferRepository;
 import org.springframework.stereotype.Service;
 

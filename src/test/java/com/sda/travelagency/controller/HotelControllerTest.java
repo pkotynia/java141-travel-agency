@@ -3,7 +3,7 @@ package com.sda.travelagency.controller;
 import com.sda.travelagency.dtos.HotelDto;
 import com.sda.travelagency.entities.Hotel;
 import com.sda.travelagency.repository.CityRepository;
-import com.sda.travelagency.repository.MapperRepository;
+import com.sda.travelagency.repository.HotelRepository;
 import com.sda.travelagency.repository.OfferRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ class HotelControllerTest {
     @Autowired
     private CityRepository cityRepository;
     @Autowired
-    private MapperRepository mapperRepository;
+    private HotelRepository hotelRepository;
     @Autowired
     private OfferRepository offerRepository;
     private final Float RATING = 10.0f;
@@ -43,7 +43,7 @@ class HotelControllerTest {
 
     @Test
     void shouldGetHotelByName (){
-        Hotel testHotel = mapperRepository.findAll().get(0);
+        Hotel testHotel = hotelRepository.findAll().get(0);
         HotelDto testHotelDto = new HotelDto(testHotel.getName(), testHotel.getRating(), testHotel.getCity().getName());
         testClient
                 .get()
@@ -72,7 +72,7 @@ class HotelControllerTest {
     void shouldUpdateHotel(){
         testClient
                 .put()
-                .uri("/hotels/{name}",mapperRepository.findAll().get(0).getName())
+                .uri("/hotels/{name}", hotelRepository.findAll().get(0).getName())
                 .bodyValue(new HotelDto("testHotel", RATING, cityRepository.findAll().get(0).getName()))
                 .exchange()
                 .expectStatus().isAccepted();
@@ -92,7 +92,7 @@ class HotelControllerTest {
     void shouldNotUpdateHotelWithIncorrectCityName(){
         ProblemDetail detail = testClient
                 .put()
-                .uri("/hotels/{name}",mapperRepository.findAll().get(0).getName())
+                .uri("/hotels/{name}", hotelRepository.findAll().get(0).getName())
                 .bodyValue(new HotelDto("testHotel", RATING, "incorrectCityName"))
                 .exchange()
                 .expectStatus().isNotFound()
@@ -170,7 +170,7 @@ class HotelControllerTest {
     void shouldNotDeleteHotelWithOffers(){
         ProblemDetail detail = testClient
                 .delete()
-                .uri("/hotels/{name}",mapperRepository.findAll().get(0).getName())
+                .uri("/hotels/{name}", hotelRepository.findAll().get(0).getName())
                 .exchange()
                 .expectStatus().is4xxClientError()
                 .expectBody(ProblemDetail.class).returnResult().getResponseBody();
@@ -179,7 +179,7 @@ class HotelControllerTest {
 
     @Test
     void shouldDeleteHotel(){
-        Hotel hotelToDelete = mapperRepository.findAll().get(0);
+        Hotel hotelToDelete = hotelRepository.findAll().get(0);
         hotelToDelete.getOffers().forEach(offer -> offerRepository.deleteById(offer.getId()));
         testClient
                 .delete()
