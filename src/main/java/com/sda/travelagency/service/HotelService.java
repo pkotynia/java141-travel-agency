@@ -8,6 +8,7 @@ import com.sda.travelagency.exception.HotelNotFoundException;
 import com.sda.travelagency.mapper.HotelMapper;
 import com.sda.travelagency.repository.CityRepository;
 import com.sda.travelagency.repository.HotelRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -59,7 +60,8 @@ public class HotelService {
     }
 
     public List<HotelDto> getTopHotels() {
-        return hotelRepository.findByOrderByRatingDesc().stream()
+//        hotelRepository.findByOrderByRatingDesc()
+        return hotelRepository.findAll(Sort.by(Sort.Direction.DESC, "rating")).stream()
                 .map(HotelMapper::hotelToHotelDto).collect(Collectors.toList());
     }
 }
