@@ -49,6 +49,7 @@ class OfferControllerTest {
                 .uri("/offers/addOffer")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(offerDto)
+                .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
                 .exchange()
                 .expectStatus().isCreated();
     }
@@ -60,6 +61,7 @@ class OfferControllerTest {
                 .get()
                 .uri("/offers")
                 .accept(MediaType.APPLICATION_JSON)
+                .headers(headersConsumer -> headersConsumer.setBasicAuth("testUser", "password"))
                 .exchange()
                 .expectStatus().isOk()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
@@ -73,6 +75,7 @@ class OfferControllerTest {
         testClient
                 .delete()
                 .uri("/offers/{offerName}", testOffer.getName())
+                .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
                 .exchange()
                 .expectStatus().isAccepted();
 
@@ -94,6 +97,7 @@ class OfferControllerTest {
         testClient
                 .get()
                 .uri("/offers/{name}", testOffer.getName())
+                .headers(headersConsumer -> headersConsumer.setBasicAuth("testUser", "password"))
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(OfferDto.class)
@@ -114,6 +118,7 @@ class OfferControllerTest {
                 .uri("/offers/{offerName}", offerRepository.findAll().get(0).getName())
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(updatedOfferDto)
+                .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
                 .exchange()
                 .expectStatus().isAccepted()
                 .expectBody(String.class).isEqualTo("Offer updated");

@@ -36,5 +36,20 @@ CREATE TABLE IF NOT EXISTS offer (
     CONSTRAINT FK_hotel_id FOREIGN KEY (hotel_id) REFERENCES hotel(id)
 );
 
+DROP TABLE IF EXISTS users;
+CREATE TABLE IF NOT EXISTS users (
+    id INT NOT NULL AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    enabled INT NOT NULL,
+    PRIMARY KEY(id)
+    );
 
+DROP TABLE IF EXISTS authorities;
+CREATE TABLE IF NOT EXISTS authorities (
+    id INT NOT NULL AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL,
+    authority VARCHAR(50) NOT NULL,
+    PRIMARY KEY(id)
+    );
 
