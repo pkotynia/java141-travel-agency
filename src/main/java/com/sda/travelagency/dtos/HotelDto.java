@@ -1,5 +1,7 @@
 package com.sda.travelagency.dtos;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 
 import java.util.Objects;
@@ -8,11 +10,17 @@ public class HotelDto {
 
     @NotBlank(message = "Hotel name is mandatory")
     private String name;
+
     @NotBlank(message = "City name is mandatory")
     private String cityName;
 
-    public HotelDto(String name, String cityName) {
+    @Min(0)
+    @Max(10)
+    private Float rating;
+
+    public HotelDto(String name, Float rating, String cityName) {
         this.name = name;
+        this.rating = rating;
         this.cityName = cityName;
     }
 
@@ -33,6 +41,14 @@ public class HotelDto {
 
     public void setCityName(String cityName) {
         this.cityName = cityName;
+    }
+
+    public Float getRating() {
+        return rating;
+    }
+
+    public void setRating(Float rating) {
+        this.rating = rating;
     }
 
     @Override

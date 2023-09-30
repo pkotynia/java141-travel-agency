@@ -43,14 +43,14 @@ VALUES
     ('Wrocław', 2),
     ('Warszawa', 3);
 
-INSERT INTO hotel (name, city_id)
+INSERT INTO hotel (name, city_id, rating)
 VALUES
-    ('Hilton', 1),
-    ('Cubus', 2),
-    ('Marriot', 3);
+    ('Hilton', 1, 8.0),
+    ('Cubus', 2, 7.0),
+    ('Marriot', 3, 9.0);
 
-INSERT INTO offer (name, hotel_id)
+INSERT INTO offer (name, hotel_id, price)
 VALUES
-    ('Kraków_offer',1),
-    ('Wrocław_offer',2),
-    ('Warszawa_offer',3);
+    ('Kraków_offer',1,100.0),
+    ('Wrocław_offer',2,100.0),
+    ('Warszawa_offer',3,100.0);

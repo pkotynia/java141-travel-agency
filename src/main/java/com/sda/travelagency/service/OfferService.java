@@ -17,13 +17,9 @@ public class OfferService {
     private final OfferMapper offerMapper;
     private final OfferRepository offerRepository;
 
-    private final MapperRepository mapperRepository;
-
-
-    public OfferService(OfferMapper offerMapper, OfferRepository offerRepository, MapperRepository mapperRepository) {
+    public OfferService(OfferMapper offerMapper, OfferRepository offerRepository) {
         this.offerMapper = offerMapper;
         this.offerRepository = offerRepository;
-        this.mapperRepository = mapperRepository;
     }
 
     public List<OfferDto> getAllOffers() {
@@ -37,7 +33,7 @@ public class OfferService {
     }
 
     public void addOffer(OfferDto offerDto) {
-        Offer offer = offerMapper.offerDtoToOffer(offerDto.getName(),mapperRepository.findByNameAndCityName(offerDto.getHotelName(),offerDto.getCityName()).orElseThrow());
+        Offer offer = offerMapper.offerDtoToOffer(offerDto);
         offerRepository.save(offer);
     }
 

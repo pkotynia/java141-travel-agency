@@ -32,7 +32,6 @@ public class HotelService {
                 .map(HotelMapper::hotelToHotelDto).collect(Collectors.toList());
     }
 
-
     public HotelDto getHotel(String name) {
         return HotelMapper.hotelToHotelDto(mapperRepository.findByName(name).orElseThrow(() -> new HotelNotFoundException("No such hotel exists")));
     }
@@ -40,6 +39,7 @@ public class HotelService {
     public void deleteHotel(String name) {
         Hotel hotelToDelete = mapperRepository.findByName(name).orElseThrow(() -> new HotelNotFoundException("No such hotel exists"));
         System.out.println(hotelToDelete);
+        //You can only delete hotels without offers
         if (!hotelToDelete.getOffers().isEmpty()) {
             throw new HotelCantBeDeletedException("Hotel is associated with offers and cannot be deleted");
         }
@@ -53,10 +53,8 @@ public class HotelService {
         mapperRepository.save(hotelToUpdate);
     }
 
-
-
     public void addHotel(HotelDto hotelDto) {
-        Hotel hotel = hotelMapper.hotelDtoToHotel(hotelDto.getName(),cityRepository.findByName(hotelDto.getCityName()).orElseThrow(() -> new CityNotFoundException("No such city exists")));
+        Hotel hotel = hotelMapper.hotelDtoToHotel(hotelDto);
         mapperRepository.save(hotel);
     }
 }

@@ -13,6 +13,8 @@ public class Hotel {
 
     private String name;
 
+    private Float rating;
+
     @ManyToOne
     @JoinColumn(name = "city_id")
     private City city;
@@ -20,8 +22,9 @@ public class Hotel {
     @OneToMany (mappedBy = "hotel", cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     private List<Offer> offers;
 
-    public Hotel(String name, City city) {
+    public Hotel(String name, Float rating, City city) {
         this.name = name;
+        this.rating = rating;
         this.city = city;
     }
 
@@ -44,6 +47,10 @@ public class Hotel {
         return offers;
     }
 
+    public Float getRating() {
+        return rating;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -58,5 +65,9 @@ public class Hotel {
 
     public void setOffers(List<Offer> offers) {
         this.offers = offers;
+    }
+
+    public void setRating(Float rating) {
+        this.rating = rating;
     }
 }

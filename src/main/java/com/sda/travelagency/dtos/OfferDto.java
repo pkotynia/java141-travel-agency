@@ -1,6 +1,10 @@
 package com.sda.travelagency.dtos;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+
+import java.math.BigDecimal;
+import java.util.Objects;
 
 public class OfferDto {
     @NotBlank(message = "Offer name is mandatory")
@@ -13,13 +17,16 @@ public class OfferDto {
     private String countryName;
     @NotBlank(message = "Continent name is mandatory")
     private String continentName;
+    @Min(0)
+    private BigDecimal price;
 
-    public OfferDto(String name, String hotelName, String cityName, String countryName, String continentName) {
+    public OfferDto(String name, String hotelName, String cityName, String countryName, String continentName, BigDecimal price) {
         this.name = name;
         this.hotelName = hotelName;
         this.cityName = cityName;
         this.countryName = countryName;
         this.continentName = continentName;
+        this.price = price;
     }
 
     public OfferDto() {
@@ -45,6 +52,10 @@ public class OfferDto {
         return continentName;
     }
 
+    public BigDecimal getPrice() {
+        return price;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -65,6 +76,10 @@ public class OfferDto {
         this.continentName = continentName;
     }
 
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
     @Override
     public String toString() {
         return "OfferDto{" +
@@ -73,6 +88,7 @@ public class OfferDto {
                 ", cityName='" + cityName + '\'' +
                 ", countryName='" + countryName + '\'' +
                 ", continentName='" + continentName + '\'' +
+                ", price=" + price +
                 '}';
     }
 
@@ -80,23 +96,12 @@ public class OfferDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         OfferDto offerDto = (OfferDto) o;
-
-        if (!name.equals(offerDto.name)) return false;
-        if (!hotelName.equals(offerDto.hotelName)) return false;
-        if (!cityName.equals(offerDto.cityName)) return false;
-        if (!countryName.equals(offerDto.countryName)) return false;
-        return continentName.equals(offerDto.continentName);
+        return Objects.equals(name, offerDto.name) && Objects.equals(hotelName, offerDto.hotelName) && Objects.equals(cityName, offerDto.cityName) && Objects.equals(countryName, offerDto.countryName) && Objects.equals(continentName, offerDto.continentName) && Objects.equals(price, offerDto.price);
     }
 
     @Override
     public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + hotelName.hashCode();
-        result = 31 * result + cityName.hashCode();
-        result = 31 * result + countryName.hashCode();
-        result = 31 * result + continentName.hashCode();
-        return result;
+        return Objects.hash(name, hotelName, cityName, countryName, continentName, price);
     }
 }

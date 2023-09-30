@@ -13,6 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
+import java.math.BigDecimal;
+
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
@@ -27,6 +29,8 @@ class OfferControllerTest {
     @Autowired
     private OfferRepository offerRepository;
 
+    private final BigDecimal PRICE = BigDecimal.valueOf(100.0);
+
     @Test
     void shouldAddOffer() {
 
@@ -37,8 +41,8 @@ class OfferControllerTest {
                 testHotel.getName(),
                 testHotel.getCity().getName(),
                 testHotel.getCity().getCountry().getName(),
-                testHotel.getCity().getCountry().getContinent().getName()
-        );
+                testHotel.getCity().getCountry().getContinent().getName(),
+                PRICE);
 
         testClient
                 .post()
@@ -84,8 +88,8 @@ class OfferControllerTest {
                 testOffer.getHotel().getName(),
                 testOffer.getHotel().getCity().getName(),
                 testOffer.getHotel().getCity().getCountry().getName(),
-                testOffer.getHotel().getCity().getCountry().getContinent().getName()
-        );
+                testOffer.getHotel().getCity().getCountry().getContinent().getName(),
+                testOffer.getPrice());
 
         testClient
                 .get()
@@ -103,8 +107,8 @@ class OfferControllerTest {
                 testOffer.getHotel().getName(),
                 testOffer.getHotel().getCity().getName(),
                 testOffer.getHotel().getCity().getCountry().getName(),
-                testOffer.getHotel().getCity().getCountry().getContinent().getName()
-        );
+                testOffer.getHotel().getCity().getCountry().getContinent().getName(),
+                testOffer.getPrice());
         testClient
                 .put()
                 .uri("/offers/{offerName}", offerRepository.findAll().get(0).getName())

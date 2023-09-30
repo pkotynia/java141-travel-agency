@@ -26,6 +26,7 @@ class HotelControllerTest {
     private MapperRepository mapperRepository;
     @Autowired
     private OfferRepository offerRepository;
+    private final Float RATING = 10.0f;
 
 
     @Test
@@ -43,7 +44,7 @@ class HotelControllerTest {
     @Test
     void shouldGetHotelByName (){
         Hotel testHotel = mapperRepository.findAll().get(0);
-        HotelDto testHotelDto = new HotelDto(testHotel.getName(), testHotel.getCity().getName());
+        HotelDto testHotelDto = new HotelDto(testHotel.getName(), testHotel.getRating(), testHotel.getCity().getName());
         testClient
                 .get()
                 .uri("/hotels/{name}",testHotel.getName())
@@ -72,7 +73,7 @@ class HotelControllerTest {
         testClient
                 .put()
                 .uri("/hotels/{name}",mapperRepository.findAll().get(0).getName())
-                .bodyValue(new HotelDto("testHotel", cityRepository.findAll().get(0).getName()))
+                .bodyValue(new HotelDto("testHotel", RATING, cityRepository.findAll().get(0).getName()))
                 .exchange()
                 .expectStatus().isAccepted();
     }
@@ -81,7 +82,7 @@ class HotelControllerTest {
         ProblemDetail detail = testClient
                 .put()
                 .uri("/hotels/{name}","incorrectCityName")
-                .bodyValue(new HotelDto("testHotel", cityRepository.findAll().get(0).getName()))
+                .bodyValue(new HotelDto("testHotel", RATING, cityRepository.findAll().get(0).getName()))
                 .exchange()
                 .expectStatus().isNotFound()
                 .expectBody(ProblemDetail.class).returnResult().getResponseBody();
@@ -92,7 +93,7 @@ class HotelControllerTest {
         ProblemDetail detail = testClient
                 .put()
                 .uri("/hotels/{name}",mapperRepository.findAll().get(0).getName())
-                .bodyValue(new HotelDto("testHotel", "incorrectCityName"))
+                .bodyValue(new HotelDto("testHotel", RATING, "incorrectCityName"))
                 .exchange()
                 .expectStatus().isNotFound()
                 .expectBody(ProblemDetail.class).returnResult().getResponseBody();
@@ -103,7 +104,7 @@ class HotelControllerTest {
         testClient
                 .post()
                 .uri("/hotels/addHotel")
-                .bodyValue(new HotelDto("testHotel", cityRepository.findAll().get(0).getName()))
+                .bodyValue(new HotelDto("testHotel", RATING, cityRepository.findAll().get(0).getName()))
                 .exchange()
                 .expectStatus().isCreated();
     }
@@ -112,7 +113,7 @@ class HotelControllerTest {
         ProblemDetail detail = testClient
                 .post()
                 .uri("/hotels/addHotel")
-                .bodyValue(new HotelDto("testHotel", "incorrectCity"))
+                .bodyValue(new HotelDto("testHotel", RATING, "incorrectCity"))
                 .exchange()
                 .expectStatus().isNotFound()
                 .expectBody(ProblemDetail.class).returnResult().getResponseBody();
@@ -125,7 +126,7 @@ class HotelControllerTest {
         ProblemDetail detail = testClient
                 .post()
                 .uri("/hotels/addHotel")
-                .bodyValue(new HotelDto("", cityRepository.findAll().get(0).getName()))
+                .bodyValue(new HotelDto("", RATING, cityRepository.findAll().get(0).getName()))
                 .exchange()
                 .expectStatus().isBadRequest()
                 .expectBody(ProblemDetail.class).returnResult().getResponseBody();
@@ -136,7 +137,7 @@ class HotelControllerTest {
         ProblemDetail detail = testClient
                 .post()
                 .uri("/hotels/addHotel")
-                .bodyValue(new HotelDto(null, cityRepository.findAll().get(0).getName()))
+                .bodyValue(new HotelDto(null, RATING, cityRepository.findAll().get(0).getName()))
                 .exchange()
                 .expectStatus().isBadRequest()
                 .expectBody(ProblemDetail.class).returnResult().getResponseBody();
@@ -147,7 +148,7 @@ class HotelControllerTest {
         ProblemDetail detail = testClient
                 .post()
                 .uri("/hotels/addHotel")
-                .bodyValue(new HotelDto("testHotel", " "))
+                .bodyValue(new HotelDto("testHotel", RATING, " "))
                 .exchange()
                 .expectStatus().isBadRequest()
                 .expectBody(ProblemDetail.class).returnResult().getResponseBody();
@@ -158,7 +159,7 @@ class HotelControllerTest {
         ProblemDetail detail = testClient
                 .post()
                 .uri("/hotels/addHotel")
-                .bodyValue(new HotelDto("testHotel", null))
+                .bodyValue(new HotelDto("testHotel", RATING, null))
                 .exchange()
                 .expectStatus().isBadRequest()
                 .expectBody(ProblemDetail.class).returnResult().getResponseBody();
