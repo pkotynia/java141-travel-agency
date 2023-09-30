@@ -13,12 +13,6 @@ ALTER TABLE country AUTO_INCREMENT = 1;
 DELETE FROM continent;
 ALTER TABLE continent AUTO_INCREMENT = 1;
 
-DELETE FROM users;
-ALTER TABLE users AUTO_INCREMENT = 1;
-
-DELETE FROM authorities;
-ALTER TABLE authorities AUTO_INCREMENT = 1;
-
 INSERT INTO continent (name)
 VALUES
     ('Europe'),
@@ -60,6 +54,3 @@ VALUES
     ('Kraków_offer',1,100.0),
     ('Wrocław_offer',2,100.0),
     ('Warszawa_offer',3,100.0);
-
-INSERT INTO users VALUES (1, "user", "password", 1);
-INSERT INTO authorities VALUES (1, "user", "ROLE_USER");
