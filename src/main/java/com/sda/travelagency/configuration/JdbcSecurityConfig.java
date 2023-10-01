@@ -34,8 +34,7 @@ public class JdbcSecurityConfig {
         return () -> {
             String password = new BCryptPasswordEncoder().encode("password");
             UserDetails user = User
-                    .builder()
-                    .username("admin")
+                    .withUsername("admin")
                     .password(password)
                     .roles("ADMIN")
                     .build();
