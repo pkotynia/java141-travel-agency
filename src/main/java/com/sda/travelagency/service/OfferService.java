@@ -2,7 +2,9 @@ package com.sda.travelagency.service;
 
 import com.sda.travelagency.dtos.OfferDto;
 import com.sda.travelagency.entities.Offer;
+import com.sda.travelagency.exception.OfferNotAvailableException;
 import com.sda.travelagency.exception.OfferNotFoundException;
+import com.sda.travelagency.exception.SessionExpiredException;
 import com.sda.travelagency.mapper.OfferMapper;
 import com.sda.travelagency.repository.OfferRepository;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -59,17 +61,17 @@ public class OfferService {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             return authentication.getName();
         }
-        return "";
+        return null;
     }
 
     public void addOfferToCart(String offerName) {
         Offer offerByName = offerRepository.findByName(offerName).orElseThrow(() -> new RuntimeException("offer not exists!"));
 
-        if(getUserName().isBlank()) {
-            throw new RuntimeException("something went wrong!");
+        if(getUserName() == null) {
+            throw new SessionExpiredException("something went wrong!");
         }
         if(offerByName.getUserName() != null) {
-            throw new RuntimeException("Offer is taken");
+            throw new OfferNotAvailableException("Offer is taken");
         }
         offerByName.setUserName(getUserName());
         offerRepository.save(offerByName);
