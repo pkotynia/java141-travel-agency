@@ -10,6 +10,8 @@ import java.util.Optional;
 public interface OfferRepository extends JpaRepository<Offer, Integer> {
     Optional<Offer> findByName(String name);
 
+
+
 //    List<Offer> findAll(Sort);
 
 }

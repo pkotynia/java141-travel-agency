@@ -12,6 +12,7 @@ import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -64,6 +65,15 @@ public class OfferService {
     }
 
     public void addOfferToCart(String offerName) {
-        System.out.println(getUserName());
+        Offer offerByName = offerRepository.findByName(offerName).orElseThrow(() -> new RuntimeException("offer not exists!"));
+
+        if(getUserName().isBlank()) {
+            throw new RuntimeException("something went wrong!");
+        }
+        if(offerByName.getUsername() != null) {
+            throw  new RuntimeException("Offer is taken");
+        }
+        offerByName.setUsername(getUserName());
+        offerRepository.save(offerByName);
     }
 }

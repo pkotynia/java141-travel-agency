@@ -40,7 +40,15 @@ public class GlobalException {
         return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, errors.toString());
     }
     @ExceptionHandler(UserAlreadyExistsException.class)
-    public ProblemDetail handleCityNotFoundException(UserAlreadyExistsException e){
+    public ProblemDetail handleUserAlreadyExistsException(UserAlreadyExistsException e){
         return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
+    }
+    @ExceptionHandler(OfferNotAvailableException.class)
+    public ProblemDetail handleOfferNotAvailableException(OfferNotAvailableException e){
+        return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
+    }
+    @ExceptionHandler(SessionExpiredException.class)
+    public ProblemDetail handleSessionExpiredExceptionException(SessionExpiredException e){
+        return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
     }
 }
