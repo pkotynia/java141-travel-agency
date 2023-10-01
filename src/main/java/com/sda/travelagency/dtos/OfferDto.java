@@ -1,6 +1,7 @@
 package com.sda.travelagency.dtos;
 
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 
 import java.math.BigDecimal;
@@ -17,7 +18,8 @@ public class OfferDto {
     private String countryName;
     @NotBlank(message = "Continent name is mandatory")
     private String continentName;
-    @Min(0)
+    @DecimalMax("99999.99")
+    @DecimalMin("0.00")
     private BigDecimal price;
 
     public OfferDto(String name, String hotelName, String cityName, String countryName, String continentName, BigDecimal price) {

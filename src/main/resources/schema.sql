@@ -33,13 +33,14 @@ CREATE TABLE IF NOT EXISTS offer (
     name VARCHAR(255),
     hotel_id INT,
     price DECIMAL,
+    user_name VARCHAR(255),
     CONSTRAINT FK_hotel_id FOREIGN KEY (hotel_id) REFERENCES hotel(id)
 );
 
 DROP TABLE IF EXISTS users;
 CREATE TABLE IF NOT EXISTS users (
     id INT NOT NULL AUTO_INCREMENT,
-    username VARCHAR(50) NOT NULL,
+    user_name VARCHAR(50) NOT NULL,
     password VARCHAR(50) NOT NULL,
     enabled INT NOT NULL,
     PRIMARY KEY(id)

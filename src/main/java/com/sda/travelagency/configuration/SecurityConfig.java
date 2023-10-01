@@ -20,11 +20,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry
                         -> authorizationManagerRequestMatcherRegistry
                         .requestMatchers(HttpMethod.DELETE).hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST).hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST,"/offer").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT).hasRole("ADMIN")
                         .requestMatchers("/hotels/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
-//                        .requestMatchers( "/users/create").permitAll()
-                        .anyRequest().authenticated());
+                        .requestMatchers( "/users/create").permitAll()
+                        .requestMatchers("/users/admin/**").hasRole("ADMIN")
+                        .anyRequest().permitAll());
         return httpSecurity.build();
     }
 }

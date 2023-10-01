@@ -1,4 +1,11 @@
 CREATE database if not exists test;
+DROP TABLE IF EXISTS offer;
+DROP TABLE IF EXISTS hotel;
+DROP TABLE IF EXISTS city;
+DROP TABLE IF EXISTS country;
+DROP TABLE IF EXISTS continent;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS authorities;
 
 CREATE TABLE IF NOT EXISTS continent (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -32,8 +39,9 @@ CREATE TABLE IF NOT EXISTS offer (
     name VARCHAR(255),
     hotel_id INT,
     price DECIMAL,
+    user_name VARCHAR(255),
     CONSTRAINT FK_hotel_id FOREIGN KEY (hotel_id) REFERENCES hotel(id)
-);
+    );
 
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
