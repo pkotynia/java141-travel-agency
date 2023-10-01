@@ -1,5 +1,6 @@
 package com.sda.travelagency.dtos;
 
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 
@@ -19,6 +20,8 @@ public class OfferDto {
     private String continentName;
     @Min(0)
     private BigDecimal price;
+    @Nullable
+    private String username;
 
     public OfferDto(String name, String hotelName, String cityName, String countryName, String continentName, BigDecimal price) {
         this.name = name;
@@ -30,6 +33,11 @@ public class OfferDto {
     }
 
     public OfferDto() {
+    }
+
+    @Nullable
+    public String getUsername() {
+        return username;
     }
 
     public String getName() {
@@ -78,6 +86,10 @@ public class OfferDto {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public void setUsername(@Nullable String username) {
+        this.username = username;
     }
 
     @Override

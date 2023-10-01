@@ -14,6 +14,8 @@ public class Offer {
 
     private BigDecimal price;
 
+    private String username;
+
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
@@ -28,7 +30,7 @@ public class Offer {
     }
 
 
-
+    public String getUsername() {return username; }
     public Integer getId() {
         return id;
     }
@@ -41,6 +43,10 @@ public class Offer {
 
     public BigDecimal getPrice() {
         return price;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setId(Integer id) {

@@ -4,6 +4,9 @@ import com.sda.travelagency.dtos.OfferDto;
 import com.sda.travelagency.service.OfferService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,6 +47,13 @@ public class OfferController {
     ResponseEntity<String> updateOffer(@PathVariable String offerName, @RequestBody OfferDto offerDto) {
         offerService.updateOffer(offerName, offerDto);
         return new ResponseEntity<>("Offer updated", HttpStatus.ACCEPTED);
+    }
+
+
+    @PutMapping("/addToCart/{offerName}")
+    ResponseEntity<String> AddOfferToCart(@PathVariable String offerName) {
+        offerService.addOfferToCart(offerName);
+        return new ResponseEntity<>("accepted", HttpStatus.ACCEPTED);
     }
 
 }

@@ -25,6 +25,7 @@ public class AccountService {
                 .password(accountDto.getPassword())
                 .roles("USER")
                 .build();
+
         userDetailsManager.createUser(user);
     }
 

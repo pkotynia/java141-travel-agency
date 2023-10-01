@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS offer (
     name VARCHAR(255),
     hotel_id INT,
     price DECIMAL,
+    username VARCHAR(255),
     CONSTRAINT FK_hotel_id FOREIGN KEY (hotel_id) REFERENCES hotel(id)
 );
 
