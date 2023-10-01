@@ -40,8 +40,8 @@ CREATE TABLE IF NOT EXISTS offer (
 DROP TABLE IF EXISTS users;
 CREATE TABLE IF NOT EXISTS users (
     id INT NOT NULL AUTO_INCREMENT,
-    user_name VARCHAR(50) NOT NULL,
-    password VARCHAR(50) NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(100) NOT NULL,
     enabled INT NOT NULL,
     PRIMARY KEY(id)
     );

@@ -4,6 +4,7 @@ import com.sda.travelagency.dtos.AccountDto;
 import com.sda.travelagency.exception.UserAlreadyExistsException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
@@ -20,12 +21,12 @@ public class AccountService {
         if(userDetailsManager.userExists(accountDto.getName())){
             throw new UserAlreadyExistsException("This username is already taken");
         }
+        String password = new BCryptPasswordEncoder().encode(accountDto.getPassword());
         UserDetails user = User
                 .withUsername(accountDto.getName())
-                .password(accountDto.getPassword())
+                .password(password)
                 .roles("USER")
                 .build();
-
         userDetailsManager.createUser(user);
     }
 
@@ -33,9 +34,10 @@ public class AccountService {
         if(userDetailsManager.userExists(accountDto.getName())){
             throw new UserAlreadyExistsException("This username is already taken");
         }
+        String password = new BCryptPasswordEncoder().encode(accountDto.getPassword());
         UserDetails admin = User
                 .withUsername(accountDto.getName())
-                .password(accountDto.getPassword())
+                .password(password)
                 .roles("ADMIN")
                 .build();
         userDetailsManager.createUser(admin);
