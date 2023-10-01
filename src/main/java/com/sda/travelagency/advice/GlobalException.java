@@ -1,9 +1,6 @@
 package com.sda.travelagency.advice;
 
-import com.sda.travelagency.exception.CityNotFoundException;
-import com.sda.travelagency.exception.HotelCantBeDeletedException;
-import com.sda.travelagency.exception.HotelNotFoundException;
-import com.sda.travelagency.exception.OfferNotFoundException;
+import com.sda.travelagency.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -41,5 +38,9 @@ public class GlobalException {
             errors.append(error.getField()).append(": ").append(error.getDefaultMessage()).append(", ");
         });
         return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, errors.toString());
+    }
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ProblemDetail handleCityNotFoundException(UserAlreadyExistsException e){
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
     }
 }

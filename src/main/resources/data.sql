@@ -63,3 +63,5 @@ VALUES
 
 INSERT INTO users VALUES (1, "user", "password", 1);
 INSERT INTO authorities VALUES (1, "user", "ROLE_USER");
+INSERT INTO users VALUES (2, "admin", "password", 1);
+INSERT INTO authorities VALUES (2, "admin", "ROLE_ADMIN");
