@@ -1,20 +1,21 @@
 package com.sda.travelagency.dtos;
 
 public class AccountDto {
-    private String userName;
+    private String name;
+
     private String password;
 
-    public AccountDto(String userName, String password) {
-        this.userName = userName;
+    public AccountDto(String name, String password) {
+        this.name = name;
         this.password = password;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {

@@ -2,11 +2,9 @@ package com.sda.travelagency.controller;
 
 import com.sda.travelagency.dtos.OfferDto;
 import com.sda.travelagency.service.OfferService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,7 +30,7 @@ public class OfferController {
     }
 
     @PostMapping("/addOffer")
-    ResponseEntity<String> addOffer(@RequestBody OfferDto offerDto) {
+    ResponseEntity<String> addOffer(@Valid @RequestBody OfferDto offerDto) {
         offerService.addOffer(offerDto);
         return new ResponseEntity<>("Offer created",HttpStatus.CREATED);
     }
@@ -44,7 +42,7 @@ public class OfferController {
     }
 
     @PutMapping("/{offerName}")
-    ResponseEntity<String> updateOffer(@PathVariable String offerName, @RequestBody OfferDto offerDto) {
+    ResponseEntity<String> updateOffer(@PathVariable String offerName,@Valid @RequestBody OfferDto offerDto) {
         offerService.updateOffer(offerName, offerDto);
         return new ResponseEntity<>("Offer updated", HttpStatus.ACCEPTED);
     }

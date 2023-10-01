@@ -12,7 +12,6 @@ import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -58,8 +57,7 @@ public class OfferService {
     private String getUserName() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            String currentUserName = authentication.getName();
-            return currentUserName;
+            return authentication.getName();
         }
         return "";
     }
@@ -70,10 +68,10 @@ public class OfferService {
         if(getUserName().isBlank()) {
             throw new RuntimeException("something went wrong!");
         }
-        if(offerByName.getUsername() != null) {
-            throw  new RuntimeException("Offer is taken");
+        if(offerByName.getUserName() != null) {
+            throw new RuntimeException("Offer is taken");
         }
-        offerByName.setUsername(getUserName());
+        offerByName.setUserName(getUserName());
         offerRepository.save(offerByName);
     }
 }

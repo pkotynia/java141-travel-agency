@@ -2,6 +2,7 @@ package com.sda.travelagency.controller;
 
 import com.sda.travelagency.dtos.AccountDto;
 import com.sda.travelagency.service.AccountService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,13 +22,13 @@ public class RegisterController {
 
 
     @PostMapping("/create")
-    ResponseEntity<String> addUser(@RequestBody AccountDto user) {
+    ResponseEntity<String> addUser(@Valid @RequestBody AccountDto user) {
         accountService.addUser(user);
         return new ResponseEntity<>("User created", HttpStatus.CREATED);
     }
 
     @PostMapping("/admin/create")
-    ResponseEntity<String> addAdmin(@RequestBody AccountDto admin) {
+    ResponseEntity<String> addAdmin(@Valid @RequestBody AccountDto admin) {
         accountService.addAdmin(admin);
         return new ResponseEntity<>("Admin created", HttpStatus.CREATED);
     }

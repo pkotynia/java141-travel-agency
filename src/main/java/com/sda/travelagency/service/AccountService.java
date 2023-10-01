@@ -17,11 +17,11 @@ public class AccountService {
     }
 
     public void addUser(AccountDto accountDto){
-        if(userDetailsManager.userExists(accountDto.getUserName())){
+        if(userDetailsManager.userExists(accountDto.getName())){
             throw new UserAlreadyExistsException("This username is already taken");
         }
         UserDetails user = User
-                .withUsername(accountDto.getUserName())
+                .withUsername(accountDto.getName())
                 .password(accountDto.getPassword())
                 .roles("USER")
                 .build();
@@ -30,11 +30,11 @@ public class AccountService {
     }
 
     public void addAdmin(AccountDto accountDto){
-        if(userDetailsManager.userExists(accountDto.getUserName())){
+        if(userDetailsManager.userExists(accountDto.getName())){
             throw new UserAlreadyExistsException("This username is already taken");
         }
         UserDetails admin = User
-                .withUsername(accountDto.getUserName())
+                .withUsername(accountDto.getName())
                 .password(accountDto.getPassword())
                 .roles("ADMIN")
                 .build();

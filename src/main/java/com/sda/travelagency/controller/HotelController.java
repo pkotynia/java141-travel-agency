@@ -36,7 +36,7 @@ public class HotelController {
     }
 
     @PutMapping("/{hotelName}")
-    ResponseEntity<String> updateHotel(@PathVariable String hotelName, @RequestBody HotelDto hotelDto) {
+    ResponseEntity<String> updateHotel(@PathVariable String hotelName,@Valid @RequestBody HotelDto hotelDto) {
         hotelService.updateHotel(hotelName, hotelDto);
         return new ResponseEntity<>("Hotel updated", HttpStatus.ACCEPTED);
     }
