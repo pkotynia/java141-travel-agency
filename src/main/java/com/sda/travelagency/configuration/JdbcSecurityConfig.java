@@ -36,7 +36,7 @@ public class JdbcSecurityConfig {
             UserDetails user = User
                     .withUsername("admin")
                     .password(password)
-                    .roles("ADMIN")
+                    .roles("USER","ADMIN")
                     .build();
             userDetailsManager(dataSource).createUser(user);
         };

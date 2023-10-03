@@ -5,6 +5,7 @@ import com.sda.travelagency.service.OfferService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,18 +30,21 @@ public class OfferController {
         return offerService.getOffer(name);
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping("/addOffer")
     ResponseEntity<String> addOffer(@Valid @RequestBody OfferDto offerDto) {
         offerService.addOffer(offerDto);
         return new ResponseEntity<>("Offer created",HttpStatus.CREATED);
     }
 
+    @Secured("ROLE_ADMIN")
     @DeleteMapping("/{offerName}")
     ResponseEntity<String> deleteOffer(@PathVariable String offerName) {
         offerService.deleteOffer(offerName);
         return new ResponseEntity<>("Offer deleted", HttpStatus.ACCEPTED);
     }
 
+    @Secured("ROLE_ADMIN")
     @PutMapping("/{offerName}")
     ResponseEntity<String> updateOffer(@PathVariable String offerName,@Valid @RequestBody OfferDto offerDto) {
         offerService.updateOffer(offerName, offerDto);
@@ -48,6 +52,7 @@ public class OfferController {
     }
 
 
+    @Secured("ROLE_USER")
     @PutMapping("/addToCart/{offerName}")
     ResponseEntity<String> AddOfferToCart(@PathVariable String offerName) {
         offerService.addOfferToCart(offerName);
