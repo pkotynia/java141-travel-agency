@@ -7,9 +7,7 @@ import com.sda.travelagency.exception.OfferNotFoundException;
 import com.sda.travelagency.exception.SessionExpiredException;
 import com.sda.travelagency.mapper.OfferMapper;
 import com.sda.travelagency.repository.OfferRepository;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import com.sda.travelagency.util.Username;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
@@ -56,24 +54,16 @@ public class OfferService {
         offerRepository.save(offerToUpdate);
     }
 
-    private String getUserName() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            return authentication.getName();
-        }
-        return null;
-    }
-
     public void addOfferToCart(String offerName) {
         Offer offerByName = offerRepository.findByName(offerName).orElseThrow(() -> new RuntimeException("offer not exists!"));
-
-        if(getUserName() == null) {
-            throw new SessionExpiredException("something went wrong!");
+        String username = Username.getActive();
+        if(username == null) {
+            throw new SessionExpiredException("Session expired");
         }
         if(offerByName.getUserName() != null) {
             throw new OfferNotAvailableException("Offer is taken");
         }
-        offerByName.setUserName(getUserName());
+        offerByName.setUserName(username);
         offerRepository.save(offerByName);
     }
 }
