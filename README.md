@@ -9,6 +9,8 @@ This repository contains the backend codebase for a comprehensive travel agency 
 - **User Accounts**: Clients can easily create accounts, enhancing their interaction with the agency's services.
 - **Reservation System**: Allows clients to make reservations and associate them with their user accounts.
 - **Profile Editing**: Clients have the flexibility to edit their account information as needed.
+  
+Swagger UI available at: http://localhost:8080/swagger-ui/index.html#/
 
 ## Technologies Used
 - Java
