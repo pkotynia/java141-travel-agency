@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -28,6 +29,16 @@ public class OfferController {
     @GetMapping("/{name}")
     public OfferDto getOffer(@PathVariable String name){  // should be @PathVariable !!
         return offerService.getOffer(name);
+    }
+
+    @GetMapping("/filterByPrice")
+    List<OfferDto> getOffersFilterByPrice(@RequestParam BigDecimal minPrice, @RequestParam BigDecimal maxPrice) {
+        return offerService.findByPriceGreaterThanAndPriceLessThanOrderByPriceDesc(minPrice, maxPrice);
+    }
+
+    @GetMapping("/filterByHotel")
+    List<OfferDto> findOffersByHotel(@RequestParam String hotelName) {
+        return offerService.findOffersByHotel(hotelName);
     }
 
     @Secured("ROLE_ADMIN")
@@ -58,5 +69,7 @@ public class OfferController {
         offerService.addOfferToCart(offerName);
         return new ResponseEntity<>("accepted", HttpStatus.ACCEPTED);
     }
+
+
 
 }

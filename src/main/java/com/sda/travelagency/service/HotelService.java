@@ -33,6 +33,11 @@ public class HotelService {
                 .map(HotelMapper::hotelToHotelDto).collect(Collectors.toList());
     }
 
+    public List<HotelDto> findHotelsByCityName(String cityName){
+        return hotelRepository.findByCityName(cityName).stream()
+                .map(HotelMapper::hotelToHotelDto).collect(Collectors.toList());
+    }
+
     public HotelDto getHotel(String name) {
         return HotelMapper.hotelToHotelDto(hotelRepository.findByName(name).orElseThrow(() -> new HotelNotFoundException("No such hotel exists")));
     }
@@ -60,7 +65,6 @@ public class HotelService {
     }
 
     public List<HotelDto> getTopHotels() {
-//        hotelRepository.findByOrderByRatingDesc()
         return hotelRepository.findAll(Sort.by(Sort.Direction.DESC, "rating")).stream()
                 .map(HotelMapper::hotelToHotelDto).collect(Collectors.toList());
     }

@@ -58,5 +58,5 @@ VALUES
 INSERT INTO offer (name, hotel_id, price)
 VALUES
     ('Kraków_offer',1,100.0),
-    ('Wrocław_offer',2,100.0),
-    ('Warszawa_offer',3,100.0);
+    ('Wrocław_offer',1,200.0),
+    ('Warszawa_offer',3,300.0);

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class AccountController {
 
     private final AccountService accountService;
+
     public AccountController(AccountService accountService) {
         this.accountService = accountService;
     }
@@ -23,12 +24,14 @@ public class AccountController {
         accountService.createUser(user);
         return new ResponseEntity<>("User created", HttpStatus.CREATED);
     }
+
     @Secured("ROLE_ADMIN")
     @PostMapping("/admin/create")
     ResponseEntity<String> addAdmin(@Valid @RequestBody AccountDto admin) {
         accountService.createAdmin(admin);
         return new ResponseEntity<>("Admin created", HttpStatus.CREATED);
     }
+
     @Secured("ROLE_USER")
     @DeleteMapping("/delete")
     ResponseEntity<String> deleteUser() {
@@ -42,16 +45,19 @@ public class AccountController {
         accountService.changePassword(password);
         return new ResponseEntity<>("User updated", HttpStatus.ACCEPTED);
     }
+
     @Secured("ROLE_ADMIN")
     @PutMapping("/admin/promoteToAdmin/{username}")
     ResponseEntity<String> promoteUserToAdmin(@PathVariable String username) {
         accountService.promoteUserToAdmin(username);
         return new ResponseEntity<>(username + " role promoted to admin", HttpStatus.ACCEPTED);
     }
+
     @Secured("ROLE_ADMIN")
     @PutMapping("/admin/demoteToUser/{username}")
     ResponseEntity<String> demoteAdminToUser(@PathVariable String username) {
         accountService.demoteAdminToUser(username);
         return new ResponseEntity<>(username + " role demoted to user", HttpStatus.ACCEPTED);
     }
+
 }

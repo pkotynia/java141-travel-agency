@@ -29,6 +29,16 @@ public class HotelController {
         return hotelService.getHotel(name);
     }
 
+    @GetMapping ("/topHotels")
+    List<HotelDto> getTopHotels() {
+        return hotelService.getTopHotels();
+    }
+
+    @GetMapping ("/filterByCity")
+    List<HotelDto> getTopHotels(@RequestParam String cityName) {
+        return hotelService.findHotelsByCityName(cityName);
+    }
+
     @Secured("ROLE_ADMIN")
     @DeleteMapping("/{hotelName}")
     ResponseEntity<String> deleteHotel(@PathVariable String hotelName) {
@@ -50,8 +60,5 @@ public class HotelController {
         return new ResponseEntity<>("Hotel created", HttpStatus.CREATED);
     }
 
-    @GetMapping ("/topHotels")
-    List<HotelDto> getTopHotels() {
-        return hotelService.getTopHotels();
-    }
+
 }
