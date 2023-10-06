@@ -28,7 +28,7 @@ public class InMemoryConfig {
                     .username("testAdmin")
                     .passwordEncoder(password -> PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(password))
                     .password("password")
-                    .roles("ADMIN")
+                    .roles("USER","ADMIN")
                     .build();
             userDetailsManager().createUser(user);
             UserDetails testUser = User
