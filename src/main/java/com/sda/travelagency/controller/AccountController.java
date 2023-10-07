@@ -21,14 +21,14 @@ public class AccountController {
 
 
     @PostMapping("/create")
-    ResponseEntity<String> addUser(@Valid @RequestBody AccountDto user) {
+    ResponseEntity<String> addUser(@Valid @RequestBody AccountDto user) throws RuntimeException{
         accountService.createUser(user);
         return new ResponseEntity<>("User created", HttpStatus.CREATED);
     }
 
     @Secured("ROLE_ADMIN")
     @PostMapping("/admin/create")
-    ResponseEntity<String> addAdmin(@Valid @RequestBody AccountDto admin) {
+    ResponseEntity<String> addAdmin(@Valid @RequestBody AccountDto admin) throws RuntimeException{
         accountService.createAdmin(admin);
         return new ResponseEntity<>("Admin created", HttpStatus.CREATED);
     }
@@ -42,21 +42,21 @@ public class AccountController {
 
     @Secured("ROLE_USER")
     @PutMapping("/changePassword")
-    ResponseEntity<String> changePassword(@RequestParam String password) {
+    ResponseEntity<String> changePassword(@RequestParam String password) throws RuntimeException{
         accountService.changePassword(password);
         return new ResponseEntity<>("User updated", HttpStatus.ACCEPTED);
     }
 
     @Secured("ROLE_ADMIN")
     @PutMapping("/admin/promoteToAdmin/{username}")
-    ResponseEntity<String> promoteUserToAdmin(@PathVariable String username) {
+    ResponseEntity<String> promoteUserToAdmin(@PathVariable String username) throws RuntimeException{
         accountService.promoteUserToAdmin(username);
         return new ResponseEntity<>(username + " role promoted to admin", HttpStatus.ACCEPTED);
     }
 
     @Secured("ROLE_ADMIN")
     @PutMapping("/admin/demoteToUser/{username}")
-    ResponseEntity<String> demoteAdminToUser(@PathVariable String username) {
+    ResponseEntity<String> demoteAdminToUser(@PathVariable String username) throws RuntimeException{
         accountService.demoteAdminToUser(username);
         return new ResponseEntity<>(username + " role demoted to user", HttpStatus.ACCEPTED);
     }

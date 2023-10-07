@@ -27,7 +27,7 @@ public class OfferController {
     }
 
     @GetMapping("/{name}")
-    public OfferDto getOffer(@PathVariable String name){  // should be @PathVariable !!
+    public OfferDto getOffer(@PathVariable String name) throws RuntimeException{
         return offerService.getOffer(name);
     }
 
@@ -36,7 +36,7 @@ public class OfferController {
         return offerService.getOfferByPriceGreaterThanAndPriceLessThanOrderByPriceDesc(minPrice, maxPrice);
     }
     @GetMapping("/filterByHotel")
-    List<OfferDto> getOffersByHotel(@RequestParam String hotelName) {
+    List<OfferDto> getOffersByHotel(@RequestParam String hotelName) throws RuntimeException {
         return offerService.getOffersByHotelName(hotelName);
     }
 
@@ -49,21 +49,21 @@ public class OfferController {
 
     @Secured("ROLE_ADMIN")
     @DeleteMapping("/{offerName}")
-    ResponseEntity<String> deleteOffer(@PathVariable String offerName) {
+    ResponseEntity<String> deleteOffer(@PathVariable String offerName) throws RuntimeException{
         offerService.deleteOffer(offerName);
         return new ResponseEntity<>("Offer deleted", HttpStatus.ACCEPTED);
     }
 
     @Secured("ROLE_ADMIN")
     @PutMapping("/{offerName}")
-    ResponseEntity<String> updateOffer(@PathVariable String offerName,@Valid @RequestBody OfferDto offerDto) {
+    ResponseEntity<String> updateOffer(@PathVariable String offerName,@Valid @RequestBody OfferDto offerDto) throws RuntimeException{
         offerService.updateOffer(offerName, offerDto);
         return new ResponseEntity<>("Offer updated", HttpStatus.ACCEPTED);
     }
 
     @Secured("ROLE_USER")
     @PutMapping("/reserve/{offerName}")
-    ResponseEntity<String> reserveOffer(@PathVariable String offerName) {
+    ResponseEntity<String> reserveOffer(@PathVariable String offerName) throws RuntimeException{
         offerService.reserveOffer(offerName);
         return new ResponseEntity<>("Accepted", HttpStatus.ACCEPTED);
     }

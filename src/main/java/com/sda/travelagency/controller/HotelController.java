@@ -25,7 +25,7 @@ public class HotelController {
     }
 
     @GetMapping("/{name}")
-    public HotelDto getHotel(@PathVariable String name){
+    public HotelDto getHotel(@PathVariable String name) throws RuntimeException{
         return hotelService.getHotel(name);
     }
 
@@ -35,20 +35,20 @@ public class HotelController {
     }
 
     @GetMapping ("/filterByCity")
-    List<HotelDto> getTopHotels(@RequestParam String cityName) {
+    List<HotelDto> getTopHotels(@RequestParam String cityName) throws RuntimeException {
         return hotelService.getHotelsByCityName(cityName);
     }
 
     @Secured("ROLE_ADMIN")
     @DeleteMapping("/{hotelName}")
-    ResponseEntity<String> deleteHotel(@PathVariable String hotelName) {
+    ResponseEntity<String> deleteHotel(@PathVariable String hotelName) throws RuntimeException {
         hotelService.deleteHotel(hotelName);
         return new ResponseEntity<>("Hotel deleted", HttpStatus.ACCEPTED);
     }
 
     @Secured("ROLE_ADMIN")
     @PutMapping("/{hotelName}")
-    ResponseEntity<String> updateHotel(@PathVariable String hotelName,@Valid @RequestBody HotelDto hotelDto) {
+    ResponseEntity<String> updateHotel(@PathVariable String hotelName,@Valid @RequestBody HotelDto hotelDto) throws RuntimeException{
         hotelService.updateHotel(hotelName, hotelDto);
         return new ResponseEntity<>("Hotel updated", HttpStatus.ACCEPTED);
     }
@@ -59,6 +59,4 @@ public class HotelController {
         hotelService.addHotel(hotelDto);
         return new ResponseEntity<>("Hotel created", HttpStatus.CREATED);
     }
-
-
 }
