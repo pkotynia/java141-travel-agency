@@ -37,7 +37,7 @@ public class OfferController {
     }
     @GetMapping("/filterByHotel")
     List<OfferDto> getOffersByHotel(@RequestParam String hotelName) {
-        return offerService.getOffersByHotel(hotelName);
+        return offerService.getOffersByHotelName(hotelName);
     }
 
     @Secured("ROLE_ADMIN")

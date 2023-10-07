@@ -20,6 +20,13 @@ public class InMemoryConfig {
     public UserDetailsManager userDetailsManager(){
         return new InMemoryUserDetailsManager();
     }
+
+    /**
+     * This bean is used to create initial accounts for tests
+     * It is using User builder to build UserDetails object with default test data which is saved in UserDetailsManager
+     * Password is encoded by BCryptPasswordEncoder.
+     * @return InitializingBean
+     **/
     @Bean
     public InitializingBean initializingBean(){
         return () -> {

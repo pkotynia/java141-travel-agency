@@ -159,7 +159,7 @@ class OfferControllerTest {
         Assertions.assertEquals("No such offer exists", detail.getDetail());
     }
     @Test
-    void shouldGetOffersByOfferName(){
+    void shouldGetOffersByHotelName(){
         String hotelName = hotelRepository.findAll().get(0).getName();
         testClient
                 .get()
