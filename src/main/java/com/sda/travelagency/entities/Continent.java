@@ -12,7 +12,7 @@ public class Continent {
     private Integer id;
     private String name;
 
-    @OneToMany
+    @OneToMany()
     private List<Country> countryList;
 
     public Continent(String name, List<Country> countryList) {

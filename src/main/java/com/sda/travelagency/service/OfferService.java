@@ -56,7 +56,7 @@ public class OfferService {
         offerRepository.save(offerToUpdate);
     }
 
-    public void addOfferToCart(String offerName) {
+    public void reserveOffer(String offerName) {
         Offer offerByName = offerRepository.findByName(offerName).orElseThrow(() -> new OfferNotFoundException("No such offer exists"));
         String username = Username.getActive();
         if(username == null) {
@@ -69,14 +69,14 @@ public class OfferService {
         offerRepository.save(offerByName);
     }
 
-    public List<OfferDto> findByPriceGreaterThanAndPriceLessThanOrderByPriceDesc(BigDecimal minPrice, BigDecimal maxPrice){
+    public List<OfferDto> getOfferByPriceGreaterThanAndPriceLessThanOrderByPriceDesc(BigDecimal minPrice, BigDecimal maxPrice){
         return offerRepository.findByPriceGreaterThanAndPriceLessThanOrderByPriceDesc(minPrice, maxPrice)
                 .stream()
                 .map(OfferMapper::offerToOfferDto)
                 .toList();
     }
 
-    public List<OfferDto> findOffersByHotel(String hotelName){
+    public List<OfferDto> getOffersByHotel(String hotelName){
         if(hotelRepository.findByName(hotelName).isEmpty()){
             throw new HotelNotFoundException("No such hotel exists");
         }

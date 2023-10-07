@@ -17,7 +17,7 @@ public class City {
     @JoinColumn(name = "country_id")
     private Country country;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.DETACH)
     private List<Hotel> hotel;
 
     public City(String name, Country country) {

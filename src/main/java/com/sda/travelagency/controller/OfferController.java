@@ -33,12 +33,11 @@ public class OfferController {
 
     @GetMapping("/filterByPrice")
     List<OfferDto> getOffersFilterByPrice(@RequestParam BigDecimal minPrice, @RequestParam BigDecimal maxPrice) {
-        return offerService.findByPriceGreaterThanAndPriceLessThanOrderByPriceDesc(minPrice, maxPrice);
+        return offerService.getOfferByPriceGreaterThanAndPriceLessThanOrderByPriceDesc(minPrice, maxPrice);
     }
-
     @GetMapping("/filterByHotel")
-    List<OfferDto> findOffersByHotel(@RequestParam String hotelName) {
-        return offerService.findOffersByHotel(hotelName);
+    List<OfferDto> getOffersByHotel(@RequestParam String hotelName) {
+        return offerService.getOffersByHotel(hotelName);
     }
 
     @Secured("ROLE_ADMIN")
@@ -62,14 +61,10 @@ public class OfferController {
         return new ResponseEntity<>("Offer updated", HttpStatus.ACCEPTED);
     }
 
-
     @Secured("ROLE_USER")
-    @PutMapping("/addToCart/{offerName}")
-    ResponseEntity<String> AddOfferToCart(@PathVariable String offerName) {
-        offerService.addOfferToCart(offerName);
-        return new ResponseEntity<>("accepted", HttpStatus.ACCEPTED);
+    @PutMapping("/reserve/{offerName}")
+    ResponseEntity<String> reserveOffer(@PathVariable String offerName) {
+        offerService.reserveOffer(offerName);
+        return new ResponseEntity<>("Accepted", HttpStatus.ACCEPTED);
     }
-
-
-
 }
