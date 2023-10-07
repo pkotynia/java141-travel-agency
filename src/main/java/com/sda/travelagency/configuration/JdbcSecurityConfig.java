@@ -43,10 +43,18 @@ public class JdbcSecurityConfig {
     public InitializingBean initializingBean(DataSource dataSource) {
         return () -> {
             String password = new BCryptPasswordEncoder().encode("password");
-            UserDetails user = User
+            UserDetails admin = User
                     .withUsername("admin")
                     .password(password)
                     .roles("USER","ADMIN")
+                    .build();
+            userDetailsManager(dataSource).createUser(admin);
+
+            password = new BCryptPasswordEncoder().encode("password");
+            UserDetails user = User
+                    .withUsername("user")
+                    .password(password)
+                    .roles("USER")
                     .build();
             userDetailsManager(dataSource).createUser(user);
         };
