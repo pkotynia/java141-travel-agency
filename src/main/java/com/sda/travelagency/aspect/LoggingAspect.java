@@ -18,9 +18,10 @@ public class LoggingAspect {
 
     @After("execution(* com.sda.travelagency.controller..*(..))")
     public void logAfterAnyControllerMethod(JoinPoint joinPoint){
-        logger.info(String.format("User: %s called method: %s at: %s"
+        logger.info(String.format("User: %s called method: %s from: %s at: %s"
                 ,Username.getActive()
                 ,joinPoint.getSignature().getName()
+                ,joinPoint.getSignature().getDeclaringType().getSimpleName()
                 ,LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss dd.MM.uuuu"))));
     }
 }
