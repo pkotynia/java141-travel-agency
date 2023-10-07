@@ -15,6 +15,14 @@ public class OfferMapper {
         this.hotelRepository = hotelRepository;
     }
 
+    /**
+     * This method takes as a param HotelDto object.
+     * It is using empty constructor to initialize Offer object and sets it required fields with data from OfferDto object
+     * To set Hotel object it uses hotelName from OfferDto to find it in HotelRepository
+     * @param offerDto
+     * @return Offer
+     * @throws HotelNotFoundException "No such hotel exists"
+     **/
     public Offer offerDtoToOffer(OfferDto offerDto) {
         Offer mappedOffer = new Offer();
         mappedOffer.setName(offerDto.getName());
@@ -23,7 +31,12 @@ public class OfferMapper {
         return mappedOffer;
     }
 
-    //custom join pare tabel
+    /**
+     * This method takes as a param Offer object.
+     * It is using empty constructor to initialize OfferDto object and sets it required fields with data from Offer object
+     * @param offer
+     * @return OfferDto
+     **/
     public static OfferDto offerToOfferDto(Offer offer){
         OfferDto offerDto = new OfferDto();
         offerDto.setName(offer.getName());

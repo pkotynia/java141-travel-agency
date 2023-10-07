@@ -24,11 +24,21 @@ public class JdbcSecurityConfig {
         return new JdbcUserDetailsManager(dataSource);
     }
 
+    /**
+     * This bean is used to declare BCryptPasswordEncoder as a PasswordEncoder
+     * @return PasswordEncoder
+     **/
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * This bean is used to create initial admin account.
+     * It is using User builder to build UserDetails object with default data which is saved in UserDetailsManager
+     * Password is encoded by BCryptPasswordEncoder.
+     * @return InitializingBean
+     **/
     @Bean
     public InitializingBean initializingBean(DataSource dataSource) {
         return () -> {

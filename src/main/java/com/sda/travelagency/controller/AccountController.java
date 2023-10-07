@@ -19,6 +19,7 @@ public class AccountController {
         this.accountService = accountService;
     }
 
+
     @PostMapping("/create")
     ResponseEntity<String> addUser(@Valid @RequestBody AccountDto user) {
         accountService.createUser(user);

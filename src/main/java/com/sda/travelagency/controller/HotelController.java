@@ -36,7 +36,7 @@ public class HotelController {
 
     @GetMapping ("/filterByCity")
     List<HotelDto> getTopHotels(@RequestParam String cityName) {
-        return hotelService.findHotelsByCityName(cityName);
+        return hotelService.getHotelsByCityName(cityName);
     }
 
     @Secured("ROLE_ADMIN")
