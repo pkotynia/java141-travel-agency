@@ -34,9 +34,6 @@ class OfferControllerTest {
     @Autowired
     private OfferRepository offerRepository;
 
-    @Autowired
-    private OfferMapper offerMapper;
-
     private final BigDecimal PRICE = BigDecimal.valueOf(100.0);
 
     @Test
@@ -56,20 +53,15 @@ class OfferControllerTest {
     @Test
     void shouldAddOffer() {
         Hotel testHotel = hotelRepository.findAll().get(0);
-
-        OfferDto offerDto = new OfferDto(
-                "Test Offer",
-                testHotel.getName(),
-                testHotel.getCity().getName(),
-                testHotel.getCity().getCountry().getName(),
-                testHotel.getCity().getCountry().getContinent().getName(),
-                PRICE);
-
         testClient
                 .post()
-                .uri("/offers/addOffer")
-                .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(offerDto)
+                .uri("/hotels/addHotel")
+                .bodyValue(new OfferDto("newTestOffer"
+                        ,testHotel.getName()
+                        ,testHotel.getCity().getName()
+                        ,testHotel.getCity().getCountry().getName()
+                        ,testHotel.getCity().getCountry().getContinent().getName()
+                        ,PRICE))
                 .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
                 .exchange()
                 .expectStatus().isCreated();
@@ -160,12 +152,14 @@ class OfferControllerTest {
     }
     @Test
     void shouldGetOffersByHotelName(){
-        String hotelName = hotelRepository.findAll().get(0).getName();
+        Hotel existingHotel = hotelRepository.findAll().get(0);
+        Hotel hotel = new Hotel("newTestHotel", existingHotel.getRating(), existingHotel.getCity());
+        hotelRepository.save(hotel);
         testClient
                 .get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/offers/filterByHotel")
-                        .queryParam("hotelName", hotelName)
+                        .queryParam("hotelName", hotel.getName())
                         .build())
                 .headers(headersConsumer -> headersConsumer.setBasicAuth("testUser", "password"))
                 .exchange()

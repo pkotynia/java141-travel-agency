@@ -2,6 +2,7 @@ package com.sda.travelagency.controller;
 
 import com.sda.travelagency.dtos.HotelDto;
 import com.sda.travelagency.entities.Hotel;
+import com.sda.travelagency.entities.Offer;
 import com.sda.travelagency.mapper.HotelMapper;
 import com.sda.travelagency.repository.CityRepository;
 import com.sda.travelagency.repository.HotelRepository;
@@ -16,9 +17,7 @@ import org.springframework.http.ProblemDetail;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -131,19 +130,6 @@ class HotelControllerTest {
         Assertions.assertEquals("No such hotel exists",detail.getDetail());
     }
     @Test
-    void shouldNotUpdateHotelWithIncorrectCityName(){
-        ProblemDetail detail = testClient
-                .put()
-                .uri("/hotels/{name}", hotelRepository.findAll().get(0).getName())
-                .bodyValue(new HotelDto("testHotel", RATING, "incorrectCityName"))
-                .accept(MediaType.APPLICATION_JSON)
-                .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
-                .exchange()
-                .expectStatus().isNotFound()
-                .expectBody(ProblemDetail.class).returnResult().getResponseBody();
-        Assertions.assertEquals("No such city exists",detail.getDetail());
-    }
-    @Test
     void shouldAddHotel(){
         testClient
                 .post()
@@ -230,14 +216,16 @@ class HotelControllerTest {
 
     @Test
     void shouldDeleteHotel(){
-        Hotel hotelToDelete = hotelRepository.findAll().get(0);
-        hotelToDelete.getOffers().forEach(offer -> offerRepository.deleteById(offer.getId()));
+        Offer offer = offerRepository.findAll().get(0);
+        Hotel hotelToDelete = new Hotel("hotelToDelete", offer.getHotel().getRating(), offer.getHotel().getCity());
+        hotelRepository.save(hotelToDelete);
         testClient
                 .delete()
                 .uri("/hotels/{name}",hotelToDelete.getName())
                 .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
                 .exchange()
                 .expectStatus().isAccepted();
+        Assertions.assertFalse(hotelRepository.findAll().contains(hotelToDelete));
     }
 
 

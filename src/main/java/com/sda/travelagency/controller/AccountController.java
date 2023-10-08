@@ -21,14 +21,14 @@ public class AccountController {
 
 
     @PostMapping("/create")
-    ResponseEntity<String> addUser(@Valid @RequestBody AccountDto user) throws RuntimeException{
+    ResponseEntity<String> createUser(@Valid @RequestBody AccountDto user) throws RuntimeException{
         accountService.createUser(user);
         return new ResponseEntity<>("User created", HttpStatus.CREATED);
     }
 
     @Secured("ROLE_ADMIN")
     @PostMapping("/admin/create")
-    ResponseEntity<String> addAdmin(@Valid @RequestBody AccountDto admin) throws RuntimeException{
+    ResponseEntity<String> createAdmin(@Valid @RequestBody AccountDto admin) throws RuntimeException{
         accountService.createAdmin(admin);
         return new ResponseEntity<>("Admin created", HttpStatus.CREATED);
     }
