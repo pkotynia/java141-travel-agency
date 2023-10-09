@@ -37,14 +37,14 @@ public class AccountController {
     @DeleteMapping("/delete")
     ResponseEntity<String> deleteUser() {
         accountService.deleteUser();
-        return new ResponseEntity<>("User deleted", HttpStatus.ACCEPTED);
+        return new ResponseEntity<>("Account deleted", HttpStatus.ACCEPTED);
     }
 
     @Secured("ROLE_USER")
     @PutMapping("/changePassword")
     ResponseEntity<String> changePassword(@RequestParam String password) throws RuntimeException{
         accountService.changePassword(password);
-        return new ResponseEntity<>("User updated", HttpStatus.ACCEPTED);
+        return new ResponseEntity<>("Password changed", HttpStatus.ACCEPTED);
     }
 
     @Secured("ROLE_ADMIN")

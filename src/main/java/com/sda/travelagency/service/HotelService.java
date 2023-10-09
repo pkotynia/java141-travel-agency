@@ -75,6 +75,7 @@ public class HotelService {
      **/
     public void deleteHotel(String hotelName) {
         Hotel hotelToDelete = hotelRepository.findByName(hotelName).orElseThrow(() -> new HotelNotFoundException("No such hotel exists"));
+        System.out.println(hotelToDelete.getOffers());
         if (!hotelToDelete.getOffers().isEmpty()) {
             throw new HotelCantBeDeletedException("Hotel is associated with offers and cannot be deleted");
         }
@@ -108,7 +109,7 @@ public class HotelService {
     }
 
     /**
-     * This method finds an hotels in the database sorted by rating desc.
+     * This method finds hotels in the database sorted by rating desc.
      * Then, it uses the HotelMapper class to transform instances of the Hotel objects into an HotelDto, which is added to List and passed on.
      * @return List of HotelDto
      **/

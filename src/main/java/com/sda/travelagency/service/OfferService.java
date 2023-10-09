@@ -88,6 +88,7 @@ public class OfferService {
     public void updateOffer(String offerName, OfferDto offerDto){
         Offer offerToUpdate = offerRepository.findByName(offerName).orElseThrow(() -> new OfferNotFoundException("No such offer exists"));
         offerToUpdate.setName(offerDto.getName());
+        offerToUpdate.setPrice(offerDto.getPrice());
         offerRepository.save(offerToUpdate);
     }
     /**

@@ -35,7 +35,7 @@ public class HotelController {
     }
 
     @GetMapping ("/filterByCity")
-    List<HotelDto> getTopHotels(@RequestParam String cityName) throws RuntimeException {
+    List<HotelDto> getHotelsByCityName(@RequestParam String cityName) throws RuntimeException {
         return hotelService.getHotelsByCityName(cityName);
     }
 
