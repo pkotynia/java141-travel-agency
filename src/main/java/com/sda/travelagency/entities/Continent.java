@@ -23,10 +23,6 @@ public class Continent {
     public Continent() {
     }
 
-    public int getId() {
-        return id;
-    }
-
     public String getName() {
         return name;
     }

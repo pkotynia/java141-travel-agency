@@ -37,28 +37,28 @@ public class AccountController {
     @DeleteMapping("/delete")
     ResponseEntity<String> deleteUser() {
         accountService.deleteUser();
-        return new ResponseEntity<>("Account deleted", HttpStatus.ACCEPTED);
+        return new ResponseEntity<>("Account deleted", HttpStatus.OK);
     }
 
     @Secured("ROLE_USER")
     @PutMapping("/changePassword")
     ResponseEntity<String> changePassword(@RequestParam String password) throws RuntimeException{
         accountService.changePassword(password);
-        return new ResponseEntity<>("Password changed", HttpStatus.ACCEPTED);
+        return new ResponseEntity<>("Password changed", HttpStatus.OK);
     }
 
     @Secured("ROLE_ADMIN")
     @PutMapping("/admin/promoteToAdmin/{username}")
     ResponseEntity<String> promoteUserToAdmin(@PathVariable String username) throws RuntimeException{
         accountService.promoteUserToAdmin(username);
-        return new ResponseEntity<>(username + " role promoted to admin", HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(username + " role promoted to admin", HttpStatus.OK);
     }
 
     @Secured("ROLE_ADMIN")
     @PutMapping("/admin/demoteToUser/{username}")
     ResponseEntity<String> demoteAdminToUser(@PathVariable String username) throws RuntimeException{
         accountService.demoteAdminToUser(username);
-        return new ResponseEntity<>(username + " role demoted to user", HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(username + " role demoted to user", HttpStatus.OK);
     }
 
 }

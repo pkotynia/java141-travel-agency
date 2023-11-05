@@ -31,9 +31,6 @@ public class Offer {
 
 
     public String getUserName() {return userName; }
-    public Integer getId() {
-        return id;
-    }
     public String getName() {
         return name;
     }
@@ -47,10 +44,6 @@ public class Offer {
 
     public void setUserName(String username) {
         this.userName = username;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public void setName(String name) {

@@ -75,7 +75,6 @@ public class HotelService {
      **/
     public void deleteHotel(String hotelName) {
         Hotel hotelToDelete = hotelRepository.findByName(hotelName).orElseThrow(() -> new HotelNotFoundException("No such hotel exists"));
-        System.out.println(hotelToDelete.getOffers());
         if (!hotelToDelete.getOffers().isEmpty()) {
             throw new HotelCantBeDeletedException("Hotel is associated with offers and cannot be deleted");
         }

@@ -51,20 +51,20 @@ public class OfferController {
     @DeleteMapping("/{offerName}")
     ResponseEntity<String> deleteOffer(@PathVariable String offerName) throws RuntimeException{
         offerService.deleteOffer(offerName);
-        return new ResponseEntity<>("Offer deleted", HttpStatus.ACCEPTED);
+        return new ResponseEntity<>("Offer deleted", HttpStatus.OK);
     }
 
     @Secured("ROLE_ADMIN")
     @PutMapping("/{offerName}")
     ResponseEntity<String> updateOffer(@PathVariable String offerName,@Valid @RequestBody OfferDto offerDto) throws RuntimeException{
         offerService.updateOffer(offerName, offerDto);
-        return new ResponseEntity<>("Offer updated", HttpStatus.ACCEPTED);
+        return new ResponseEntity<>("Offer updated", HttpStatus.OK);
     }
 
     @Secured("ROLE_USER")
     @PutMapping("/reserve/{offerName}")
     ResponseEntity<String> reserveOffer(@PathVariable String offerName) throws RuntimeException{
         offerService.reserveOffer(offerName);
-        return new ResponseEntity<>("Accepted", HttpStatus.ACCEPTED);
+        return new ResponseEntity<>("Accepted", HttpStatus.OK);
     }
 }

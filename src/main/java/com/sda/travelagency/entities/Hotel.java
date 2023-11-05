@@ -31,10 +31,6 @@ public class Hotel {
     public Hotel() {
     }
 
-    public Integer getId() {
-        return id;
-    }
-
     public String getName() {
         return name;
     }
@@ -51,20 +47,12 @@ public class Hotel {
         return rating;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
     public void setCity(City city) {
         this.city = city;
-    }
-
-    public void setOffers(List<Offer> offers) {
-        this.offers = offers;
     }
 
     public void setRating(Float rating) {

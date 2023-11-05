@@ -27,10 +27,6 @@ public class Country {
     public Country() {
     }
 
-    public Integer getId() {
-        return id;
-    }
-
     public String getName() {
         return name;
     }
