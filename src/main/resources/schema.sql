@@ -20,6 +20,13 @@ CREATE TABLE IF NOT EXISTS city (
     CONSTRAINT FK_country_id FOREIGN KEY (country_id) REFERENCES country(id)
 );
 
+CREATE TABLE IF NOT EXISTS airport (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    city_id INT,
+    CONSTRAINT FK_city_id FOREIGN KEY (city_id) REFERENCES city(id)
+);
+
 CREATE TABLE IF NOT EXISTS hotel (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255),

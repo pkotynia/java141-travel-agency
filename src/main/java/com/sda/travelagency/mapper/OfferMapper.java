@@ -41,6 +41,7 @@ public class OfferMapper {
         OfferDto offerDto = new OfferDto();
         offerDto.setName(offer.getName());
         offerDto.setHotelName(offer.getHotel().getName());
+        offerDto.setAirportName(offer.getHotel().getCity().getAirport().get(0).getName());
         offerDto.setCityName(offer.getHotel().getCity().getName());
         offerDto.setCountryName(offer.getHotel().getCity().getCountry().getName());
         offerDto.setContinentName(offer.getHotel().getCity().getCountry().getContinent().getName());

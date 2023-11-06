@@ -55,6 +55,12 @@ VALUES
     ('Cubus', 2, 7.0),
     ('Marriot', 3, 9.0);
 
+INSERT INTO airport (name, city_id)
+VALUES
+    ('Międzynarodowy Port Lotniczy im. Jana Pawła II Kraków-Balice', 1),
+    ('Port Lotniczy Wrocław S.A.', 2),
+    ('Lotnisko Chopina Warszawa', 3);
+
 INSERT INTO offer (name, hotel_id, price)
 VALUES
     ('Kraków_offer',1,100.0),
