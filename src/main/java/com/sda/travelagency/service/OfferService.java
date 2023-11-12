@@ -5,7 +5,7 @@ import com.sda.travelagency.entities.Offer;
 import com.sda.travelagency.exception.HotelNotFoundException;
 import com.sda.travelagency.exception.OfferNotAvailableException;
 import com.sda.travelagency.exception.OfferNotFoundException;
-import com.sda.travelagency.exception.SessionExpiredException;
+import com.sda.travelagency.exception.AnnonymousAuthorizationException;
 import com.sda.travelagency.mapper.OfferMapper;
 import com.sda.travelagency.repository.HotelRepository;
 import com.sda.travelagency.repository.OfferRepository;
@@ -98,14 +98,14 @@ public class OfferService {
      * @param offerName
      * @return void
      * @throws OfferNotFoundException "No such offer exists"
-     * @throws SessionExpiredException "Session expired"
+     * @throws AnnonymousAuthorizationException "Session expired"
      * @throws OfferNotAvailableException "Offer is already taken"
      **/
     public void reserveOffer(String offerName) {
         Offer offerByName = offerRepository.findByName(offerName).orElseThrow(() -> new OfferNotFoundException("No such offer exists"));
         String username = Username.getActive();
         if(username == null) {
-            throw new SessionExpiredException("Session expired");
+            throw new AnnonymousAuthorizationException("Session expired");
         }
         if(offerByName.getUserName() != null) {
             throw new OfferNotAvailableException("Offer is already taken");

@@ -1,7 +1,7 @@
 package com.sda.travelagency.service;
 
 import com.sda.travelagency.dtos.AccountDto;
-import com.sda.travelagency.exception.SessionExpiredException;
+import com.sda.travelagency.exception.AnnonymousAuthorizationException;
 import com.sda.travelagency.exception.UserAlreadyExistsException;
 import com.sda.travelagency.util.Username;
 import org.springframework.security.core.userdetails.User;
@@ -77,12 +77,12 @@ public class AccountService {
      * New password is encoded by BCryptPasswordEncoder and changed.
      * @param password
      * @return void
-     * @throws SessionExpiredException "Session expired"
+     * @throws AnnonymousAuthorizationException "No user logged in"
      **/
     public void changePassword(String password){
         String username = Username.getActive();
         if(username == null) {
-            throw new SessionExpiredException("Session expired");
+            throw new AnnonymousAuthorizationException("No user logged in");
         }
         UserDetails user = userDetailsManager.loadUserByUsername(username);
         String newPassword = new BCryptPasswordEncoder().encode(password);

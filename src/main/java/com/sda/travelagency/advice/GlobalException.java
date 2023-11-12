@@ -47,8 +47,8 @@ public class GlobalException {
     public ProblemDetail handleOfferNotAvailableException(OfferNotAvailableException e){
         return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
     }
-    @ExceptionHandler(SessionExpiredException.class)
-    public ProblemDetail handleSessionExpiredExceptionException(SessionExpiredException e){
+    @ExceptionHandler(AnnonymousAuthorizationException.class)
+    public ProblemDetail handleSessionExpiredExceptionException(AnnonymousAuthorizationException e){
         return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
     }
 }
