@@ -143,7 +143,7 @@ public class OfferService {
         if(hotelRepository.findByName(hotelName).isEmpty()){
             throw new HotelNotFoundException("No such hotel exists");
         }
-        return offerRepository.findOffersByHotel(hotelName)
+        return offerRepository.findOffersByHotelName(hotelName)
                 .stream()
                 .map(OfferMapper::offerToOfferDto)
                 .toList();

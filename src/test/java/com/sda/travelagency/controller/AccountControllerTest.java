@@ -87,7 +87,7 @@ class AccountControllerTest {
                 .uri("/users/delete")
                 .headers(headersConsumer -> headersConsumer.setBasicAuth("userToDelete", "Test1234"))
                 .exchange()
-                .expectStatus().isAccepted();
+                .expectStatus().isOk();
     }
     @Test
     void shouldPromoteUserToAdminByAdmin() {
@@ -103,7 +103,7 @@ class AccountControllerTest {
                 .uri("/users/admin/promoteToAdmin/{username}", user.getUsername())
                 .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
                 .exchange()
-                .expectStatus().isAccepted();
+                .expectStatus().isOk();
         user = userDetailsManager.loadUserByUsername(user.getUsername());
         Assertions.assertTrue(user.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN")));
     }
@@ -140,7 +140,7 @@ class AccountControllerTest {
                     .uri("/users/admin/demoteToUser/{username}", user.getUsername())
                     .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
                     .exchange()
-                    .expectStatus().isAccepted();
+                    .expectStatus().isOk();
             user = userDetailsManager.loadUserByUsername(user.getUsername());
             Assertions.assertFalse(user.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN")));
     }

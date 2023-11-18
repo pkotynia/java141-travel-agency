@@ -13,6 +13,12 @@ ALTER TABLE country AUTO_INCREMENT = 1;
 DELETE FROM continent;
 ALTER TABLE continent AUTO_INCREMENT = 1;
 
+DELETE FROM users;
+ALTER TABLE users AUTO_INCREMENT = 1;
+
+DELETE FROM authorities;
+ALTER TABLE authorities AUTO_INCREMENT = 1;
+
 INSERT INTO continent (name)
 VALUES
     ('Europe'),
@@ -42,6 +48,12 @@ VALUES
     ('Kraków', 1),
     ('Wrocław', 2),
     ('Warszawa', 3);
+
+INSERT INTO airport (name, city_id)
+VALUES
+    ('Międzynarodowy Port Lotniczy im. Jana Pawła II Kraków-Balice', 1),
+    ('Port Lotniczy Wrocław S.A.', 2),
+    ('Lotnisko Chopina Warszawa', 3);
 
 INSERT INTO hotel (name, city_id, rating)
 VALUES

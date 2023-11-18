@@ -48,7 +48,7 @@ class OfferRepositoryTest {
         Offer offer = new Offer("testOffer", BigDecimal.valueOf(100),hotel);
         offerRepository.save(offer);
 
-        List<Offer> result = offerRepository.findOffersByHotel(hotel.getName());
+        List<Offer> result = offerRepository.findOffersByHotelName(hotel.getName());
 
         Assertions.assertThat(result.contains(offer));
     }
@@ -57,7 +57,7 @@ class OfferRepositoryTest {
         Hotel hotel = hotelRepository.findAll().get(0);
         Offer offer = new Offer("testOffer", BigDecimal.valueOf(100),hotel);
 
-        List<Offer> result = offerRepository.findOffersByHotel(hotel.getName());
+        List<Offer> result = offerRepository.findOffersByHotelName(hotel.getName());
 
         Assertions.assertThat(result.contains(offer));
     }

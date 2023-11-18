@@ -58,7 +58,6 @@ class OfferControllerTest {
                 .bodyValue(new OfferDto("newTestOffer"
                         ,testHotel.getName()
                         ,testHotel.getCity().getName()
-                        ,testHotel.getCity().getAirport().get(0).getName()
                         ,testHotel.getCity().getCountry().getName()
                         ,testHotel.getCity().getCountry().getContinent().getName()
                         ,PRICE))
@@ -135,7 +134,6 @@ class OfferControllerTest {
         OfferDto offerDto = new OfferDto(
                 INCORRECT_NAME,
                 testHotel.getName(),
-                testHotel.getCity().getAirport().get(0).getName(),
                 testHotel.getCity().getName(),
                 testHotel.getCity().getCountry().getName(),
                 testHotel.getCity().getCountry().getContinent().getName(),

@@ -114,7 +114,7 @@ class HotelControllerTest {
                 .bodyValue(new HotelDto("testHotel", RATING, cityRepository.findAll().get(0).getName()))
                 .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
                 .exchange()
-                .expectStatus().isAccepted();
+                .expectStatus().isOk();
     }
     @Test
     void shouldNotUpdateHotelWithIncorrectExistingHotelName(){
@@ -224,7 +224,7 @@ class HotelControllerTest {
                 .uri("/hotels/{name}",hotelToDelete.getName())
                 .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
                 .exchange()
-                .expectStatus().isAccepted();
+                .expectStatus().isOk();
         Assertions.assertFalse(hotelRepository.findAll().contains(hotelToDelete));
     }
 
