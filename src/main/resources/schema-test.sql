@@ -1,4 +1,5 @@
-CREATE database if not exists test;
+CREATE SCHEMA if not exists test;
+
 DROP TABLE IF EXISTS offer;
 DROP TABLE IF EXISTS hotel;
 DROP TABLE IF EXISTS airport;
