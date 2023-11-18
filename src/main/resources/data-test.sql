@@ -49,11 +49,6 @@ VALUES
     ('Wrocław', 2),
     ('Warszawa', 3);
 
-INSERT INTO airport (name, city_id)
-VALUES
-    ('Międzynarodowy Port Lotniczy im. Jana Pawła II Kraków-Balice', 1),
-    ('Port Lotniczy Wrocław S.A.', 2),
-    ('Lotnisko Chopina Warszawa', 3);
 
 INSERT INTO hotel (name, city_id, rating)
 VALUES

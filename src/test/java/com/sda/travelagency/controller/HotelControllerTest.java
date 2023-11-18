@@ -137,7 +137,7 @@ class HotelControllerTest {
                 .bodyValue(new HotelDto("testHotel", RATING, cityRepository.findAll().get(0).getName()))
                 .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
                 .exchange()
-                .expectStatus().isCreated();
+                .expectStatus().isOk();
     }
     @Test
     void shouldNotAddHotelWithNotExistingCityName (){

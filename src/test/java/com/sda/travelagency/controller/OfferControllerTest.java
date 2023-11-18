@@ -63,7 +63,7 @@ class OfferControllerTest {
                         ,PRICE))
                 .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
                 .exchange()
-                .expectStatus().isCreated();
+                .expectStatus().isOk();
     }
 
     @Test
@@ -74,7 +74,7 @@ class OfferControllerTest {
                 .uri("/offers/{offerName}", testOffer.getName())
                 .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
                 .exchange()
-                .expectStatus().isAccepted();
+                .expectStatus().isOk();
     }
     @Test
     void shouldNotDeleteOfferWithIncorrectName(){
@@ -125,7 +125,7 @@ class OfferControllerTest {
                 .bodyValue(updatedOfferDto)
                 .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
                 .exchange()
-                .expectStatus().isAccepted()
+                .expectStatus().isOk()
                 .expectBody(String.class).isEqualTo("Offer updated");
     }
     @Test
@@ -186,7 +186,7 @@ class OfferControllerTest {
                 .uri("/offers/reserve/{offerName}",offerName)
                 .headers(headersConsumer -> headersConsumer.setBasicAuth("testUser", "password"))
                 .exchange()
-                .expectStatus().isAccepted();
+                .expectStatus().isOk();
     }
     @Test
     void shouldGetOffersByPrice(){

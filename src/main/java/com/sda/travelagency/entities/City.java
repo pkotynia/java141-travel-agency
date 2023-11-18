@@ -20,9 +20,6 @@ public class City {
     @OneToMany(cascade = CascadeType.DETACH)
     private List<Hotel> hotel;
 
-    @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    private List<Airport> airport;
-
 
     public City(String name, Country country) {
         this.name = name;
@@ -41,20 +38,12 @@ public class City {
         return country;
     }
 
-    public List<Airport> getAirport() {
-        return airport;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
     public void setHotel(List<Hotel> hotel) {
         this.hotel = hotel;
-    }
-
-    public void setAirport(List<Airport> airport) {
-        this.airport = airport;
     }
 
     public List<Hotel> getHotel() {
