@@ -4,6 +4,9 @@ ALTER TABLE offer AUTO_INCREMENT = 1;
 DELETE FROM hotel;
 ALTER TABLE hotel AUTO_INCREMENT = 1;
 
+DELETE FROM airport;
+ALTER TABLE airport AUTO_INCREMENT = 1;
+
 DELETE FROM city;
 ALTER TABLE city AUTO_INCREMENT = 1;
 
@@ -55,6 +58,11 @@ VALUES
     ('Cubus', 2, 7.0),
     ('Marriot', 3, 9.0);
 
+INSERT INTO airport (name, city_id)
+VALUES
+    ('Kraków Airport', 1),
+    ('Wrocław Airport', 2),
+    ('Warszawa Airport', 3);
 
 INSERT INTO offer (name, hotel_id, price)
 VALUES

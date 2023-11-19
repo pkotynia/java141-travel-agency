@@ -19,6 +19,10 @@ public class OfferDto {
     @JsonElement
     @NotBlank(message = "City name is mandatory")
     private String cityName;
+
+    @JsonElement
+    @NotBlank(message = "Airport name is mandatory")
+    private String airportName;
     @JsonElement
     @NotBlank(message = "Country name is mandatory")
     private String countryName;
@@ -30,10 +34,11 @@ public class OfferDto {
     @DecimalMin("0.00")
     private BigDecimal price;
 
-    public OfferDto(String name, String hotelName, String cityName, String countryName, String continentName, BigDecimal price) {
+    public OfferDto(String name, String hotelName, String cityName, String airportName, String countryName, String continentName, BigDecimal price) {
         this.name = name;
         this.hotelName = hotelName;
         this.cityName = cityName;
+        this.airportName = airportName;
         this.countryName = countryName;
         this.continentName = continentName;
         this.price = price;
@@ -48,6 +53,10 @@ public class OfferDto {
 
     public String getHotelName() {
         return hotelName;
+    }
+
+    public String getAirportName() {
+        return airportName;
     }
 
     public String getCityName() {
@@ -77,6 +86,10 @@ public class OfferDto {
 
     public void setCityName(String cityName) {
         this.cityName = cityName;
+    }
+
+    public void setAirportName(String airportName) {
+        this.airportName = airportName;
     }
 
     public void setCountryName(String countryName) {

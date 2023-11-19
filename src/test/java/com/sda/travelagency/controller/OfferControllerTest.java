@@ -2,9 +2,11 @@ package com.sda.travelagency.controller;
 
 
 import com.sda.travelagency.dtos.OfferDto;
+import com.sda.travelagency.entities.Airport;
 import com.sda.travelagency.entities.Hotel;
 import com.sda.travelagency.entities.Offer;
 import com.sda.travelagency.mapper.OfferMapper;
+import com.sda.travelagency.repository.AirportRepository;
 import com.sda.travelagency.repository.HotelRepository;
 import com.sda.travelagency.repository.OfferRepository;
 import org.junit.jupiter.api.Assertions;
@@ -33,6 +35,12 @@ class OfferControllerTest {
     @Autowired
     private OfferRepository offerRepository;
 
+    @Autowired
+    private AirportRepository airportRepository;
+
+    @Autowired
+    private OfferMapper offerMapper;
+
     private final BigDecimal PRICE = BigDecimal.valueOf(100.0);
 
     @Test
@@ -52,13 +60,14 @@ class OfferControllerTest {
     @Test
     void shouldAddOffer() {
         Hotel testHotel = hotelRepository.findAll().get(0);
+        Airport testAirport = airportRepository.findAll().get(0);
         testClient
                 .post()
                 .uri("/hotels/addHotel")
                 .bodyValue(new OfferDto("newTestOffer"
                         ,testHotel.getName()
                         ,testHotel.getCity().getName()
-                        ,testHotel.getCity().getCountry().getName()
+                        , testAirport.getName(), testHotel.getCity().getCountry().getName()
                         ,testHotel.getCity().getCountry().getContinent().getName()
                         ,PRICE))
                 .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
@@ -88,7 +97,7 @@ class OfferControllerTest {
 
     @Test
     void shouldGetOfferByName() {
-        OfferDto testOfferDto = OfferMapper
+        OfferDto testOfferDto = offerMapper
                 .offerToOfferDto(offerRepository
                         .findAll()
                         .get(0));
@@ -114,7 +123,7 @@ class OfferControllerTest {
     }
     @Test
     void shouldUpdateOffer() {
-        OfferDto updatedOfferDto = OfferMapper
+        OfferDto updatedOfferDto = offerMapper
                 .offerToOfferDto(offerRepository
                         .findAll()
                         .get(0));
@@ -131,10 +140,12 @@ class OfferControllerTest {
     @Test
     void shouldNotUpdateOfferWithIncorrectName(){
         Hotel testHotel = hotelRepository.findAll().get(0);
+        Airport testAirport = airportRepository.findAll().get(0);
         OfferDto offerDto = new OfferDto(
                 INCORRECT_NAME,
                 testHotel.getName(),
                 testHotel.getCity().getName(),
+                testAirport.getName(),
                 testHotel.getCity().getCountry().getName(),
                 testHotel.getCity().getCountry().getContinent().getName(),
                 PRICE);

@@ -20,6 +20,9 @@ public class City {
     @OneToMany(cascade = CascadeType.DETACH)
     private List<Hotel> hotel;
 
+    @OneToMany
+    private List<Airport> airport;
+
 
     public City(String name, Country country) {
         this.name = name;

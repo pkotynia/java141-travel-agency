@@ -37,7 +37,7 @@ public class OfferService {
      **/
     public List<OfferDto> getAllOffers() {
         return offerRepository.findAll().stream()
-                .map(OfferMapper::offerToOfferDto)
+                .map(offerMapper::offerToOfferDto)
                 .collect(Collectors.toList());
     }
 
@@ -49,7 +49,7 @@ public class OfferService {
      * @throws OfferNotFoundException "No such offer exists"
      **/
     public OfferDto getOffer(String offerName){
-        return OfferMapper.offerToOfferDto(offerRepository.findByName(offerName).orElseThrow(() -> new OfferNotFoundException("No such offer exists")));
+        return offerMapper.offerToOfferDto(offerRepository.findByName(offerName).orElseThrow(() -> new OfferNotFoundException("No such offer exists")));
     }
 
     /**
@@ -126,7 +126,7 @@ public class OfferService {
     public List<OfferDto> getOfferByPriceGreaterThanAndPriceLessThanOrderByPriceDesc(BigDecimal minPrice, BigDecimal maxPrice){
         return offerRepository.findByPriceGreaterThanAndPriceLessThanOrderByPriceDesc(minPrice, maxPrice)
                 .stream()
-                .map(OfferMapper::offerToOfferDto)
+                .map(offerMapper::offerToOfferDto)
                 .toList();
     }
 
@@ -145,7 +145,7 @@ public class OfferService {
         }
         return offerRepository.findOffersByHotelName(hotelName)
                 .stream()
-                .map(OfferMapper::offerToOfferDto)
+                .map(offerMapper::offerToOfferDto)
                 .toList();
     }
 }

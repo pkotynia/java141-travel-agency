@@ -10,10 +10,14 @@ public class Airport {
     private Integer id;
 
     private String name;
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    private City city;
 
 
-    public Airport(String name) {
+    public Airport(String name, City city) {
         this.name = name;
+        this.city = city;
     }
     public Airport() {
     }
