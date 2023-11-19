@@ -4,6 +4,9 @@ ALTER TABLE offer AUTO_INCREMENT = 1;
 DELETE FROM hotel;
 ALTER TABLE hotel AUTO_INCREMENT = 1;
 
+DELETE FROM airport;
+ALTER TABLE airport AUTO_INCREMENT = 1;
+
 DELETE FROM city;
 ALTER TABLE city AUTO_INCREMENT = 1;
 
@@ -30,7 +33,7 @@ VALUES
 
 INSERT INTO country (name, continent_id)
 VALUES
-    ('Argentina', 1),
+    ('Poland', 1),
     ('Bolivia', 2),
     ('Brazil', 3),
     ('Chile', 4),
@@ -45,9 +48,9 @@ VALUES
 
 INSERT INTO city (name, country_id)
 VALUES
-    ('Kraków', 1),
-    ('Wrocław', 2),
-    ('Warszawa', 3);
+    ('Cracow', 1),
+    ('Wroclaw', 1),
+    ('Warsaw', 1);
 
 INSERT INTO hotel (name, city_id, rating)
 VALUES
@@ -55,13 +58,14 @@ VALUES
     ('Cubus', 2, 7.0),
     ('Marriot', 3, 9.0);
 
+INSERT INTO airport (name, city_id)
+VALUES
+    ('Cracow Airport', 1),
+    ('Wroclaw Airport', 2),
+    ('Warsaw Airport', 3);
+
 INSERT INTO offer (name, hotel_id, price)
 VALUES
-    ('Kraków_offer',1,100.0),
-    ('Wrocław_offer',2,100.0),
-    ('Warszawa_offer',3,100.0);
-
-INSERT INTO users VALUES (1, "user", "password", 1);
-INSERT INTO authorities VALUES (1, "user", "ROLE_USER");
-INSERT INTO users VALUES (2, "admin", "password", 1);
-INSERT INTO authorities VALUES (2, "admin", "ROLE_ADMIN");
+    ('Cracow_offer',1,100.0),
+    ('Wroclaw_offer',2,200.0),
+    ('Warsaw_offer',3,300.0);

@@ -8,7 +8,7 @@ import java.util.List;
 public class City {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
@@ -17,8 +17,12 @@ public class City {
     @JoinColumn(name = "country_id")
     private Country country;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.DETACH)
     private List<Hotel> hotel;
+
+    @OneToMany(cascade = CascadeType.DETACH)
+    private List<Airport> airport;
+
 
     public City(String name, Country country) {
         this.name = name;
@@ -28,9 +32,6 @@ public class City {
     public City() {
     }
 
-    public Integer getId() {
-        return id;
-    }
 
     public String getName() {
         return name;
@@ -40,16 +41,8 @@ public class City {
         return country;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
     }
 
     public void setHotel(List<Hotel> hotel) {

@@ -1,8 +1,21 @@
 package com.sda.travelagency.dtos;
 
-public class AccountDto {
-    private String name;
+import com.sda.travelagency.annotation.JsonElement;
+import com.sda.travelagency.annotation.JsonSerializable;
+import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+@JsonSerializable
+public class AccountDto {
+    @JsonElement
+    @NotBlank(message = "Account name is mandatory")
+    private String name;
+    @JsonElement
+    @Size(min = 8, max = 32, message = "Password size should be between 8 and 32 characters")
     private String password;
 
     public AccountDto(String name, String password) {
@@ -10,6 +23,13 @@ public class AccountDto {
         this.password = password;
     }
 
+    @AssertTrue(message = "Password should contain at least one lowercase and one uppercase letter" +
+            ", one digit and cant contain white spaces")
+    private boolean isPasswordCorrect(){
+        Pattern pattern = Pattern.compile("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.* ).*");
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
     public String getName() {
         return name;
     }

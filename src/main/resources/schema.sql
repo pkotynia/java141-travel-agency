@@ -1,6 +1,3 @@
-CREATE database if not exists offer;
-CREATE database if not exists test;
-
 CREATE TABLE IF NOT EXISTS continent (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255)
@@ -20,12 +17,19 @@ CREATE TABLE IF NOT EXISTS city (
     CONSTRAINT FK_country_id FOREIGN KEY (country_id) REFERENCES country(id)
 );
 
+CREATE TABLE IF NOT EXISTS airport (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    city_id INT,
+    CONSTRAINT FK_airport_city_id FOREIGN KEY (city_id) REFERENCES city(id)
+);
+
 CREATE TABLE IF NOT EXISTS hotel (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255),
     city_id INT,
     rating FLOAT(1),
-    CONSTRAINT FK_city_id FOREIGN KEY (city_id) REFERENCES city(id)
+    CONSTRAINT FK_hotel_city_id FOREIGN KEY (city_id) REFERENCES city(id)
 );
 
 CREATE TABLE IF NOT EXISTS offer (
@@ -40,8 +44,8 @@ CREATE TABLE IF NOT EXISTS offer (
 DROP TABLE IF EXISTS users;
 CREATE TABLE IF NOT EXISTS users (
     id INT NOT NULL AUTO_INCREMENT,
-    user_name VARCHAR(50) NOT NULL,
-    password VARCHAR(50) NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(100) NOT NULL,
     enabled INT NOT NULL,
     PRIMARY KEY(id)
     );

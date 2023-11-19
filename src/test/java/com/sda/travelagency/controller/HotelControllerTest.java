@@ -2,6 +2,8 @@ package com.sda.travelagency.controller;
 
 import com.sda.travelagency.dtos.HotelDto;
 import com.sda.travelagency.entities.Hotel;
+import com.sda.travelagency.entities.Offer;
+import com.sda.travelagency.mapper.HotelMapper;
 import com.sda.travelagency.repository.CityRepository;
 import com.sda.travelagency.repository.HotelRepository;
 import com.sda.travelagency.repository.OfferRepository;
@@ -9,10 +11,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
+
+import java.util.List;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -42,6 +47,36 @@ class HotelControllerTest {
                 .expectBodyList(HotelDto.class);
     }
 
+    @Test
+    void shouldGetTopHotels(){
+        List<HotelDto> expectedHotelsList = hotelRepository.findAll(Sort.by(Sort.Direction.DESC, "rating")).stream()
+                .map(HotelMapper::hotelToHotelDto).toList();
+        testClient
+                .get()
+                .uri("/hotels/topHotels")
+                .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
+                .exchange()
+                .expectStatus().isOk()
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBodyList(HotelDto.class).isEqualTo(expectedHotelsList);
+
+    }
+
+    @Test
+    void shouldGetHotelsByCityName(){
+        String cityName = cityRepository.findAll().get(0).getName();
+        testClient
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/hotels/filterByCity")
+                        .queryParam("cityName", cityName)
+                        .build())
+                .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
+                .exchange()
+                .expectStatus().isOk()
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBodyList(HotelDto.class);
+    }
     @Test
     void shouldGetHotelByName (){
         Hotel testHotel = hotelRepository.findAll().get(0);
@@ -79,7 +114,7 @@ class HotelControllerTest {
                 .bodyValue(new HotelDto("testHotel", RATING, cityRepository.findAll().get(0).getName()))
                 .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
                 .exchange()
-                .expectStatus().isAccepted();
+                .expectStatus().isOk();
     }
     @Test
     void shouldNotUpdateHotelWithIncorrectExistingHotelName(){
@@ -87,23 +122,12 @@ class HotelControllerTest {
                 .put()
                 .uri("/hotels/{name}","incorrectCityName")
                 .bodyValue(new HotelDto("testHotel", RATING, cityRepository.findAll().get(0).getName()))
+                .accept(MediaType.APPLICATION_JSON)
                 .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
                 .exchange()
                 .expectStatus().isNotFound()
                 .expectBody(ProblemDetail.class).returnResult().getResponseBody();
         Assertions.assertEquals("No such hotel exists",detail.getDetail());
-    }
-    @Test
-    void shouldNotUpdateHotelWithIncorrectCityName(){
-        ProblemDetail detail = testClient
-                .put()
-                .uri("/hotels/{name}", hotelRepository.findAll().get(0).getName())
-                .bodyValue(new HotelDto("testHotel", RATING, "incorrectCityName"))
-                .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
-                .exchange()
-                .expectStatus().isNotFound()
-                .expectBody(ProblemDetail.class).returnResult().getResponseBody();
-        Assertions.assertEquals("No such city exists",detail.getDetail());
     }
     @Test
     void shouldAddHotel(){
@@ -113,7 +137,7 @@ class HotelControllerTest {
                 .bodyValue(new HotelDto("testHotel", RATING, cityRepository.findAll().get(0).getName()))
                 .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
                 .exchange()
-                .expectStatus().isCreated();
+                .expectStatus().isOk();
     }
     @Test
     void shouldNotAddHotelWithNotExistingCityName (){
@@ -192,13 +216,17 @@ class HotelControllerTest {
 
     @Test
     void shouldDeleteHotel(){
-        Hotel hotelToDelete = hotelRepository.findAll().get(0);
-        hotelToDelete.getOffers().forEach(offer -> offerRepository.deleteById(offer.getId()));
+        Offer offer = offerRepository.findAll().get(0);
+        Hotel hotelToDelete = new Hotel("hotelToDelete", offer.getHotel().getRating(), offer.getHotel().getCity());
+        hotelRepository.save(hotelToDelete);
         testClient
                 .delete()
                 .uri("/hotels/{name}",hotelToDelete.getName())
                 .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
                 .exchange()
-                .expectStatus().isAccepted();
+                .expectStatus().isOk();
+        Assertions.assertFalse(hotelRepository.findAll().contains(hotelToDelete));
     }
+
+
 }

@@ -1,31 +1,44 @@
 package com.sda.travelagency.dtos;
 
+import com.sda.travelagency.annotation.JsonElement;
+import com.sda.travelagency.annotation.JsonSerializable;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 
 import java.math.BigDecimal;
 import java.util.Objects;
-
+@JsonSerializable
 public class OfferDto {
+    @JsonElement
     @NotBlank(message = "Offer name is mandatory")
     private String name;
+    @JsonElement
     @NotBlank(message = "Hotel name is mandatory")
     private String hotelName;
+    @JsonElement
     @NotBlank(message = "City name is mandatory")
     private String cityName;
+
+    @JsonElement
+    @NotBlank(message = "Airport name is mandatory")
+    private String airportName;
+    @JsonElement
     @NotBlank(message = "Country name is mandatory")
     private String countryName;
+    @JsonElement
     @NotBlank(message = "Continent name is mandatory")
     private String continentName;
+    @JsonElement
     @DecimalMax("99999.99")
     @DecimalMin("0.00")
     private BigDecimal price;
 
-    public OfferDto(String name, String hotelName, String cityName, String countryName, String continentName, BigDecimal price) {
+    public OfferDto(String name, String hotelName, String cityName, String airportName, String countryName, String continentName, BigDecimal price) {
         this.name = name;
         this.hotelName = hotelName;
         this.cityName = cityName;
+        this.airportName = airportName;
         this.countryName = countryName;
         this.continentName = continentName;
         this.price = price;
@@ -42,6 +55,10 @@ public class OfferDto {
         return hotelName;
     }
 
+    public String getAirportName() {
+        return airportName;
+    }
+
     public String getCityName() {
         return cityName;
     }
@@ -53,6 +70,7 @@ public class OfferDto {
     public String getContinentName() {
         return continentName;
     }
+
 
     public BigDecimal getPrice() {
         return price;
@@ -68,6 +86,10 @@ public class OfferDto {
 
     public void setCityName(String cityName) {
         this.cityName = cityName;
+    }
+
+    public void setAirportName(String airportName) {
+        this.airportName = airportName;
     }
 
     public void setCountryName(String countryName) {
