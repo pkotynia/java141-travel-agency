@@ -33,7 +33,7 @@ VALUES
 
 INSERT INTO country (name, continent_id)
 VALUES
-    ('Argentina', 1),
+    ('Poland', 1),
     ('Bolivia', 2),
     ('Brazil', 3),
     ('Chile', 4),
@@ -48,9 +48,9 @@ VALUES
 
 INSERT INTO city (name, country_id)
 VALUES
-    ('Kraków', 1),
-    ('Wrocław', 2),
-    ('Warszawa', 3);
+    ('Cracow', 1),
+    ('Wroclaw', 1),
+    ('Warsaw', 1);
 
 INSERT INTO hotel (name, city_id, rating)
 VALUES
@@ -60,12 +60,12 @@ VALUES
 
 INSERT INTO airport (name, city_id)
 VALUES
-    ('Kraków Airport', 1),
-    ('Wrocław Airport', 2),
-    ('Warszawa Airport', 3);
+    ('Cracow Airport', 1),
+    ('Wroclaw Airport', 2),
+    ('Warsaw Airport', 3);
 
 INSERT INTO offer (name, hotel_id, price)
 VALUES
-    ('Kraków_offer',1,100.0),
-    ('Wrocław_offer',1,200.0),
-    ('Warszawa_offer',3,300.0);
+    ('Cracow_offer',1,100.0),
+    ('Wroclaw_offer',2,200.0),
+    ('Warsaw_offer',3,300.0);

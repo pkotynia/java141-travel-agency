@@ -20,7 +20,7 @@ public class City {
     @OneToMany(cascade = CascadeType.DETACH)
     private List<Hotel> hotel;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.DETACH)
     private List<Airport> airport;
 
 

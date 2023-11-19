@@ -20,6 +20,7 @@ public class Offer {
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 
+
     public Offer(String name, BigDecimal price, Hotel hotel) {
         this.name = name;
         this.price = price;
