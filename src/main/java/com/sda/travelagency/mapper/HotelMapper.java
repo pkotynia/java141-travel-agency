@@ -27,6 +27,7 @@ public class HotelMapper {
         Hotel mappedHotel = new Hotel();
         mappedHotel.setName(hotelDto.getName());
         mappedHotel.setRating(hotelDto.getRating());
+        mappedHotel.setAddress(hotelDto.getAddress());
         mappedHotel.setCity(cityRepository.findByName(hotelDto.getCityName()).orElseThrow(() -> new CityNotFoundException("No such city exists")));
         return mappedHotel;
     }
@@ -39,6 +40,7 @@ public class HotelMapper {
     public static HotelDto hotelToHotelDto(Hotel hotel){
         HotelDto hotelDto = new HotelDto();
         hotelDto.setName(hotel.getName());
+        hotelDto.setAddress(hotel.getAddress());
         hotelDto.setCityName(hotel.getCity().getName());
         hotelDto.setRating(hotel.getRating());
         return hotelDto;

@@ -12,6 +12,7 @@ public class Hotel {
     private Integer id;
 
     private String name;
+    private String address;
 
     private Float rating;
 
@@ -22,8 +23,9 @@ public class Hotel {
     @OneToMany (mappedBy = "hotel", cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     private List<Offer> offers;
 
-    public Hotel(String name, Float rating, City city) {
+    public Hotel(String name, String address, Float rating, City city) {
         this.name = name;
+        this.address = address;
         this.rating = rating;
         this.city = city;
     }
@@ -39,6 +41,10 @@ public class Hotel {
         return city;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
     public List<Offer> getOffers() {
         return offers;
     }
@@ -49,6 +55,10 @@ public class Hotel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public void setCity(City city) {

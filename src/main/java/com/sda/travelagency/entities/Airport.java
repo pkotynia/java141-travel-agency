@@ -10,13 +10,16 @@ public class Airport {
     private Integer id;
 
     private String name;
+
+    private String address;
     @ManyToOne
     @JoinColumn(name = "city_id")
     private City city;
 
 
-    public Airport(String name, City city) {
+    public Airport(String name, String address, City city) {
         this.name = name;
+        this.address = address;
         this.city = city;
     }
     public Airport() {
@@ -26,12 +29,20 @@ public class Airport {
         return name;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
     public City getCity() {
         return city;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public void setCity(City city) {

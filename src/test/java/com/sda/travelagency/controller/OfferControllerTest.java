@@ -163,7 +163,7 @@ class OfferControllerTest {
     @Test
     void shouldGetOffersByHotelName(){
         Hotel existingHotel = hotelRepository.findAll().get(0);
-        Hotel hotel = new Hotel("newTestHotel", existingHotel.getRating(), existingHotel.getCity());
+        Hotel hotel = new Hotel("newTestHotel", address, existingHotel.getRating(), existingHotel.getCity());
         hotelRepository.save(hotel);
         testClient
                 .get()
