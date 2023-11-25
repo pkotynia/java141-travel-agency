@@ -96,14 +96,12 @@ public class HotelService {
     }
 
     /**
-     * This method gets an HotelDto as a param.
-     * Then, it uses the HotelMapper class to transform an instance of the HotelDto object into an Hotel,
+     * This method gets an Hotel as a param.
      * which is saved in database by HotelRepository.
-     * @param hotelDto
+     * @param hotel
      * @return void
      **/
-    public void addHotel(HotelDto hotelDto) {
-        Hotel hotel = hotelMapper.hotelDtoToHotel(hotelDto);
+    public void addHotel(Hotel hotel) {
         hotelRepository.save(hotel);
     }
 

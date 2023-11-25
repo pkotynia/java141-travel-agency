@@ -56,11 +56,10 @@ public class OfferService {
      * This method gets an offerDto as a param.
      * Then, it uses the OfferMapper class to transform an instance of the OfferDto object into an Offer,
      * which is saved in database by OfferRepository.
-     * @param offerDto
+     * @param offer
      * @return void
      **/
-    public void addOffer(OfferDto offerDto) {
-        Offer offer = offerMapper.offerDtoToOffer(offerDto);
+    public void addOffer(Offer offer) {
         offerRepository.save(offer);
     }
 

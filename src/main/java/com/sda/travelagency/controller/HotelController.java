@@ -1,6 +1,7 @@
 package com.sda.travelagency.controller;
 
 import com.sda.travelagency.dtos.HotelDto;
+import com.sda.travelagency.entities.Hotel;
 import com.sda.travelagency.service.HotelService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -55,8 +56,8 @@ public class HotelController {
 
     @Secured("ROLE_ADMIN")
     @PostMapping("/addHotel")
-    ResponseEntity<String> addHotel(@Valid @RequestBody HotelDto hotelDto) {
-        hotelService.addHotel(hotelDto);
+    ResponseEntity<String> addHotel(@Valid @RequestBody Hotel hotel) {
+        hotelService.addHotel(hotel);
         return new ResponseEntity<>("Hotel created", HttpStatus.OK);
     }
 }

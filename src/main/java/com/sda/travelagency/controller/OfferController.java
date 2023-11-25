@@ -1,6 +1,7 @@
 package com.sda.travelagency.controller;
 
 import com.sda.travelagency.dtos.OfferDto;
+import com.sda.travelagency.entities.Offer;
 import com.sda.travelagency.service.OfferService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -42,8 +43,8 @@ public class OfferController {
 
     @Secured("ROLE_ADMIN")
     @PostMapping("/addOffer")
-    ResponseEntity<String> addOffer(@Valid @RequestBody OfferDto offerDto) {
-        offerService.addOffer(offerDto);
+    ResponseEntity<String> addOffer(@Valid @RequestBody Offer offer) {
+        offerService.addOffer(offer);
         return new ResponseEntity<>("Offer created",HttpStatus.CREATED);
     }
 
