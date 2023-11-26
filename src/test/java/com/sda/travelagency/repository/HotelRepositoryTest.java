@@ -20,12 +20,11 @@ class HotelRepositoryTest {
     HotelRepository hotelRepository;
     @Autowired
     OfferRepository offerRepository;
-
     @Test
     public void shouldFindByName() {
         Offer offer = offerRepository.findAll().get(0);
 
-        Hotel hotel = new Hotel("testRepositoryHotel", address, offer.getHotel().getRating(), offer.getHotel().getCity());
+        Hotel hotel = new Hotel("testRepositoryHotel", offer.getHotel().getAddress(), offer.getHotel().getRating(), offer.getHotel().getCity());
         hotelRepository.save(hotel);
 
         Optional<Hotel> result = hotelRepository.findByName("testRepositoryHotel");
@@ -46,7 +45,7 @@ class HotelRepositoryTest {
     public void shouldFindByCityName() {
         Offer offer = offerRepository.findAll().get(0);
 
-        Hotel hotel = new Hotel("testRepositoryHotel", address, offer.getHotel().getRating(), offer.getHotel().getCity());
+        Hotel hotel = new Hotel("testRepositoryHotel", offer.getHotel().getAddress(), offer.getHotel().getRating(), offer.getHotel().getCity());
         hotelRepository.save(hotel);
 
         List<Hotel> result = hotelRepository.findByCityName("testRepositoryHotel");
@@ -58,7 +57,7 @@ class HotelRepositoryTest {
     public void shouldNotFindByCityName() {
         Offer offer = offerRepository.findAll().get(0);
 
-        Hotel hotel = new Hotel("testRepositoryHotel", address, offer.getHotel().getRating(), offer.getHotel().getCity());
+        Hotel hotel = new Hotel("testRepositoryHotel", offer.getHotel().getAddress(), offer.getHotel().getRating(), offer.getHotel().getCity());
 
         List<Hotel> result = hotelRepository.findByCityName("testRepositoryHotel");
 

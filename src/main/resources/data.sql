@@ -52,17 +52,17 @@ VALUES
     ('Wroclaw', 1),
     ('Warsaw', 1);
 
-INSERT INTO hotel (name, city_id, rating)
+INSERT INTO hotel (name, address, city_id, rating)
 VALUES
-    ('Hilton', 1, 8.0),
-    ('Cubus', 2, 7.0),
-    ('Marriot', 3, 9.0);
+    ('Hilton', 'test', 1, 8.0),
+    ('Cubus', 'test', 2, 7.0),
+    ('Marriot', 'test', 3, 9.0);
 
-INSERT INTO airport (name, city_id)
+INSERT INTO airport (name, address, city_id)
 VALUES
-    ('Cracow Airport', 1),
-    ('Wroclaw Airport', 2),
-    ('Warsaw Airport', 3);
+    ('Cracow Airport', 'test', 1),
+    ('Wroclaw Airport', 'test', 2),
+    ('Warsaw Airport', 'test', 3);
 
 INSERT INTO offer (name, hotel_id, price)
 VALUES

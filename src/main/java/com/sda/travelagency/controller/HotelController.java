@@ -42,22 +42,22 @@ public class HotelController {
 
     @Secured("ROLE_ADMIN")
     @DeleteMapping("/{hotelName}")
-    ResponseEntity<String> deleteHotel(@PathVariable String hotelName) throws RuntimeException {
-        hotelService.deleteHotel(hotelName);
-        return new ResponseEntity<>("Hotel deleted", HttpStatus.OK);
+    ResponseEntity<HotelDto> deleteHotel(@PathVariable String hotelName) throws RuntimeException {
+        HotelDto hotelDto = hotelService.deleteHotel(hotelName);
+        return new ResponseEntity<>(hotelDto, HttpStatus.OK);
     }
 
     @Secured("ROLE_ADMIN")
     @PutMapping("/{hotelName}")
-    ResponseEntity<String> updateHotel(@PathVariable String hotelName,@Valid @RequestBody HotelDto hotelDto) throws RuntimeException{
+    ResponseEntity<HotelDto> updateHotel(@PathVariable String hotelName,@Valid @RequestBody HotelDto hotelDto) throws RuntimeException{
         hotelService.updateHotel(hotelName, hotelDto);
-        return new ResponseEntity<>("Hotel updated", HttpStatus.OK);
+        return new ResponseEntity<>(hotelDto, HttpStatus.OK);
     }
 
     @Secured("ROLE_ADMIN")
     @PostMapping("/addHotel")
-    ResponseEntity<String> addHotel(@Valid @RequestBody Hotel hotel) {
-        hotelService.addHotel(hotel);
-        return new ResponseEntity<>("Hotel created", HttpStatus.OK);
+    ResponseEntity<HotelDto> addHotel(@Valid @RequestBody HotelDto hotelDto) {
+        hotelService.addHotel(hotelDto);
+        return new ResponseEntity<>(hotelDto, HttpStatus.OK);
     }
 }

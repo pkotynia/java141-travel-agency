@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS airport (
 CREATE TABLE IF NOT EXISTS hotel (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255),
-    addres VARCHAR(255),
+    address VARCHAR(255),
     city_id INT,
     rating FLOAT(1),
     CONSTRAINT FK_hotel_city_id FOREIGN KEY (city_id) REFERENCES city(id)

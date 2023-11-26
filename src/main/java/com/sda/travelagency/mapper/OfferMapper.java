@@ -1,5 +1,6 @@
 package com.sda.travelagency.mapper;
 
+import com.sda.travelagency.dtos.OfferAdditionDto;
 import com.sda.travelagency.dtos.OfferDto;
 import com.sda.travelagency.entities.City;
 import com.sda.travelagency.entities.Offer;
@@ -20,21 +21,22 @@ public class OfferMapper {
     }
 
 
-//    /**
-//     * This method takes as a param HotelDto object.
-//     * It is using empty constructor to initialize Offer object and sets it required fields with data from OfferDto object
-//     * To set Hotel object it uses hotelName from OfferDto to find it in HotelRepository
-//     * @param offerDto
-//     * @return Offer
-//     * @throws HotelNotFoundException "No such hotel exists"
-//     **/
-//    public Offer offerDtoToOffer(OfferDto offerDto) {
-//        Offer mappedOffer = new Offer();
-//        mappedOffer.setName(offerDto.getName());
-//        mappedOffer.setHotel(hotelRepository.findByName(offerDto.getHotelName()).orElseThrow(() -> new HotelNotFoundException("No such hotel exists")));
-//        mappedOffer.setPrice(offerDto.getPrice());
-//        return mappedOffer;
-//    }
+    /**
+     * This method takes as a param HotelDto object.
+     * It is using empty constructor to initialize Offer object and sets it required fields with data from OfferDto object
+     * To set Hotel object it uses hotelName and cityName from OfferDto to find it in HotelRepository
+     * @param offerDto
+     * @return Offer
+     * @throws HotelNotFoundException "No such hotel exists"
+     **/
+    public Offer offerDtoToOffer(OfferAdditionDto offerDto) {
+        Offer mappedOffer = new Offer();
+        mappedOffer.setName(offerDto.getName());
+        mappedOffer.setHotel(hotelRepository.findByNameAndCityName(offerDto.getHotelName(), offerDto.getCityName())
+                .orElseThrow(() -> new HotelNotFoundException("No such hotel exists")));
+        mappedOffer.setPrice(offerDto.getPrice());
+        return mappedOffer;
+    }
 
     /**
      * This method takes as a param Offer object.

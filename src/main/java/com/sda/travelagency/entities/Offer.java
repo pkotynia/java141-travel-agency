@@ -59,11 +59,4 @@ public class Offer {
         this.price = price;
     }
 
-    @Override
-    public String toString() {
-        return "Offer{" +
-                "id=" + id +
-                ", hotel=" + hotel +
-                '}';
-    }
 }

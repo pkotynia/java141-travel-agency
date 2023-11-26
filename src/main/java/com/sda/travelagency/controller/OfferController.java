@@ -1,5 +1,6 @@
 package com.sda.travelagency.controller;
 
+import com.sda.travelagency.dtos.OfferAdditionDto;
 import com.sda.travelagency.dtos.OfferDto;
 import com.sda.travelagency.entities.Offer;
 import com.sda.travelagency.service.OfferService;
@@ -43,29 +44,29 @@ public class OfferController {
 
     @Secured("ROLE_ADMIN")
     @PostMapping("/addOffer")
-    ResponseEntity<String> addOffer(@Valid @RequestBody Offer offer) {
-        offerService.addOffer(offer);
-        return new ResponseEntity<>("Offer created",HttpStatus.CREATED);
+    ResponseEntity<OfferAdditionDto> addOffer(@Valid @RequestBody OfferAdditionDto offerDto) {
+        offerService.addOffer(offerDto);
+        return new ResponseEntity<>(offerDto,HttpStatus.CREATED);
     }
 
     @Secured("ROLE_ADMIN")
     @DeleteMapping("/{offerName}")
-    ResponseEntity<String> deleteOffer(@PathVariable String offerName) throws RuntimeException{
-        offerService.deleteOffer(offerName);
-        return new ResponseEntity<>("Offer deleted", HttpStatus.OK);
+    ResponseEntity<OfferDto> deleteOffer(@PathVariable String offerName) throws RuntimeException{
+        OfferDto offerDto = offerService.deleteOffer(offerName);
+        return new ResponseEntity<>(offerDto, HttpStatus.OK);
     }
 
     @Secured("ROLE_ADMIN")
     @PutMapping("/{offerName}")
-    ResponseEntity<String> updateOffer(@PathVariable String offerName,@Valid @RequestBody OfferDto offerDto) throws RuntimeException{
+    ResponseEntity<OfferAdditionDto> updateOffer(@PathVariable String offerName,@Valid @RequestBody OfferAdditionDto offerDto) throws RuntimeException{
         offerService.updateOffer(offerName, offerDto);
-        return new ResponseEntity<>("Offer updated", HttpStatus.OK);
+        return new ResponseEntity<>(offerDto, HttpStatus.OK);
     }
 
     @Secured("ROLE_USER")
     @PutMapping("/reserve/{offerName}")
-    ResponseEntity<String> reserveOffer(@PathVariable String offerName) throws RuntimeException{
-        offerService.reserveOffer(offerName);
-        return new ResponseEntity<>("Accepted", HttpStatus.OK);
+    ResponseEntity<OfferDto> reserveOffer(@PathVariable String offerName) throws RuntimeException{
+        OfferDto offerDto = offerService.reserveOffer(offerName);
+        return new ResponseEntity<>(offerDto, HttpStatus.OK);
     }
 }

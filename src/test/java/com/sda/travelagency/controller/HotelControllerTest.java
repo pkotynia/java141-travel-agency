@@ -31,7 +31,10 @@ class HotelControllerTest {
     private HotelRepository hotelRepository;
     @Autowired
     private OfferRepository offerRepository;
+    @Autowired
+    private HotelMapper hotelMapper;
     private final Float RATING = 10.0f;
+    private final String ADDRESS = "testAddress";
 
 
     @Test
@@ -50,7 +53,7 @@ class HotelControllerTest {
     @Test
     void shouldGetTopHotels(){
         List<HotelDto> expectedHotelsList = hotelRepository.findAll(Sort.by(Sort.Direction.DESC, "rating")).stream()
-                .map(HotelMapper::hotelToHotelDto).toList();
+                .map(hotelMapper::hotelToHotelDto).toList();
         testClient
                 .get()
                 .uri("/hotels/topHotels")
@@ -80,7 +83,7 @@ class HotelControllerTest {
     @Test
     void shouldGetHotelByName (){
         Hotel testHotel = hotelRepository.findAll().get(0);
-        HotelDto testHotelDto = new HotelDto(testHotel.getName(), address, testHotel.getRating(), testHotel.getCity().getName());
+        HotelDto testHotelDto = new HotelDto(testHotel.getName(), testHotel.getAddress(), testHotel.getRating(), testHotel.getCity().getName());
         testClient
                 .get()
                 .uri("/hotels/{name}",testHotel.getName())
@@ -111,7 +114,7 @@ class HotelControllerTest {
         testClient
                 .put()
                 .uri("/hotels/{name}", hotelRepository.findAll().get(0).getName())
-                .bodyValue(new HotelDto("testHotel", address, RATING, cityRepository.findAll().get(0).getName()))
+                .bodyValue(new HotelDto("testHotel", ADDRESS, RATING, cityRepository.findAll().get(0).getName()))
                 .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
                 .exchange()
                 .expectStatus().isOk();
@@ -121,7 +124,7 @@ class HotelControllerTest {
         ProblemDetail detail = testClient
                 .put()
                 .uri("/hotels/{name}","incorrectCityName")
-                .bodyValue(new HotelDto("testHotel", address, RATING, cityRepository.findAll().get(0).getName()))
+                .bodyValue(new HotelDto("testHotel", "testAddress", RATING, cityRepository.findAll().get(0).getName()))
                 .accept(MediaType.APPLICATION_JSON)
                 .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
                 .exchange()
@@ -134,7 +137,7 @@ class HotelControllerTest {
         testClient
                 .post()
                 .uri("/hotels/addHotel")
-                .bodyValue(new HotelDto("testHotel", address, RATING, cityRepository.findAll().get(0).getName()))
+                .bodyValue(new HotelDto("testHotel", ADDRESS, RATING, cityRepository.findAll().get(0).getName()))
                 .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
                 .exchange()
                 .expectStatus().isOk();
@@ -144,7 +147,7 @@ class HotelControllerTest {
         ProblemDetail detail = testClient
                 .post()
                 .uri("/hotels/addHotel")
-                .bodyValue(new HotelDto("testHotel", address, RATING, "incorrectCity"))
+                .bodyValue(new HotelDto("testHotel", ADDRESS, RATING, "incorrectCity"))
                 .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
                 .exchange()
                 .expectStatus().isNotFound()
@@ -158,7 +161,7 @@ class HotelControllerTest {
         ProblemDetail detail = testClient
                 .post()
                 .uri("/hotels/addHotel")
-                .bodyValue(new HotelDto("", address, RATING, cityRepository.findAll().get(0).getName()))
+                .bodyValue(new HotelDto("", ADDRESS, RATING, cityRepository.findAll().get(0).getName()))
                 .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
                 .exchange()
                 .expectStatus().isBadRequest()
@@ -170,7 +173,7 @@ class HotelControllerTest {
         ProblemDetail detail = testClient
                 .post()
                 .uri("/hotels/addHotel")
-                .bodyValue(new HotelDto(null, address, RATING, cityRepository.findAll().get(0).getName()))
+                .bodyValue(new HotelDto(null, ADDRESS, RATING, cityRepository.findAll().get(0).getName()))
                 .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
                 .exchange()
                 .expectStatus().isBadRequest()
@@ -182,7 +185,7 @@ class HotelControllerTest {
         ProblemDetail detail = testClient
                 .post()
                 .uri("/hotels/addHotel")
-                .bodyValue(new HotelDto("testHotel", address, RATING, " "))
+                .bodyValue(new HotelDto("testHotel", ADDRESS, RATING, " "))
                 .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
                 .exchange()
                 .expectStatus().isBadRequest()
@@ -194,7 +197,7 @@ class HotelControllerTest {
         ProblemDetail detail = testClient
                 .post()
                 .uri("/hotels/addHotel")
-                .bodyValue(new HotelDto("testHotel", address, RATING, null))
+                .bodyValue(new HotelDto("testHotel", ADDRESS, RATING, null))
                 .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
                 .exchange()
                 .expectStatus().isBadRequest()
@@ -217,7 +220,7 @@ class HotelControllerTest {
     @Test
     void shouldDeleteHotel(){
         Offer offer = offerRepository.findAll().get(0);
-        Hotel hotelToDelete = new Hotel("hotelToDelete", address, offer.getHotel().getRating(), offer.getHotel().getCity());
+        Hotel hotelToDelete = new Hotel("hotelToDelete", ADDRESS, offer.getHotel().getRating(), offer.getHotel().getCity());
         hotelRepository.save(hotelToDelete);
         testClient
                 .delete()

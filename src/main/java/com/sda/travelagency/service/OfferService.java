@@ -1,5 +1,6 @@
 package com.sda.travelagency.service;
 
+import com.sda.travelagency.dtos.OfferAdditionDto;
 import com.sda.travelagency.dtos.OfferDto;
 import com.sda.travelagency.entities.Offer;
 import com.sda.travelagency.exception.HotelNotFoundException;
@@ -56,10 +57,11 @@ public class OfferService {
      * This method gets an offerDto as a param.
      * Then, it uses the OfferMapper class to transform an instance of the OfferDto object into an Offer,
      * which is saved in database by OfferRepository.
-     * @param offer
+     * @param offerDto
      * @return void
      **/
-    public void addOffer(Offer offer) {
+    public void addOffer(OfferAdditionDto offerDto) {
+        Offer offer = offerMapper.offerDtoToOffer(offerDto);
         offerRepository.save(offer);
     }
 
@@ -68,12 +70,14 @@ public class OfferService {
      * Then, it uses the OfferRepository class to find Offer object in OfferRepository or else throws OfferNotFoundException,
      * If present it is deleted from database.
      * @param offerName
-     * @return void
+     * @return OfferDto
      * @throws OfferNotFoundException "No such offer exists"
      **/
-    public void deleteOffer(String offerName){
-        Offer offerToDelete = offerRepository.findByName(offerName).orElseThrow(() -> new OfferNotFoundException("No such offer exists"));
+    public OfferDto deleteOffer(String offerName){
+        Offer offerToDelete = offerRepository.findByName(offerName)
+                .orElseThrow(() -> new OfferNotFoundException("No such offer exists"));
         offerRepository.delete(offerToDelete);
+        return offerMapper.offerToOfferDto(offerToDelete);
     }
     /**
      * This method gets an offerName and offerDto as a param.
@@ -84,9 +88,12 @@ public class OfferService {
      * @return void
      * @throws OfferNotFoundException "No such offer exists"
      **/
-    public void updateOffer(String offerName, OfferDto offerDto){
-        Offer offerToUpdate = offerRepository.findByName(offerName).orElseThrow(() -> new OfferNotFoundException("No such offer exists"));
+    public void updateOffer(String offerName, OfferAdditionDto offerDto){
+        Offer offerToUpdate = offerRepository.findByName(offerName)
+                .orElseThrow(() -> new OfferNotFoundException("No such offer exists"));
         offerToUpdate.setName(offerDto.getName());
+        offerToUpdate.setHotel(hotelRepository.findByNameAndCityName(offerDto.getHotelName(), offerDto.getCityName())
+                .orElseThrow(() -> new HotelNotFoundException("No such hotel exists")));
         offerToUpdate.setPrice(offerDto.getPrice());
         offerRepository.save(offerToUpdate);
     }
@@ -100,7 +107,7 @@ public class OfferService {
      * @throws AnnonymousAuthorizationException "Session expired"
      * @throws OfferNotAvailableException "Offer is already taken"
      **/
-    public void reserveOffer(String offerName) {
+    public OfferDto reserveOffer(String offerName) {
         Offer offerByName = offerRepository.findByName(offerName).orElseThrow(() -> new OfferNotFoundException("No such offer exists"));
         String username = Username.getActive();
         if(username == null) {
@@ -111,6 +118,7 @@ public class OfferService {
         }
         offerByName.setUserName(username);
         offerRepository.save(offerByName);
+        return offerMapper.offerToOfferDto(offerByName);
     }
 
     /**

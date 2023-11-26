@@ -11,27 +11,18 @@ import java.util.Objects;
 @JsonSerializable
 public class OfferDto {
     @JsonElement
-    @NotBlank(message = "Offer name is mandatory")
     private String name;
     @JsonElement
-    @NotBlank(message = "Hotel name is mandatory")
     private String hotelName;
     @JsonElement
-    @NotBlank(message = "City name is mandatory")
     private String cityName;
-
     @JsonElement
-    @NotBlank(message = "Airport name is mandatory")
     private String airportName;
     @JsonElement
-    @NotBlank(message = "Country name is mandatory")
     private String countryName;
     @JsonElement
-    @NotBlank(message = "Continent name is mandatory")
     private String continentName;
     @JsonElement
-    @DecimalMax("99999.99")
-    @DecimalMin("0.00")
     private BigDecimal price;
 
     public OfferDto(String name, String hotelName, String cityName, String airportName, String countryName, String continentName, BigDecimal price) {

@@ -32,7 +32,6 @@ public class City {
     public City() {
     }
 
-
     public String getName() {
         return name;
     }

@@ -12,7 +12,6 @@ public class HotelDto {
     @JsonElement
     @NotBlank(message = "Hotel name is mandatory")
     private String name;
-
     @JsonElement
     @NotBlank(message = "address is mandatory")
     private String address;
@@ -38,41 +37,39 @@ public class HotelDto {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getCityName() {
         return cityName;
-    }
-
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public Float getRating() {
         return rating;
     }
-
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
     public void setRating(Float rating) {
         this.rating = rating;
     }
-
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         HotelDto hotelDto = (HotelDto) o;
-        return Objects.equals(name, hotelDto.name) && Objects.equals(address, hotelDto.address) && Objects.equals(cityName, hotelDto.cityName) && Objects.equals(rating, hotelDto.rating);
+        return Objects.equals(name, hotelDto.name)
+                && Objects.equals(address, hotelDto.address)
+                && Objects.equals(cityName, hotelDto.cityName)
+                && Objects.equals(rating, hotelDto.rating);
     }
 
     @Override

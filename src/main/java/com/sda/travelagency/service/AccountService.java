@@ -1,8 +1,10 @@
 package com.sda.travelagency.service;
 
+import com.sda.travelagency.dtos.AccountCreationDto;
 import com.sda.travelagency.dtos.AccountDto;
 import com.sda.travelagency.exception.AnnonymousAuthorizationException;
 import com.sda.travelagency.exception.UserAlreadyExistsException;
+import com.sda.travelagency.mapper.AccountMapper;
 import com.sda.travelagency.util.Username;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,9 +17,11 @@ import org.springframework.stereotype.Service;
 public class AccountService {
 
     private final UserDetailsManager userDetailsManager;
+    private final AccountMapper accountMapper;
 
-    public AccountService(UserDetailsManager userDetailsManager) {
+    public AccountService(UserDetailsManager userDetailsManager, AccountMapper accountMapper) {
         this.userDetailsManager = userDetailsManager;
+        this.accountMapper = accountMapper;
     }
     /**
      * This method  takes AccountDto object as a param.
@@ -29,7 +33,7 @@ public class AccountService {
      * @return void
      * @throws UserAlreadyExistsException "This username is already taken"
      **/
-    public void createUser(AccountDto accountDto){
+    public AccountDto createUser(AccountCreationDto accountDto){
         if(userDetailsManager.userExists(accountDto.getName())){
             throw new UserAlreadyExistsException("This username is already taken");
         }
@@ -40,6 +44,7 @@ public class AccountService {
                 .roles("USER")
                 .build();
         userDetailsManager.createUser(user);
+        return accountMapper.UserDetailsToAccountDto(user);
     }
     /**
      * This method takes AccountDto object as a param.
@@ -51,7 +56,7 @@ public class AccountService {
      * @return void
      * @throws UserAlreadyExistsException "This username is already taken"
      **/
-    public void createAdmin(AccountDto accountDto){
+    public AccountDto createAdmin(AccountCreationDto accountDto){
         if(userDetailsManager.userExists(accountDto.getName())){
             throw new UserAlreadyExistsException("This username is already taken");
         }
@@ -62,13 +67,17 @@ public class AccountService {
                 .roles("USER","ADMIN")
                 .build();
         userDetailsManager.createUser(admin);
+        return accountMapper.UserDetailsToAccountDto(admin);
     }
     /**
      * This method is used to delete active account.
      * @return void
      **/
-    public void deleteUser(){
-        userDetailsManager.deleteUser(Username.getActive());
+    public AccountDto deleteUser(){
+        String activeUser = Username.getActive();
+        AccountDto accountDto = accountMapper.UserDetailsToAccountDto(userDetailsManager.loadUserByUsername(activeUser));
+        userDetailsManager.deleteUser(activeUser);
+        return accountDto;
     }
     /**
      * This method takes new password as a param.
@@ -79,7 +88,7 @@ public class AccountService {
      * @return void
      * @throws AnnonymousAuthorizationException "No user logged in"
      **/
-    public void changePassword(String password){
+    public AccountDto changePassword(String password){
         String username = Username.getActive();
         if(username == null) {
             throw new AnnonymousAuthorizationException("No user logged in");
@@ -87,6 +96,7 @@ public class AccountService {
         UserDetails user = userDetailsManager.loadUserByUsername(username);
         String newPassword = new BCryptPasswordEncoder().encode(password);
         userDetailsManager.changePassword(user.getPassword(), newPassword);
+        return accountMapper.UserDetailsToAccountDto(user);
     }
     /**
      * This method takes username as a param.
@@ -97,7 +107,7 @@ public class AccountService {
      * @return void
      * @throws UsernameNotFoundException "No such user exists"
      **/
-    public void promoteUserToAdmin(String username){
+    public AccountDto promoteUserToAdmin(String username){
         if(!userDetailsManager.userExists(username)){
             throw new UsernameNotFoundException("No such user exists");
         }
@@ -106,6 +116,7 @@ public class AccountService {
                 .roles("USER","ADMIN")
                 .build();
         userDetailsManager.updateUser(user);
+        return accountMapper.UserDetailsToAccountDto(user);
     }
     /**
      * This method takes username as a param.
@@ -116,7 +127,7 @@ public class AccountService {
      * @return void
      * @throws UsernameNotFoundException "No such user exists"
      **/
-    public void demoteAdminToUser(String username){
+    public AccountDto demoteAdminToUser(String username){
         if(!userDetailsManager.userExists(username)){
             throw new UsernameNotFoundException("No such user exists");
         }
@@ -125,5 +136,6 @@ public class AccountService {
                 .roles("USER")
                 .build();
         userDetailsManager.updateUser(admin);
+        return accountMapper.UserDetailsToAccountDto(admin);
     }
 }

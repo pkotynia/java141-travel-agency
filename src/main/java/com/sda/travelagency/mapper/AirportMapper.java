@@ -1,5 +1,6 @@
 package com.sda.travelagency.mapper;
 
+
 import com.sda.travelagency.dtos.AirportDto;
 import com.sda.travelagency.entities.Airport;
 import com.sda.travelagency.exception.CityNotFoundException;
@@ -19,6 +20,14 @@ public class AirportMapper {
         mappedAirport.setName(airportDto.getName());
         mappedAirport.setAddress(airportDto.getAddress());
         mappedAirport.setCity(cityRepository.findByName(airportDto.getCityName()).orElseThrow(() -> new CityNotFoundException("No such city exists")));
+        return mappedAirport;
+    }
+
+    public AirportDto AirportToAirportDto(Airport airport){
+        AirportDto mappedAirport = new AirportDto();
+        mappedAirport.setName(airport.getName());
+        mappedAirport.setAddress(airport.getAddress());
+        mappedAirport.setCityName(airport.getCity().getName());
         return mappedAirport;
     }
 }

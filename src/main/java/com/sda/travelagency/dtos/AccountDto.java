@@ -1,48 +1,24 @@
 package com.sda.travelagency.dtos;
 
-import com.sda.travelagency.annotation.JsonElement;
-import com.sda.travelagency.annotation.JsonSerializable;
-import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import java.util.List;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-@JsonSerializable
 public class AccountDto {
-    @JsonElement
-    @NotBlank(message = "Account name is mandatory")
-    private String name;
-    @JsonElement
-    @Size(min = 8, max = 32, message = "Password size should be between 8 and 32 characters")
-    private String password;
+    private String userName;
+    private List<String> role;
 
-    public AccountDto(String name, String password) {
-        this.name = name;
-        this.password = password;
+    public String getUserName() {
+        return userName;
     }
 
-    @AssertTrue(message = "Password should contain at least one lowercase and one uppercase letter" +
-            ", one digit and cant contain white spaces")
-    private boolean isPasswordCorrect(){
-        Pattern pattern = Pattern.compile("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.* ).*");
-        Matcher matcher = pattern.matcher(password);
-        return matcher.matches();
-    }
-    public String getName() {
-        return name;
+    public List<String> getRole() {
+        return role;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setRole(List<String> role) {
+        this.role = role;
     }
 }

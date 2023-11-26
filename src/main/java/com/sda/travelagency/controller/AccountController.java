@@ -1,5 +1,6 @@
 package com.sda.travelagency.controller;
 
+import com.sda.travelagency.dtos.AccountCreationDto;
 import com.sda.travelagency.dtos.AccountDto;
 import com.sda.travelagency.service.AccountService;
 import jakarta.validation.Valid;
@@ -21,44 +22,44 @@ public class AccountController {
 
 
     @PostMapping("/create")
-    ResponseEntity<String> createUser(@Valid @RequestBody AccountDto user) throws RuntimeException{
+    ResponseEntity<AccountCreationDto> createUser(@Valid @RequestBody AccountCreationDto user) throws RuntimeException{
         accountService.createUser(user);
-        return new ResponseEntity<>("User created", HttpStatus.CREATED);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
     @Secured("ROLE_ADMIN")
     @PostMapping("/admin/create")
-    ResponseEntity<String> createAdmin(@Valid @RequestBody AccountDto admin) throws RuntimeException{
+    ResponseEntity<AccountCreationDto> createAdmin(@Valid @RequestBody AccountCreationDto admin) throws RuntimeException{
         accountService.createAdmin(admin);
-        return new ResponseEntity<>("Admin created", HttpStatus.CREATED);
+        return new ResponseEntity<>(admin, HttpStatus.CREATED);
     }
 
     @Secured("ROLE_USER")
     @DeleteMapping("/delete")
-    ResponseEntity<String> deleteUser() {
-        accountService.deleteUser();
-        return new ResponseEntity<>("Account deleted", HttpStatus.OK);
+    ResponseEntity<AccountDto> deleteUser() {
+        AccountDto user = accountService.deleteUser();
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @Secured("ROLE_USER")
     @PutMapping("/changePassword")
-    ResponseEntity<String> changePassword(@RequestParam String password) throws RuntimeException{
-        accountService.changePassword(password);
-        return new ResponseEntity<>("Password changed", HttpStatus.OK);
+    ResponseEntity<AccountDto> changePassword(@RequestParam String password) throws RuntimeException{
+        AccountDto accountDto = accountService.changePassword(password);
+        return new ResponseEntity<>(accountDto, HttpStatus.OK);
     }
 
     @Secured("ROLE_ADMIN")
     @PutMapping("/admin/promoteToAdmin/{username}")
-    ResponseEntity<String> promoteUserToAdmin(@PathVariable String username) throws RuntimeException{
-        accountService.promoteUserToAdmin(username);
-        return new ResponseEntity<>(username + " role promoted to admin", HttpStatus.OK);
+    ResponseEntity<AccountDto> promoteUserToAdmin(@PathVariable String username) throws RuntimeException{
+        AccountDto accountDto = accountService.promoteUserToAdmin(username);
+        return new ResponseEntity<>(accountDto, HttpStatus.OK);
     }
 
     @Secured("ROLE_ADMIN")
     @PutMapping("/admin/demoteToUser/{username}")
-    ResponseEntity<String> demoteAdminToUser(@PathVariable String username) throws RuntimeException{
-        accountService.demoteAdminToUser(username);
-        return new ResponseEntity<>(username + " role demoted to user", HttpStatus.OK);
+    ResponseEntity<AccountDto> demoteAdminToUser(@PathVariable String username) throws RuntimeException{
+        AccountDto accountDto = accountService.demoteAdminToUser(username);
+        return new ResponseEntity<>(accountDto, HttpStatus.OK);
     }
 
 }

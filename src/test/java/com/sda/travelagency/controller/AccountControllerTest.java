@@ -1,6 +1,6 @@
 package com.sda.travelagency.controller;
 
-import com.sda.travelagency.dtos.AccountDto;
+import com.sda.travelagency.dtos.AccountCreationDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ class AccountControllerTest {
         testClient
                 .post()
                 .uri("/users/create")
-                .bodyValue(new AccountDto("newUser", "Test1234"))
+                .bodyValue(new AccountCreationDto("newUser", "Test1234"))
                 .exchange()
                 .expectStatus().isCreated();
     }
@@ -39,7 +39,7 @@ class AccountControllerTest {
         testClient
                 .post()
                 .uri("/users/create")
-                .bodyValue(new AccountDto("existingUser", "Test1234"))
+                .bodyValue(new AccountCreationDto("existingUser", "Test1234"))
                 .exchange()
                 .expectStatus().isBadRequest();
     }
@@ -48,7 +48,7 @@ class AccountControllerTest {
         testClient
                 .post()
                 .uri("/users/create")
-                .bodyValue(new AccountDto("testAccount", "password"))
+                .bodyValue(new AccountCreationDto("testAccount", "password"))
                 .exchange()
                 .expectStatus().isBadRequest();
     }
@@ -57,7 +57,7 @@ class AccountControllerTest {
         testClient
                 .post()
                 .uri("/users/admin/create")
-                .bodyValue(new AccountDto("newAdminByAdmin", "Test1234"))
+                .bodyValue(new AccountCreationDto("newAdminByAdmin", "Test1234"))
                 .headers(headersConsumer -> headersConsumer.setBasicAuth("testAdmin", "password"))
                 .exchange()
                 .expectStatus().isCreated();
@@ -67,7 +67,7 @@ class AccountControllerTest {
         testClient
                 .post()
                 .uri("/users/admin/create")
-                .bodyValue(new AccountDto("newAdminByUser", "Test1234"))
+                .bodyValue(new AccountCreationDto("newAdminByUser", "Test1234"))
                 .headers(headersConsumer -> headersConsumer.setBasicAuth("testUser", "password"))
                 .exchange()
                 .expectStatus().isForbidden();

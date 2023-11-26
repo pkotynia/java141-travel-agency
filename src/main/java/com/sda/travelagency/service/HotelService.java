@@ -34,7 +34,7 @@ public class HotelService {
      **/
     public List<HotelDto> getAllHotels(){
         return hotelRepository.findAll().stream()
-                .map(HotelMapper::hotelToHotelDto).collect(Collectors.toList());
+                .map(hotelMapper::hotelToHotelDto).collect(Collectors.toList());
     }
     /**
      * This method gets an cityName as a param.
@@ -50,7 +50,7 @@ public class HotelService {
             throw new CityNotFoundException("No such city exists");
         }
         return hotelRepository.findByCityName(cityName).stream()
-                .map(HotelMapper::hotelToHotelDto).collect(Collectors.toList());
+                .map(hotelMapper::hotelToHotelDto).collect(Collectors.toList());
     }
     /**
      * This method finds a Hotel object in the OfferRepository by its or else throws HotelNotFoundException.
@@ -60,7 +60,7 @@ public class HotelService {
      * @throws HotelNotFoundException "No such hotel exists"
      **/
     public HotelDto getHotel(String hotelName) {
-        return HotelMapper.hotelToHotelDto(hotelRepository.findByName(hotelName).orElseThrow(() -> new HotelNotFoundException("No such hotel exists")));
+        return hotelMapper.hotelToHotelDto(hotelRepository.findByName(hotelName).orElseThrow(() -> new HotelNotFoundException("No such hotel exists")));
     }
 
     /**
@@ -73,12 +73,13 @@ public class HotelService {
      * @throws HotelNotFoundException "No such hotel exists"
      * @throws HotelCantBeDeletedException "Hotel is associated with offers and cannot be deleted"
      **/
-    public void deleteHotel(String hotelName) {
+    public HotelDto deleteHotel(String hotelName) {
         Hotel hotelToDelete = hotelRepository.findByName(hotelName).orElseThrow(() -> new HotelNotFoundException("No such hotel exists"));
         if (!hotelToDelete.getOffers().isEmpty()) {
             throw new HotelCantBeDeletedException("Hotel is associated with offers and cannot be deleted");
         }
         hotelRepository.delete(hotelToDelete);
+        return hotelMapper.hotelToHotelDto(hotelToDelete);
     }
     /**
      * This method gets an hotelName and hotelDto as a param.
@@ -98,10 +99,11 @@ public class HotelService {
     /**
      * This method gets an Hotel as a param.
      * which is saved in database by HotelRepository.
-     * @param hotel
+     * @param hotelDto
      * @return void
      **/
-    public void addHotel(Hotel hotel) {
+    public void addHotel(HotelDto hotelDto) {
+        Hotel hotel = hotelMapper.hotelDtoToHotel(hotelDto);
         hotelRepository.save(hotel);
     }
 
@@ -112,6 +114,6 @@ public class HotelService {
      **/
     public List<HotelDto> getTopHotels() {
         return hotelRepository.findAll(Sort.by(Sort.Direction.DESC, "rating")).stream()
-                .map(HotelMapper::hotelToHotelDto).collect(Collectors.toList());
+                .map(hotelMapper::hotelToHotelDto).collect(Collectors.toList());
     }
 }
