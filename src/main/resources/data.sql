@@ -55,6 +55,7 @@ VALUES
 INSERT INTO hotel (name, address, city_id, rating)
 VALUES
     ('Hilton', 'Dąbska 5', 1, 8.0),
+    ('Puro', 'Ogrodowa 10', 1, 9.0),
     ('Qubus', 'Świętej Marii Magdaleny 2', 2, 7.0),
     ('Marriot', 'al. Jerozolimskie 65', 3, 9.0);
 
@@ -69,4 +70,4 @@ INSERT INTO offer (name, hotel_id, price)
 VALUES
     ('Cracow_Summer_offer',1,100.0),
     ('Wroclaw_Autumn_offer',2,200.0),
-    ('Warsaw_Summer_offer',3,300.0);
+    ('Warsaw_Summer_offer',4,300.0);
