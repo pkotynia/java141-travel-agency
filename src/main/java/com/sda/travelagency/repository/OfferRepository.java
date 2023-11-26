@@ -13,7 +13,6 @@ import java.util.Optional;
 public interface OfferRepository extends JpaRepository<Offer, Integer> {
     Optional<Offer> findByName(String name);
 
-//    @Query(value = "Select o FROM Offer o WHERE o.hotel.name LiKE %:hotelName% ")
     List<Offer> findOffersByHotelName(String hotelName);
 
     List<Offer> findByPriceGreaterThanAndPriceLessThanOrderByPriceDesc(BigDecimal minPrice, BigDecimal maxPrice);

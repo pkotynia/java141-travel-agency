@@ -40,6 +40,10 @@ public class City {
         return country;
     }
 
+    public List<Airport> getAirport() {
+        return airport;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

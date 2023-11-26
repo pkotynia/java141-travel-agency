@@ -15,12 +15,6 @@ public class AirportDto {
     @NotBlank(message = "Address is mandatory")
     private String cityName;
 
-    public AirportDto(String name, String address, String cityName) {
-        this.name = name;
-        this.address = address;
-        this.cityName = cityName;
-    }
-
     public AirportDto() {
     }
 

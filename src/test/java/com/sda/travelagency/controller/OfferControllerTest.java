@@ -37,9 +37,6 @@ class OfferControllerTest {
     private OfferRepository offerRepository;
 
     @Autowired
-    private AirportRepository airportRepository;
-
-    @Autowired
     private OfferMapper offerMapper;
 
     private final BigDecimal PRICE = BigDecimal.valueOf(100.0);
@@ -137,14 +134,10 @@ class OfferControllerTest {
     @Test
     void shouldNotUpdateOfferWithIncorrectName(){
         Hotel testHotel = hotelRepository.findAll().get(0);
-        Airport testAirport = airportRepository.findAll().get(0);
-        OfferDto offerDto = new OfferDto(
+        OfferAdditionDto offerDto = new OfferAdditionDto(
                 INCORRECT_NAME,
                 testHotel.getName(),
                 testHotel.getCity().getName(),
-                testAirport.getName(),
-                testHotel.getCity().getCountry().getName(),
-                testHotel.getCity().getCountry().getContinent().getName(),
                 PRICE);
         ProblemDetail detail = testClient
                 .put()

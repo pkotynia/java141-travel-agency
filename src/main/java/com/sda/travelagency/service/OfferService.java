@@ -6,11 +6,12 @@ import com.sda.travelagency.entities.Offer;
 import com.sda.travelagency.exception.HotelNotFoundException;
 import com.sda.travelagency.exception.OfferNotAvailableException;
 import com.sda.travelagency.exception.OfferNotFoundException;
-import com.sda.travelagency.exception.AnnonymousAuthorizationException;
+import com.sda.travelagency.exception.AnonymousAuthorizationException;
 import com.sda.travelagency.mapper.OfferMapper;
 import com.sda.travelagency.repository.HotelRepository;
 import com.sda.travelagency.repository.OfferRepository;
 import com.sda.travelagency.util.Username;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -102,16 +103,17 @@ public class OfferService {
      * Then, it uses the OfferRepository class to find Offer object in database or else throws OfferNotFoundException,
      * If present it changes username parameter in Offer object from null to active user and save it in database.
      * @param offerName
-     * @return void
+     * @return OfferDto
      * @throws OfferNotFoundException "No such offer exists"
-     * @throws AnnonymousAuthorizationException "Session expired"
+     * @throws AnonymousAuthorizationException "Session expired"
      * @throws OfferNotAvailableException "Offer is already taken"
      **/
     public OfferDto reserveOffer(String offerName) {
-        Offer offerByName = offerRepository.findByName(offerName).orElseThrow(() -> new OfferNotFoundException("No such offer exists"));
+        Offer offerByName = offerRepository.findByName(offerName)
+                .orElseThrow(() -> new OfferNotFoundException("No such offer exists"));
         String username = Username.getActive();
         if(username == null) {
-            throw new AnnonymousAuthorizationException("Session expired");
+            throw new AnonymousAuthorizationException("No active user");
         }
         if(offerByName.getUserName() != null) {
             throw new OfferNotAvailableException("Offer is already taken");

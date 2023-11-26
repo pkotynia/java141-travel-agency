@@ -28,7 +28,7 @@ public class HotelService {
         this.hotelMapper = hotelMapper;
     }
     /**
-     * This method finds an hotels in the database.
+     * This method finds hotels in the database.
      * Then, it uses the HotelMapper class to transform instances of the Hotel objects into an HotelDto, which is added to List and passed on.
      * @return List of HotelDto
      **/
@@ -37,7 +37,7 @@ public class HotelService {
                 .map(hotelMapper::hotelToHotelDto).collect(Collectors.toList());
     }
     /**
-     * This method gets an cityName as a param.
+     * This method gets a cityName as a param.
      * Then, it uses the CityRepository class to find City object in database or else throws CityNotFoundException.
      * Next, it finds Hotel objects associated with given cityName and uses the HotelMapper class to transform instances of the Hotel objects into HotelDto,
      * which is added to List and passed on.
@@ -64,12 +64,12 @@ public class HotelService {
     }
 
     /**
-     * This method gets an hotelName as a param.
+     * This method gets a hotelName as a param.
      * Then, it uses the HotelRepository class to find Hotel object in database or else throws HotelNotFoundException.
      * It is not possible to delete Hotel object which has Offer objects associated to. In this case it throws HotelCantBeDeletedException.
      * Next it is deleted from database.
      * @param hotelName
-     * @return void
+     * @return HotelDto
      * @throws HotelNotFoundException "No such hotel exists"
      * @throws HotelCantBeDeletedException "Hotel is associated with offers and cannot be deleted"
      **/
@@ -82,25 +82,27 @@ public class HotelService {
         return hotelMapper.hotelToHotelDto(hotelToDelete);
     }
     /**
-     * This method gets an hotelName and hotelDto as a param.
+     * This method gets a hotelName and hotelDto as a param.
      * Then, it uses the HotelRepository class to find Hotel object in database or else throws HotelNotFoundException,
      * If present it updates its name and save in database.
      * @param hotelName
      * @param hotelDto
-     * @return void
+     * @return HotelDto
      * @throws HotelNotFoundException "No such hotel exists"
      **/
     public void updateHotel(String hotelName, HotelDto hotelDto){
         Hotel hotelToUpdate = hotelRepository.findByName(hotelName).orElseThrow(() -> new HotelNotFoundException("No such hotel exists"));
         hotelToUpdate.setName(hotelDto.getName());
+        hotelToUpdate.setAddress(hotelDto.getAddress());
+        hotelToUpdate.setRating(hotelDto.getRating());
         hotelRepository.save(hotelToUpdate);
     }
 
     /**
-     * This method gets an Hotel as a param.
+     * This method gets a Hotel as a param.
      * which is saved in database by HotelRepository.
      * @param hotelDto
-     * @return void
+     * @return HotelDto
      **/
     public void addHotel(HotelDto hotelDto) {
         Hotel hotel = hotelMapper.hotelDtoToHotel(hotelDto);

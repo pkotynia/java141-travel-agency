@@ -2,6 +2,7 @@ package com.sda.travelagency.mapper;
 
 import com.sda.travelagency.dtos.OfferAdditionDto;
 import com.sda.travelagency.dtos.OfferDto;
+import com.sda.travelagency.entities.Airport;
 import com.sda.travelagency.entities.City;
 import com.sda.travelagency.entities.Offer;
 import com.sda.travelagency.exception.HotelNotFoundException;
@@ -49,7 +50,7 @@ public class OfferMapper {
         OfferDto offerDto = new OfferDto();
         offerDto.setName(offer.getName());
         offerDto.setHotelName(offer.getHotel().getName());
-        offerDto.setAirportName(airportRepository.findByCity(city).get(0).getName());
+        offerDto.setAirportNames(airportRepository.findByCity(city).stream().map(Airport::getName).toList());
         offerDto.setCityName(city.getName());
         offerDto.setCountryName(city.getCountry().getName());
         offerDto.setContinentName(city.getCountry().getContinent().getName());

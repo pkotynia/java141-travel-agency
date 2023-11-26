@@ -7,6 +7,7 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 @JsonSerializable
 public class OfferDto {
@@ -17,7 +18,7 @@ public class OfferDto {
     @JsonElement
     private String cityName;
     @JsonElement
-    private String airportName;
+    private List<String> airportNames;
     @JsonElement
     private String countryName;
     @JsonElement
@@ -25,11 +26,11 @@ public class OfferDto {
     @JsonElement
     private BigDecimal price;
 
-    public OfferDto(String name, String hotelName, String cityName, String airportName, String countryName, String continentName, BigDecimal price) {
+    public OfferDto(String name, String hotelName, String cityName, List<String> airportName, String countryName, String continentName, BigDecimal price) {
         this.name = name;
         this.hotelName = hotelName;
         this.cityName = cityName;
-        this.airportName = airportName;
+        this.airportNames = airportNames;
         this.countryName = countryName;
         this.continentName = continentName;
         this.price = price;
@@ -46,8 +47,8 @@ public class OfferDto {
         return hotelName;
     }
 
-    public String getAirportName() {
-        return airportName;
+    public List<String> getAirportNames() {
+        return airportNames;
     }
 
     public String getCityName() {
@@ -79,8 +80,8 @@ public class OfferDto {
         this.cityName = cityName;
     }
 
-    public void setAirportName(String airportName) {
-        this.airportName = airportName;
+    public void setAirportNames(List<String> airportNames) {
+        this.airportNames = airportNames;
     }
 
     public void setCountryName(String countryName) {

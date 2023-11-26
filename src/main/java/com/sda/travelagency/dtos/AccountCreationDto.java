@@ -23,9 +23,6 @@ public class AccountCreationDto {
         this.password = password;
     }
 
-    public AccountCreationDto() {
-    }
-
     @AssertTrue(message = "Password should contain at least one lowercase and one uppercase letter" +
             ", one digit and cant contain white spaces")
     private boolean isPasswordCorrect(){

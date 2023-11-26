@@ -1,11 +1,11 @@
 package com.sda.travelagency.exception;
 
-public class AnnonymousAuthorizationException extends RuntimeException{
+public class AnonymousAuthorizationException extends RuntimeException{
     /**
      * Exception which is thrown when Username util class is called without active session
      * @param message
      */
-    public AnnonymousAuthorizationException(String message) {
+    public AnonymousAuthorizationException(String message) {
         super(message);
     }
 }
